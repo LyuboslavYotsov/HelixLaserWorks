@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelixLaserWorks\HelixLaserWorks.csproj" />
+    <ProjectReference Include="..\HelixLaserWorks.Infrastructure\HelixLaserWorks.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

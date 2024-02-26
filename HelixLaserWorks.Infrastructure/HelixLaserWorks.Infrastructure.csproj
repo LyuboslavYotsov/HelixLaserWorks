@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelixLaserWorks.Core\HelixLaserWorks.Core.csproj" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.26" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.26" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-﻿using HelixLaserWorks.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using HelixLaserWorks.Infrastructure.Data;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
