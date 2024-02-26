@@ -5,6 +5,10 @@ VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelixLaserWorks", "HelixLaserWorks\HelixLaserWorks.csproj", "{1BEEF82B-14EC-49EC-815D-A6FAA9DC62CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelixLaserWorks.Core", "HelixLaserWorks.Core\HelixLaserWorks.Core.csproj", "{1F37773A-4B65-4D00-9125-75C5FFFC9024}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelixLaserWorks.Infrastructure", "HelixLaserWorks.Infrastructure\HelixLaserWorks.Infrastructure.csproj", "{934AA43C-D295-4A50-A347-62B9FD4D2A67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{1BEEF82B-14EC-49EC-815D-A6FAA9DC62CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BEEF82B-14EC-49EC-815D-A6FAA9DC62CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BEEF82B-14EC-49EC-815D-A6FAA9DC62CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F37773A-4B65-4D00-9125-75C5FFFC9024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F37773A-4B65-4D00-9125-75C5FFFC9024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F37773A-4B65-4D00-9125-75C5FFFC9024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F37773A-4B65-4D00-9125-75C5FFFC9024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{934AA43C-D295-4A50-A347-62B9FD4D2A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{934AA43C-D295-4A50-A347-62B9FD4D2A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{934AA43C-D295-4A50-A347-62B9FD4D2A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{934AA43C-D295-4A50-A347-62B9FD4D2A67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
