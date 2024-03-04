@@ -25,5 +25,10 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         public IdentityUser Customer { get; set; } = null!;
 
         public ICollection<Part> Parts { get; set; } = new List<Part>();
+
+        public int? OfferId { get; set; }
+
+        [ForeignKey(nameof(OfferId))]
+        public Offer? Offer { get; set; }
     }
 }
