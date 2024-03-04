@@ -33,6 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
