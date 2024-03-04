@@ -20,4 +20,11 @@
     <ProjectReference Include="..\HelixLaserWorks.Core\HelixLaserWorks.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Material\" />
+    <Folder Include="Views\Review\" />
+    <Folder Include="Views\Order\" />
+    <Folder Include="Views\Part\" />
+  </ItemGroup>
+
 </Project>
