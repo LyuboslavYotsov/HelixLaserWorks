@@ -19,6 +19,7 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
             builder.HasData(_seedData.StainlessSteelThicknesses);
             builder.HasData(_seedData.AluminumThicknesses);
             builder.HasData(_seedData.CopperThicknesses);
+            builder.HasData(_seedData.ChipwoodThicknesses);
         }
     }
 }

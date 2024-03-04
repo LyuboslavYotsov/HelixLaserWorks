@@ -4,6 +4,7 @@ using HelixLaserWorks.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HelixLaserWorks.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240304134838_NewMaterialSeed")]
+    partial class NewMaterialSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,7 +112,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
                             ImageUrl = "https://www.artisansupplies.com.au/wp-content/uploads/2015/11/copper.jpg",
                             MaterialTypeId = 1,
                             Name = "Copper",
-                            PricePerSquareMeter = 42.00m
+                            PricePerSquareMeter = 0m
                         },
                         new
                         {
@@ -121,7 +123,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
                             ImageUrl = "https://media.wickes.co.uk/is/image/wickes/normal/Chipboard-Flooring-Wickes-P5-T-G-Chipboard-Flooring-18mm-x-600mm-x-2-4m~N0705_164516_00?$ratio43$&fit=crop&extend=-50,-250,-50,0",
                             MaterialTypeId = 3,
                             Name = "ChipWood",
-                            PricePerSquareMeter = 6.00m
+                            PricePerSquareMeter = 0m
                         });
                 });
 

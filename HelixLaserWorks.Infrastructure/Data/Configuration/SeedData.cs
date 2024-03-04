@@ -22,6 +22,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
         public Material Aluminum { get; set; } = null!;
         public Material Copper { get; set; } = null!;
 
+        public Material ChipWood { get; set; } = null!;
+
         public MaterialType MetalType { get; set; } = null!;
         public MaterialType WoodType { get; set; } = null!;
         public MaterialType PlasticType { get; set; } = null!;
@@ -32,6 +34,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
         public List<MaterialThickness> StainlessSteelThicknesses { get; set; } = new List<MaterialThickness>();
         public List<MaterialThickness> AluminumThicknesses { get; set; } = new List<MaterialThickness>();
         public List<MaterialThickness> CopperThicknesses { get; set; } = new List<MaterialThickness>();
+
+        public List<MaterialThickness> ChipwoodThicknesses { get; set; } = new List<MaterialThickness>();
 
         private void CreateMaterialTypes()
         {
@@ -102,7 +106,19 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                 Density = 8.96,
                 CorrosionResistance = true,
                 ImageUrl = "https://www.artisansupplies.com.au/wp-content/uploads/2015/11/copper.jpg",
+                PricePerSquareMeter = 42.00m
+            };
 
+            ChipWood = new Material()
+            {
+                Id= 5,
+                MaterialTypeId = WoodType.Id,
+                Name = "ChipWood",
+                Description = "Chipboard, also known as particleboard, is an engineered wood product made from wood chips, shavings, and resin that are compressed and bonded together under heat and pressure. It’s commonly used in furniture, shelving, and construction applications as an affordable alternative to solid wood, offering good stability but with a slightly coarser texture. One of laser cut Chipboard’s greatest assets is that it’s completely green. Made entirely from recycled pasteboard, our chipboard is 100% recyclable.",
+                Density = 0.63,
+                CorrosionResistance = true,
+                ImageUrl = "https://media.wickes.co.uk/is/image/wickes/normal/Chipboard-Flooring-Wickes-P5-T-G-Chipboard-Flooring-18mm-x-600mm-x-2-4m~N0705_164516_00?$ratio43$&fit=crop&extend=-50,-250,-50,0",
+                PricePerSquareMeter = 6.00m
             };
 
             foreach (var thickness in Thicknesses)
@@ -110,6 +126,12 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                 MildSteelThichnesses.Add(new MaterialThickness()
                 {
                     MaterialId = MildSteel.Id,
+                    ThicknessId = thickness.Id
+                });
+
+                ChipwoodThicknesses.Add(new MaterialThickness()
+                {
+                    MaterialId = ChipWood.Id,
                     ThicknessId = thickness.Id
                 });
 

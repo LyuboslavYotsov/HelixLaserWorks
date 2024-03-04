@@ -12,7 +12,7 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
         {
             _seedData = new SeedData();
 
-            builder.HasData(_seedData.MildSteel, _seedData.StainlessSteel, _seedData.Aluminum, _seedData.Copper);
+            builder.HasData(_seedData.MildSteel, _seedData.StainlessSteel, _seedData.Aluminum, _seedData.Copper, _seedData.ChipWood);
         }
 
 
