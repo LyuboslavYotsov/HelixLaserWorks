@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Material\" />
+    <Folder Include="Views\Offer\" />
     <Folder Include="Views\Review\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\Part\" />
