@@ -6,6 +6,9 @@
         public const int MaterialNameMaxLength = 50;
         public const int MaterialNameMinLength = 3;
 
+        public const int MaterialDescriptionMaxLength = 800;
+        public const int MaterialDescriptionMinLength = 10;
+
         public const double MaterialThicknessMaxValue = 50.0;
         public const double MaterialThicknessMinValue = 0.01;
 
@@ -18,13 +21,17 @@
         public const double MaterialPricePerSquareMeterMaxValue = 10000.00;
         public const double MaterialPricePerSquareMeterMinValue = 1.00;
 
+        //MaterialType Constants
+        public const int MaterialTypeNameMaxLength = 20;
+        public const int MaterialTypeNameMinLength = 3;
 
-        //Order Data Constants
+
+        //Order Constants
         public const int OrderDescriptionMaxLength = 200;
         public const int OrderDescriptionMinLength = 10;
 
 
-        //Part Data Constants
+        //Part Constants
         public const int PartNameMaxLength = 100;
         public const int PartNameMinLength = 5;
 
@@ -37,11 +44,11 @@
 
 
 
-        //Review Data Constans
+        //Review Constans
         public const int ReviewCommentMaxLength = 1000;
 
 
-        //Offer Data Constants
+        //Offer Constants
         public const int OfferNotesMaxLength = 1000;
     }
 }
