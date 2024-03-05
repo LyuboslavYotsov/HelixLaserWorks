@@ -1,0 +1,18 @@
+﻿@model MaterialDetailViewModel
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<div class="card d-flex" style="width: 30rem;">
+    <img class="card-img-top" src=@Model.ImageUrl alt="Material image">
+    <div class="card-body">
+        <h2 class="card-title">@Model.Name</h2>
+        <p class="card-title"><span class="fw-bold">Category:</span> @Model.Type</>
+        <p class="card-text"><span class="fw-bold">Density:</span> @Model.Density g/cm3</p>
+        <p class="card-text"><span class="fw-bold">Base Price:</span> @Model.Price$ - Per square meter for 1mm thickness</p>
+        <p class="card-text"><span class="fw-bold">Rusting:</span> @Model.Rusting</p>
+        <p class="card-text"><span class="fw-bold">Available thicknesses in milimiters:</span> @Model.AvailableThicknesses</p>
+        <p class="card-text"><span class="fw-bold">Material Description:</span> @Model.Description</p>
+    </div>
+</div>

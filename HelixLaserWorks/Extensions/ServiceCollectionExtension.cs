@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HelixLaserWorks.Infrastructure.Data;
+using HelixLaserWorks.Core.Contracts;
+using HelixLaserWorks.Core.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -8,6 +10,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IMaterialService, MaterialService>();
+
             return services;
         }
 

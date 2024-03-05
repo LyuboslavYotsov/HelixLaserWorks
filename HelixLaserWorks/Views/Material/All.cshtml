@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MaterialViewModel>
+
+@{
+    ViewData["Title"] = "Materials list";
+}
+
+
+<section class="d-flex flex-sm-row">
+    @foreach (MaterialViewModel material in Model)
+    {
+        <div class="card" style="width: 25rem;">
+            <img class="card-img-top" src=@material.ImageUrl alt="Material image">
+            <div class="card-body">
+                <h3 class="card-title">@material.Name</h3>
+                <h4 class="card-title">@material.Type</h4>
+                <p class="card-text">@material.Description</p>
+                <a asp-area="" asp-controller="Material" asp-action="Details" asp-route-Id="@material.Id" class="btn btn-primary">Material Details</a>
+            </div>
+        </div>
+    }
+</section>
