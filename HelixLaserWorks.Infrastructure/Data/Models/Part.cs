@@ -25,6 +25,9 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         public Material Material { get; set; } = null!;
 
         [Required]
+        public int Thickness { get; set; }
+
+        [Required]
         public int Quantity { get; set; }
 
         [Required]

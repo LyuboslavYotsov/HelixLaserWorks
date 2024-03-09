@@ -37,6 +37,7 @@
 
         public const int PartDescriptionMaxLength = 500;
 
+        public const int PartQuantityMinValue = 1;
         public const int PartQuantityMaxValue = 9999;
 
         public const int PartSchemeURLMaxLength = 4000;

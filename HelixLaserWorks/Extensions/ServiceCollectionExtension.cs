@@ -11,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IMaterialService, MaterialService>();
+            services.AddScoped<IPartService, PartService>();
+            services.AddScoped<IFileManageService, FileManageService>();
 
             return services;
         }
