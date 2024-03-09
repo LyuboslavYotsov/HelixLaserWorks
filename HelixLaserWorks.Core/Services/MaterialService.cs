@@ -19,7 +19,7 @@ namespace HelixLaserWorks.Core.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<MaterialViewModel>> All()
+        public async Task<IEnumerable<MaterialViewModel>> AllAsync()
         {
             return await _context.Materials
                 .AsNoTracking()
@@ -34,7 +34,7 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<MaterialDetailViewModel?> Details(int id)
+        public async Task<MaterialDetailViewModel?> GetDetailsByIdAsync(int id)
         {
             return await _context.Materials
                 .AsNoTracking()

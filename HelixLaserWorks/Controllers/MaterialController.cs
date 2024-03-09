@@ -15,7 +15,7 @@ namespace HelixLaserWorks.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var models = await _materialService.All();
+            var models = await _materialService.AllAsync();
 
             return View(models);
         }
@@ -23,7 +23,7 @@ namespace HelixLaserWorks.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _materialService.Details(id);
+            var model = await _materialService.GetDetailsByIdAsync(id);
 
             if (model == null)
             {

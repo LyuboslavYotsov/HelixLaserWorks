@@ -4,8 +4,8 @@ namespace HelixLaserWorks.Core.Contracts
 {
     public interface IMaterialService
     {
-        Task<IEnumerable<MaterialViewModel>> All();
+        Task<IEnumerable<MaterialViewModel>> AllAsync();
 
-        Task<MaterialDetailViewModel?> Details(int id);
+        Task<MaterialDetailViewModel?> GetDetailsByIdAsync(int id);
     }
 }
