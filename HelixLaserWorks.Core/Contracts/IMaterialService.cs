@@ -7,5 +7,7 @@ namespace HelixLaserWorks.Core.Contracts
         Task<IEnumerable<MaterialViewModel>> AllAsync();
 
         Task<MaterialDetailViewModel?> GetDetailsByIdAsync(int id);
+
+        Task<ICollection<MaterialDropdownViewModel>> GetAllForDropdownAsyc();
     }
 }

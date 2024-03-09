@@ -34,6 +34,18 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<ICollection<MaterialDropdownViewModel>> GetAllForDropdownAsyc()
+        {
+            return await _context.Materials
+                .AsNoTracking()
+                .Select(m => new MaterialDropdownViewModel()
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                })
+                .ToListAsync();
+        }
+
         public async Task<MaterialDetailViewModel?> GetDetailsByIdAsync(int id)
         {
             return await _context.Materials
