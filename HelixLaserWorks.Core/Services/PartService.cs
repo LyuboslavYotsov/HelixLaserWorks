@@ -2,20 +2,24 @@
 using HelixLaserWorks.Core.Models.Parts;
 using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace HelixLaserWorks.Core.Services
 {
     public class PartService : IPartService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IFileManageService _fileManageService;
 
-        public PartService(ApplicationDbContext context)
+        public PartService(ApplicationDbContext context,
+            IFileManageService fileManageService)
         {
             _context = context;
+            _fileManageService = fileManageService;
+
         }
 
-        public async Task<int> CreateAsync(PartFormModel model, string userId, string filePath)
+        public async Task<int> CreateAsync(PartFormModel model, string userId, IFormFile file)
         {
             Part newPart = new Part()
             {
@@ -23,7 +27,7 @@ namespace HelixLaserWorks.Core.Services
                 Description = model.Description,
                 MaterialId = model.MaterialId,
                 Quantity = model.Quantity,
-                SchemeURL = filePath,
+                SchemeURL = await _fileManageService.UploadFile(file),
                 Thickness = model.PartThickness,
                 CreatorId = userId
             };

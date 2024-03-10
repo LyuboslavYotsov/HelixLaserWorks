@@ -1,5 +1,6 @@
 ﻿using HelixLaserWorks.Core.Models.Materials;
 using HelixLaserWorks.Core.Models.Parts;
+using Microsoft.AspNetCore.Http;
 
 namespace HelixLaserWorks.Core.Contracts
 {
@@ -7,6 +8,6 @@ namespace HelixLaserWorks.Core.Contracts
     {
         Task<IEnumerable<PartsMineViewModel>> GetUserPartsAsync(string usedId);
 
-        Task<int> CreateAsync(PartFormModel model, string userId, string filePath);
+        Task<int> CreateAsync(PartFormModel model, string userId, IFormFile file);
     }
 }

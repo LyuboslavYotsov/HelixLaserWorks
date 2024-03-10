@@ -1,8 +1,6 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Parts;
-using HelixLaserWorks.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace HelixLaserWorks.Controllers
 {
@@ -10,16 +8,12 @@ namespace HelixLaserWorks.Controllers
     {
         private readonly IPartService _partService;
         private readonly IMaterialService _materialService;
-        private readonly IFileManageService _fileManageService;
 
         public PartController(IPartService partService,
-            IMaterialService materialService,
-            IFileManageService fileManageService)
+            IMaterialService materialService)
         {
             _materialService = materialService;
             _partService = partService;
-            _fileManageService = fileManageService;
-
         }
 
         public IActionResult Mine()
@@ -41,8 +35,7 @@ namespace HelixLaserWorks.Controllers
         {
             if (file == null || file.Length <= 0)
             {
-                ModelState.AddModelError("File Error", "Invalid file, try again!");
-
+                ModelState.AddModelError("File Error", "Invalid file, try uploading it again!");
             }
 
             if (!ModelState.IsValid)
@@ -51,11 +44,9 @@ namespace HelixLaserWorks.Controllers
 
                 return View(model);
             }
+            string userId = GetUserId();
 
-            string filePath = await _fileManageService.UploadFile(file);
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            await _partService.CreateAsync(model, userId, filePath);
+            await _partService.CreateAsync(model, userId, file);
 
             return RedirectToAction(nameof(Mine));
         }

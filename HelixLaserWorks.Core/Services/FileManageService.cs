@@ -1,14 +1,21 @@
 ﻿using HelixLaserWorks.Core.Contracts;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace HelixLaserWorks.Core.Services
 {
     public class FileManageService : IFileManageService
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public FileManageService(IWebHostEnvironment webHostEnvironment)
+        {
+            _webHostEnvironment = webHostEnvironment;
+        }
 
         public async Task<string> UploadFile(IFormFile file)
         {
-            var filePath = Path.Combine(@"C:\Users\Luboslav\Desktop\ASP.NET FinalProject\HelixLaserWorks\HelixLaserWorks\wwwroot\Data\PartsSchemeFiles\", file.FileName);
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Data", "PartsSchemeFiles", file.FileName);
 
             using FileStream fileStream = new FileStream(filePath, FileMode.Create);
 
