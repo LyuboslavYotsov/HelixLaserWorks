@@ -13,6 +13,18 @@ namespace HelixLaserWorks.Core.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
+        public Task DeleteFile(string filePath)
+        {
+            File.Delete(filePath);
+
+            return Task.CompletedTask;
+        }
+
+        public async Task<byte[]> DownloadFile(string filePath)
+        {
+            return await File.ReadAllBytesAsync(filePath);
+        }
+
         public async Task<string> UploadFile(IFormFile file, string userEmail)
         {
             var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Data", "PartsSchemeFiles", $"{userEmail}-{file.FileName}");

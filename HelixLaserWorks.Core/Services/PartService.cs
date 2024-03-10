@@ -38,6 +38,50 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<int> EditAsync(PartFormModel model, int partId, string userEmail, IFormFile? file)
+        {
+            var parToEdit = await _context.Parts.FindAsync(partId);
+
+            if (parToEdit == null)
+            {
+                throw new BadHttpRequestException("Part not found", 400);
+            }
+
+            parToEdit.Name = model.Name;
+            parToEdit.Description = model.Description;
+            parToEdit.MaterialId = model.MaterialId;
+            parToEdit.Quantity = model.Quantity;
+            parToEdit.Thickness = model.PartThickness;
+
+            if (file != null && file.Length > 0)
+            {
+                await _fileManageService.DeleteFile(parToEdit.SchemeURL);
+
+                parToEdit.SchemeURL = await _fileManageService.UploadFile(file, userEmail);
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<PartFormModel?> GetPartForEditAsync(int id)
+        {
+            var partForEdit = await _context.Parts
+                .AsNoTracking()
+                .Where(p => p.Id == id)
+                .Select(p => new PartFormModel()
+                {
+                    Name = p.Name,
+                    Description = p.Description,
+                    MaterialId = p.MaterialId,
+                    Quantity = p.Quantity,
+                    SchemeUrl = p.SchemeURL,
+                    PartThickness = p.Thickness
+                })
+                .FirstOrDefaultAsync();
+
+            return partForEdit;
+        }
+
         public async Task<ICollection<PartViewModel>> GetUserPartsAsync(string userId)
         {
             return await _context.Parts
@@ -54,6 +98,18 @@ namespace HelixLaserWorks.Core.Services
                     SchemeFilePath = p.SchemeURL
                 })
                 .ToListAsync();
+        }
+
+        public async Task<bool> UserIsCreatorAsync(int id, string currentUserId)
+        {
+            var part = await _context.Parts.FindAsync(id);
+
+            if (part != null && part.CreatorId == currentUserId)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

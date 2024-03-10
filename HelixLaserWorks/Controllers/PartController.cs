@@ -8,12 +8,15 @@ namespace HelixLaserWorks.Controllers
     {
         private readonly IPartService _partService;
         private readonly IMaterialService _materialService;
+        private readonly IFileManageService _fileManageService;
 
         public PartController(IPartService partService,
-            IMaterialService materialService)
+            IMaterialService materialService,
+            IFileManageService fileManageService)
         {
             _materialService = materialService;
             _partService = partService;
+            _fileManageService = fileManageService;
         }
 
         [HttpGet]
@@ -31,7 +34,7 @@ namespace HelixLaserWorks.Controllers
         {
             var model = new PartFormModel();
 
-            model.Materials = await _materialService.GetAllForDropdownAsyc();
+            model.Materials = await _materialService.GetAllForDropdownAsync();
             return View(model);
         }
 
@@ -45,16 +48,73 @@ namespace HelixLaserWorks.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Materials = await _materialService.GetAllForDropdownAsyc();
+                model.Materials = await _materialService.GetAllForDropdownAsync();
 
                 return View(model);
             }
             string userId = GetUserId();
             string userEmail = GetUserEmail();
 
-            await _partService.CreateAsync(model, userId, userEmail, file);
+            if (file != null)
+            {
+                await _partService.CreateAsync(model, userId, userEmail, file);
+            }
 
             return RedirectToAction(nameof(MyParts));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            string userId = GetUserId();
+            var partForEditModel = await _partService.GetPartForEditAsync(id);
+
+            if (partForEditModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!await _partService.UserIsCreatorAsync(id, userId))
+            {
+                return Unauthorized();
+            }
+
+            partForEditModel.Materials = await _materialService.GetAllForDropdownAsync();
+
+            return View(partForEditModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, PartFormModel model, IFormFile? file)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Materials = await _materialService.GetAllForDropdownAsync();
+
+                return View(model);
+            }
+
+            string userEmail = GetUserEmail();
+
+            await _partService.EditAsync(model, id, userEmail, file);
+
+            return RedirectToAction(nameof(MyParts));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DownloadScheme(string schemeUrl)
+        {
+            var fileContent = await _fileManageService.DownloadFile(schemeUrl);
+
+            if (fileContent == null)
+            {
+                return BadRequest();
+            }
+
+            string contentType = "application/octet-stream";
+            string fileName = Path.GetFileName(schemeUrl);
+
+            return File(fileContent, contentType, fileName);
         }
     }
 }

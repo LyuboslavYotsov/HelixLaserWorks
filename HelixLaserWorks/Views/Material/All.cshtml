@@ -8,8 +8,8 @@
 <section class="d-flex flex-sm-row">
     @foreach (MaterialViewModel material in Model)
     {
-        <div class="card" style="width: 25rem;">
-            <img class="card-img-top" src=@material.ImageUrl alt="Material image">
+        <div class="card d-lg-grid" style="width: 60rem;">
+            <img class="card-img-top" style="width: 80%" src=@material.ImageUrl alt="Material image">
             <div class="card-body">
                 <h3 class="card-title">@material.Name</h3>
                 <h4 class="card-title">@material.Type</h4>
