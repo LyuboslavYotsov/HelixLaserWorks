@@ -19,7 +19,7 @@ namespace HelixLaserWorks.Core.Services
 
         }
 
-        public async Task<int> CreateAsync(PartFormModel model, string userId, IFormFile file)
+        public async Task<int> CreateAsync(PartFormModel model, string userId, string userEmail, IFormFile file)
         {
             Part newPart = new Part()
             {
@@ -27,7 +27,7 @@ namespace HelixLaserWorks.Core.Services
                 Description = model.Description,
                 MaterialId = model.MaterialId,
                 Quantity = model.Quantity,
-                SchemeURL = await _fileManageService.UploadFile(file),
+                SchemeURL = await _fileManageService.UploadFile(file, userEmail),
                 Thickness = model.PartThickness,
                 CreatorId = userId
             };

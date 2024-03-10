@@ -11,5 +11,10 @@ namespace HelixLaserWorks.Controllers
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
+
+        protected string GetUserEmail()
+        {
+            return User.FindFirstValue(ClaimTypes.Email);
+        }
     }
 }

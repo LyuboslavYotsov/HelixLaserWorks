@@ -45,8 +45,9 @@ namespace HelixLaserWorks.Controllers
                 return View(model);
             }
             string userId = GetUserId();
+            string userEmail = GetUserEmail();
 
-            await _partService.CreateAsync(model, userId, file);
+            await _partService.CreateAsync(model, userId, userEmail, file);
 
             return RedirectToAction(nameof(Mine));
         }

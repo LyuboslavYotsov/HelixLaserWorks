@@ -4,6 +4,6 @@ namespace HelixLaserWorks.Core.Contracts
 {
     public interface IFileManageService
     {
-        Task<string> UploadFile(IFormFile file);
+        Task<string> UploadFile(IFormFile file, string userEmail);
     }
 }

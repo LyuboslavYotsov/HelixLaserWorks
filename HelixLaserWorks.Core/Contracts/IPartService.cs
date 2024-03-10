@@ -8,6 +8,6 @@ namespace HelixLaserWorks.Core.Contracts
     {
         Task<IEnumerable<PartsMineViewModel>> GetUserPartsAsync(string usedId);
 
-        Task<int> CreateAsync(PartFormModel model, string userId, IFormFile file);
+        Task<int> CreateAsync(PartFormModel model, string userId, string userEmail, IFormFile file);
     }
 }

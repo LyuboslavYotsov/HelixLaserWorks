@@ -13,9 +13,9 @@ namespace HelixLaserWorks.Core.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<string> UploadFile(IFormFile file)
+        public async Task<string> UploadFile(IFormFile file, string userEmail)
         {
-            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Data", "PartsSchemeFiles", file.FileName);
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Data", "PartsSchemeFiles", $"{userEmail}-{file.FileName}");
 
             using FileStream fileStream = new FileStream(filePath, FileMode.Create);
 
