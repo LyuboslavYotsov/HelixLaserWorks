@@ -1,0 +1,26 @@
+﻿@model IEnumerable<PartViewModel>
+
+@{
+    ViewData["Title"] = "My parts";
+}
+
+<a asp-area="" asp-controller="Part" asp-action="Create" class="btn btn-primary flex-grow-1">Create new part</a>
+
+<section class="d-flex flex-sm-row">
+    @foreach (PartViewModel part in Model)
+    {
+        <div class="card d-flex justify-content-center align-items-center" style="width: 25rem;">
+            <div class="card-body">
+                <h4 class="card-title"><span class="fw-bold">Part Name:</span> @part.Name</h4>
+                @if (part.Description != null && part.Description.Length > 0)
+                {
+                    <p class="card-title"><span class="fw-bold">Part Description:</span> @part.Description</p>
+                }
+                <h5 class="card-text"><span class="fw-bold">Part Material:</span> @part.Material - @part.Thickness mm</h5>
+                <p class="card-text"><span class="fw-bold">Part Quantity:</span> @part.Quantity</p>
+                <a asp-area="" asp-controller="Part" asp-action="Edit" asp-route-Id="@part.Id" class="btn btn-danger">Edit part</a>
+                <a asp-area="" asp-controller="Part" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeFilePath" class="btn btn-primary">Download part scheme</a>
+            </div>
+        </div>
+    }
+</section>

@@ -6,7 +6,7 @@ namespace HelixLaserWorks.Core.Contracts
 {
     public interface IPartService
     {
-        Task<IEnumerable<PartsMineViewModel>> GetUserPartsAsync(string usedId);
+        Task<ICollection<PartViewModel>> GetUserPartsAsync(string userId);
 
         Task<int> CreateAsync(PartFormModel model, string userId, string userEmail, IFormFile file);
     }

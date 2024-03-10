@@ -16,9 +16,14 @@ namespace HelixLaserWorks.Controllers
             _partService = partService;
         }
 
-        public IActionResult Mine()
+        [HttpGet]
+        public async Task<IActionResult> MyParts()
         {
-            return View();
+            string userId = GetUserId();
+
+            var userParts = await _partService.GetUserPartsAsync(userId);
+
+            return View(userParts);
         }
 
         [HttpGet]
@@ -49,7 +54,7 @@ namespace HelixLaserWorks.Controllers
 
             await _partService.CreateAsync(model, userId, userEmail, file);
 
-            return RedirectToAction(nameof(Mine));
+            return RedirectToAction(nameof(MyParts));
         }
     }
 }

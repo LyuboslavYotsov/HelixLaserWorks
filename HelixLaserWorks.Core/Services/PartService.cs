@@ -3,6 +3,7 @@ using HelixLaserWorks.Core.Models.Parts;
 using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelixLaserWorks.Core.Services
 {
@@ -37,9 +38,22 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<PartsMineViewModel>> GetUserPartsAsync(string userId)
+        public async Task<ICollection<PartViewModel>> GetUserPartsAsync(string userId)
         {
-            throw new NotImplementedException();
+            return await _context.Parts
+                .AsNoTracking()
+                .Where(p => p.CreatorId == userId)
+                .Select(p => new PartViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Material = p.Material.Name,
+                    Quantity = p.Quantity,
+                    Thickness = p.Thickness,
+                    SchemeFilePath = p.SchemeURL
+                })
+                .ToListAsync();
         }
     }
 }
