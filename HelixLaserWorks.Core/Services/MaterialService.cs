@@ -46,6 +46,15 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<ICollection<double>> GetAvailableThicknessesForMaterialAsync(int id)
+        {
+            return await _context.MaterialsThicknesses
+                .AsNoTracking()
+                .Where(mt => mt.MaterialId == id)
+                .Select(mt => mt.Thickness.Value)
+                .ToListAsync();
+        }
+
         public async Task<MaterialDetailViewModel?> GetDetailsByIdAsync(int id)
         {
             return await _context.Materials

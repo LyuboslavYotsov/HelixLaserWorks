@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HelixLaserWorks.Controllers
 {
+
     public class PartController : BaseController
     {
         private readonly IPartService _partService;
@@ -115,6 +116,14 @@ namespace HelixLaserWorks.Controllers
             string fileName = Path.GetFileName(schemeUrl);
 
             return File(fileContent, contentType, fileName);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAvailableThicknessesJSON(int id)
+        {
+            var availableThicknesses = await _materialService.GetAvailableThicknessesForMaterialAsync(id);
+            return Json(availableThicknesses);
         }
     }
 }
