@@ -52,7 +52,7 @@
 
 <script>
     function populateThicknessDropdown(selectedMaterial) {
-        $.get("/Part/GetAvailableThicknessesJSON", { id: selectedMaterial }, function (data) {
+        $.get("/Part/GetAvailableThicknessesJSON", { materialId: selectedMaterial }, function (data) {
             var thicknessDropdown = $("#thicknessDropdown");
             thicknessDropdown.empty();
             $.each(data, function (index, item) {
