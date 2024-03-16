@@ -1,4 +1,5 @@
 ﻿using HelixLaserWorks.Core.Contracts;
+using HelixLaserWorks.Core.Enumerations;
 using HelixLaserWorks.Core.Models.Parts;
 using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
@@ -86,11 +87,44 @@ namespace HelixLaserWorks.Core.Services
             return partForEdit;
         }
 
-        public async Task<ICollection<PartViewModel>> GetUserPartsAsync(string userId)
+        public async Task<UserPartsQueryModel> GetUserPartsAsync(
+            string userId,
+            int? materialId,
+            string? searchTerm,
+            PartSorting sorting = PartSorting.Newest,
+            int currentPage = 1,
+            int partsPerPage = 1)
         {
-            return await _context.Parts
-                .AsNoTracking()
-                .Where(p => p.CreatorId == userId)
+            var userPartsToShow = _context.Parts.Where(p => p.CreatorId == userId);
+
+            if (materialId != null && materialId != 0)
+            {
+                userPartsToShow = userPartsToShow
+                    .Where(p => p.MaterialId == materialId);
+            }
+
+            if (searchTerm != null)
+            {
+                string normalizedSearchTerm = searchTerm.ToUpper();
+
+                userPartsToShow = userPartsToShow.Where(p => p.Name.ToUpper().Contains(normalizedSearchTerm) ||
+                                                 p.Description.ToUpper().Contains(normalizedSearchTerm));
+            }
+
+            userPartsToShow = sorting switch
+            {
+                PartSorting.LastUpdated => userPartsToShow.OrderByDescending(p => p.UpdatedOn),
+
+                PartSorting.Quantity => userPartsToShow.OrderByDescending(p => p.Quantity),
+
+                PartSorting.Oldest => userPartsToShow.OrderBy(p => p.CreatedOn),
+
+                _ => userPartsToShow.OrderByDescending(p => p.CreatedOn)
+            };
+
+            var parts = await userPartsToShow
+                .Skip((currentPage - 1) * partsPerPage)
+                .Take(partsPerPage)
                 .Select(p => new PartViewModel()
                 {
                     Id = p.Id,
@@ -104,6 +138,14 @@ namespace HelixLaserWorks.Core.Services
                     UpdatedOn = p.UpdatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
                 })
                 .ToListAsync();
+
+            int totalParts = await userPartsToShow.CountAsync();
+
+            return new UserPartsQueryModel()
+            {
+                Parts = parts,
+                TotalPartsCount = totalParts,
+            };
         }
 
         public async Task<bool> PartExistsAsync(int partId)

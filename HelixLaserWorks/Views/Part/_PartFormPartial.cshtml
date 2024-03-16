@@ -41,7 +41,7 @@
             </div>
 
             <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="Create" />
+                <input class="btn btn-primary mt-3" type="submit" value=@(Model.Name == "" ? "Create" : "Edit")>
             </div>
         </form>
     </div>

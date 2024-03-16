@@ -64,7 +64,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasIndex("MaterialTypeId");
 
-                    b.ToTable("Materials");
+                    b.ToTable("Materials", (string)null);
 
                     b.HasData(
                         new
@@ -137,7 +137,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasIndex("ThicknessId");
 
-                    b.ToTable("MaterialsThicknesses");
+                    b.ToTable("MaterialsThicknesses", (string)null);
 
                     b.HasData(
                         new
@@ -347,7 +347,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaterialType");
+                    b.ToTable("MaterialType", (string)null);
 
                     b.HasData(
                         new
@@ -393,7 +393,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Offers");
+                    b.ToTable("Offers", (string)null);
                 });
 
             modelBuilder.Entity("HelixLaserWorks.Infrastructure.Data.Models.Order", b =>
@@ -427,7 +427,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[OfferId] IS NOT NULL");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("HelixLaserWorks.Infrastructure.Data.Models.Part", b =>
@@ -482,7 +482,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Parts");
+                    b.ToTable("Parts", (string)null);
                 });
 
             modelBuilder.Entity("HelixLaserWorks.Infrastructure.Data.Models.Review", b =>
@@ -513,7 +513,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("HelixLaserWorks.Infrastructure.Data.Models.Thickness", b =>
@@ -529,7 +529,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Thicknesses");
+                    b.ToTable("Thicknesses", (string)null);
 
                     b.HasData(
                         new

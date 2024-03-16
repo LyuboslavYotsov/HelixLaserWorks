@@ -36,6 +36,7 @@
         public const int PartNameMinLength = 5;
 
         public const int PartDescriptionMaxLength = 500;
+        public const int PartDescriptionMinLength = 5;
 
         public const int PartQuantityMinValue = 1;
         public const int PartQuantityMaxValue = 9999;
@@ -43,6 +44,7 @@
         public const int PartSchemeURLMaxLength = 4000;
         public const int PartSchemeURLMinLength = 10;
 
+        public const int PartsPerPageDefaultCount = 3;
 
 
         //Review Constans

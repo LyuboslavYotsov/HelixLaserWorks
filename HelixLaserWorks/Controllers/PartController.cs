@@ -21,13 +21,24 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> MyParts()
+        public async Task<IActionResult> MyParts([FromQuery] UserPartsQueryModel model)
         {
             string userId = GetUserId();
 
-            var userParts = await _partService.GetUserPartsAsync(userId);
+            var userParts = await _partService.GetUserPartsAsync(userId,
+                model.Material,
+                model.SearchTerm,
+                model.Sorting,
+                model.CurrentPage,
+                UserPartsQueryModel.PartsPerPage
+                );
 
-            return View(userParts);
+            model.TotalPartsCount = userParts.TotalPartsCount;
+            model.Parts = userParts.Parts;
+
+            model.Materials = await _materialService.GetAllForDropdownAsync();
+
+            return View(model);
         }
 
         [HttpGet]

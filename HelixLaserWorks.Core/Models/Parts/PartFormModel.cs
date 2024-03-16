@@ -11,8 +11,10 @@ namespace HelixLaserWorks.Core.Models.Parts
             MinimumLength = PartNameMinLength)]
         public string Name { get; set; } = string.Empty;
 
-        [StringLength(PartDescriptionMaxLength)]
-        public string? Description { get; set; }
+        [Required]
+        [StringLength(PartDescriptionMaxLength, 
+            MinimumLength = PartDescriptionMinLength)]
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         public int MaterialId { get; set; }
