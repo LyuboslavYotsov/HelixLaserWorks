@@ -60,23 +60,21 @@ namespace HelixLaserWorks.Core.Services
         {
             var parToEdit = await _context.Parts.FindAsync(partId);
 
-            if (parToEdit == null)
+            if (parToEdit != null)
             {
-                throw new BadHttpRequestException("Part not found", 400);
-            }
+                parToEdit.Name = model.Name;
+                parToEdit.Description = model.Description;
+                parToEdit.MaterialId = model.MaterialId;
+                parToEdit.Quantity = model.Quantity;
+                parToEdit.Thickness = model.PartThickness;
+                parToEdit.UpdatedOn = DateTime.Now;
 
-            parToEdit.Name = model.Name;
-            parToEdit.Description = model.Description;
-            parToEdit.MaterialId = model.MaterialId;
-            parToEdit.Quantity = model.Quantity;
-            parToEdit.Thickness = model.PartThickness;
-            parToEdit.UpdatedOn = DateTime.Now;
+                if (file != null && file.Length > 0)
+                {
+                    await _fileManageService.DeleteFile(parToEdit.SchemeURL);
 
-            if (file != null && file.Length > 0)
-            {
-                await _fileManageService.DeleteFile(parToEdit.SchemeURL);
-
-                parToEdit.SchemeURL = await _fileManageService.UploadFile(file, userEmail);
+                    parToEdit.SchemeURL = await _fileManageService.UploadFile(file, userEmail);
+                }
             }
 
             return await _context.SaveChangesAsync();
