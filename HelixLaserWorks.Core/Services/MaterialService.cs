@@ -73,5 +73,25 @@ namespace HelixLaserWorks.Core.Services
                 })
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> MaterialExistsAsync(int materialId)
+        {
+            return await _context.Materials.AnyAsync(m => m.Id == materialId);
+        }
+
+        public async Task<bool> MaterialThicknessExistsAsync(int materialId, double materialThickness)
+        {
+            var material = await _context.Materials.Where(m => m.Id == materialId)
+                .Include(m => m.MaterialThicknesses)
+                .ThenInclude(mt => mt.Thickness)
+                .FirstAsync();
+
+            if (material.MaterialThicknesses.Any(mt => mt.Thickness.Value == materialThickness))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

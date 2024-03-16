@@ -15,5 +15,7 @@ namespace HelixLaserWorks.Core.Contracts
         Task<int> EditAsync(PartFormModel model, int partId, string userEmail, IFormFile? file);
 
         Task<bool> UserIsCreatorAsync(int id, string currentUserId);
+
+        Task<bool> PartExistsAsync(int partId);
     }
 }

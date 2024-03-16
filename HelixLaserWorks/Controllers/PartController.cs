@@ -44,7 +44,17 @@ namespace HelixLaserWorks.Controllers
         {
             if (file == null || file.Length <= 0)
             {
-                ModelState.AddModelError("File Error", "Invalid file, try uploading it again!");
+                ModelState.AddModelError("FileError", "Invalid file, try uploading it again!");
+            }
+
+            if (!await _materialService.MaterialExistsAsync(model.MaterialId))
+            {
+                ModelState.AddModelError(nameof(model.MaterialId), "Invalid material!");
+            }
+
+            if (!await _materialService.MaterialThicknessExistsAsync(model.MaterialId, model.PartThickness))
+            {
+                ModelState.AddModelError(nameof(model.PartThickness), "Invalid thickness for given material!");
             }
 
             if (!ModelState.IsValid)
@@ -88,6 +98,28 @@ namespace HelixLaserWorks.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, PartFormModel model, IFormFile? file)
         {
+            string userId = GetUserId();
+
+            if (!await _partService.PartExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            if (!await _partService.UserIsCreatorAsync(id, userId))
+            {
+                return Unauthorized();
+            }
+
+            if (!await _materialService.MaterialExistsAsync(model.MaterialId))
+            {
+                ModelState.AddModelError(nameof(model.MaterialId), "Invalid material!");
+            }
+
+            if (!await _materialService.MaterialThicknessExistsAsync(model.MaterialId, model.PartThickness))
+            {
+                ModelState.AddModelError(nameof(model.PartThickness), "Invalid thickness for given material!");
+            }
+
             if (!ModelState.IsValid)
             {
                 model.Materials = await _materialService.GetAllForDropdownAsync();

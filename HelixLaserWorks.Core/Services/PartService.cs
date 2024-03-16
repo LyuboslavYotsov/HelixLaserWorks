@@ -100,6 +100,11 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<bool> PartExistsAsync(int partId)
+        {
+            return await _context.Parts.AnyAsync(p => p.Id == partId);
+        }
+
         public async Task<bool> UserIsCreatorAsync(int id, string currentUserId)
         {
             var part = await _context.Parts.FindAsync(id);
