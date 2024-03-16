@@ -42,6 +42,20 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<int> DeleteAsync(int partId)
+        {
+            var parToDelete = await _context.Parts.FindAsync(partId);
+
+            if (parToDelete != null)
+            {
+                await _fileManageService.DeleteFile(parToDelete.SchemeURL);
+
+                _context.Parts.Remove(parToDelete);
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<int> EditAsync(PartFormModel model, int partId, string userEmail, IFormFile? file)
         {
             var parToEdit = await _context.Parts.FindAsync(partId);

@@ -108,9 +108,12 @@
                 <p class="card-text"><span class="fw-bold">Part Quantity:</span> @part.Quantity</p>
                 <p class="card-text"><span class="fw-bold">Created On:</span> @part.CreatedOn</p>
                 <p class="card-text"><span class="fw-bold">Last Update:</span> @part.UpdatedOn</p>
-                <a asp-area="" asp-controller="Part" asp-action="Edit" asp-route-Id="@part.Id" class="btn btn-danger">Edit part</a>
+                <a asp-controller="Part" asp-action="Edit" asp-route-partId="@part.Id" class="btn btn-success">Edit Part</a>
                 <form asp-controller="Part" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeFilePath" method="post">
-                    <button class="btn btn-primary" type="submit">Download Part Scheme</button>
+                    <button class="btn btn-info" type="submit">Download Part Scheme</button>
+                </form>
+                <form asp-controller="Part" asp-action="Delete" asp-route-partId="@part.Id" method="post">
+                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete part: @part.Name')" type="submit">Delete</button>
                 </form>
             </div>
         </div>

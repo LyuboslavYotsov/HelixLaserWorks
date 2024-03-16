@@ -24,5 +24,7 @@ namespace HelixLaserWorks.Core.Contracts
         Task<bool> UserIsCreatorAsync(int id, string currentUserId);
 
         Task<bool> PartExistsAsync(int partId);
+
+        Task<int> DeleteAsync(int partId);
     }
 }

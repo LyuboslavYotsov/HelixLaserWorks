@@ -86,17 +86,17 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int partId)
         {
             string userId = GetUserId();
-            var partForEditModel = await _partService.GetPartForEditAsync(id);
+            var partForEditModel = await _partService.GetPartForEditAsync(partId);
 
             if (partForEditModel == null)
             {
                 return BadRequest();
             }
 
-            if (!await _partService.UserIsCreatorAsync(id, userId))
+            if (!await _partService.UserIsCreatorAsync(partId, userId))
             {
                 return Unauthorized();
             }
@@ -107,16 +107,16 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, PartFormModel model, IFormFile? file)
+        public async Task<IActionResult> Edit(int partId, PartFormModel model, IFormFile? file)
         {
             string userId = GetUserId();
 
-            if (!await _partService.PartExistsAsync(id))
+            if (!await _partService.PartExistsAsync(partId))
             {
                 return BadRequest();
             }
 
-            if (!await _partService.UserIsCreatorAsync(id, userId))
+            if (!await _partService.UserIsCreatorAsync(partId, userId))
             {
                 return Unauthorized();
             }
@@ -140,7 +140,7 @@ namespace HelixLaserWorks.Controllers
 
             string userEmail = GetUserEmail();
 
-            await _partService.EditAsync(model, id, userEmail, file);
+            await _partService.EditAsync(model, partId, userEmail, file);
 
             return RedirectToAction(nameof(MyParts));
         }
@@ -162,6 +162,24 @@ namespace HelixLaserWorks.Controllers
         }
 
 
-        
+        [HttpPost]
+        public async Task<IActionResult> Delete(int partId)
+        {
+            if (!await _partService.PartExistsAsync(partId))
+            {
+                return BadRequest();
+            }
+
+            string userId = GetUserId();
+
+            if (!await _partService.UserIsCreatorAsync(partId, userId))
+            {
+                return Unauthorized();
+            }
+
+            await _partService.DeleteAsync(partId);
+
+            return RedirectToAction(nameof(MyParts));
+        }
     }
 }
