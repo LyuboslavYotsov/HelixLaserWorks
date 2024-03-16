@@ -25,7 +25,7 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         public Material Material { get; set; } = null!;
 
         [Required]
-        public int Thickness { get; set; }
+        public double Thickness { get; set; }
 
         [Required]
         public int Quantity { get; set; }
@@ -37,5 +37,11 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         public string CreatorId { get; set; } = string.Empty;
 
         public IdentityUser Creator { get; set; } = null!;
+
+        [Required]
+        public DateTime CreatedOn { get; set; }
+
+        [Required]
+        public DateTime UpdatedOn { get; set; }
     }
 }

@@ -10,10 +10,14 @@
 
         public string Material { get; set; } = string.Empty;
 
-        public int Thickness { get; set; }
+        public double Thickness { get; set; }
 
         public int Quantity { get; set; }
 
         public string SchemeFilePath { get; set; } = string.Empty;
+
+        public string CreatedOn { get; set; } = string.Empty;
+
+        public string UpdatedOn { get; set; } = string.Empty;
     }
 }

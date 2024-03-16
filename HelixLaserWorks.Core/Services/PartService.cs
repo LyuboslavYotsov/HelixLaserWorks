@@ -4,6 +4,7 @@ using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace HelixLaserWorks.Core.Services
 {
@@ -30,7 +31,9 @@ namespace HelixLaserWorks.Core.Services
                 Quantity = model.Quantity,
                 SchemeURL = await _fileManageService.UploadFile(file, userEmail),
                 Thickness = model.PartThickness,
-                CreatorId = userId
+                CreatorId = userId,
+                CreatedOn = DateTime.Now,
+                UpdatedOn = DateTime.Now
             };
 
             await _context.Parts.AddAsync(newPart);
@@ -52,6 +55,7 @@ namespace HelixLaserWorks.Core.Services
             parToEdit.MaterialId = model.MaterialId;
             parToEdit.Quantity = model.Quantity;
             parToEdit.Thickness = model.PartThickness;
+            parToEdit.UpdatedOn = DateTime.Now;
 
             if (file != null && file.Length > 0)
             {
@@ -95,7 +99,9 @@ namespace HelixLaserWorks.Core.Services
                     Material = p.Material.Name,
                     Quantity = p.Quantity,
                     Thickness = p.Thickness,
-                    SchemeFilePath = p.SchemeURL
+                    SchemeFilePath = p.SchemeURL,
+                    CreatedOn = p.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    UpdatedOn = p.UpdatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
                 })
                 .ToListAsync();
         }

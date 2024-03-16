@@ -20,7 +20,7 @@ namespace HelixLaserWorks.Core.Models.Parts
         public ICollection<MaterialDropdownViewModel> Materials { get; set; } = new List<MaterialDropdownViewModel>();
 
         [Required]
-        public int PartThickness { get; set; }
+        public double PartThickness { get; set; }
 
         [Required]
         [Range(PartQuantityMinValue, PartQuantityMaxValue)]
