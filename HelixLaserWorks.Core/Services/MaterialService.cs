@@ -67,7 +67,7 @@ namespace HelixLaserWorks.Core.Services
                     Type = m.MaterialType.Name,
                     ImageUrl = m.ImageUrl,
                     Price = m.PricePerSquareMeter.ToString(),
-                    AvailableThicknesses = string.Join(", ", m.MaterialThicknesses.Select(mt => mt.Thickness.Value)),
+                    AvailableThicknesses = string.Join(", ", m.MaterialThicknesses.Select(mt => mt.Thickness.Value + "mm")),
                     Density = m.Density.ToString(),
                     Rusting = m.CorrosionResistance ? "No" : "Yes"
                 })

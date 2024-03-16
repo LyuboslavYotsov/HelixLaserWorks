@@ -119,11 +119,6 @@ namespace HelixLaserWorks.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetAvailableThicknessesJSON(int materialId)
-        {
-            var availableThicknesses = await _materialService.GetAvailableThicknessesForMaterialAsync(materialId);
-            return Json(availableThicknesses);
-        }
+        
     }
 }
