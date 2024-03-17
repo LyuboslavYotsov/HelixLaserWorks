@@ -15,6 +15,10 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         public OrderStatus Status { get; set; }
 
         [Required]
+        [MaxLength(OrderTitleMaxLength)]
+        public string Title { get; set; } = string.Empty;
+
+        [Required]
         [MaxLength(OrderDescriptionMaxLength)]
         public string Description { get; set; } = string.Empty;
 
@@ -30,5 +34,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
 
         [ForeignKey(nameof(OfferId))]
         public Offer? Offer { get; set; }
+
+        [Required]
+        public DateTime CreatedOn { get; set; }
     }
 }

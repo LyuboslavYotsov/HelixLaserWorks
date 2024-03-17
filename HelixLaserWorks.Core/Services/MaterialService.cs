@@ -1,5 +1,5 @@
 ﻿using HelixLaserWorks.Core.Contracts;
-using HelixLaserWorks.Core.Models.Materials;
+using HelixLaserWorks.Core.Models.Material;
 using HelixLaserWorks.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -13,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IMaterialService, MaterialService>();
             services.AddScoped<IPartService, PartService>();
             services.AddScoped<IFileManageService, FileManageService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             return services;
         }

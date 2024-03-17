@@ -10,7 +10,7 @@ namespace HelixLaserWorks.Infrastructure.Data.Models.Enumerators
     {
         Pending = 0,
         InReview = 1,
-        ReadyForOffer = 2,
+        ReadyWithOffer = 2,
         Declined = 3
     }
 }

@@ -13,6 +13,7 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                 .WithMany()
                 .HasForeignKey(p => p.CreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
+                
         }
     }
 }

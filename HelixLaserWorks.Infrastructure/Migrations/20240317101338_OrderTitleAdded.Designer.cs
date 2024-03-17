@@ -4,6 +4,7 @@ using HelixLaserWorks.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HelixLaserWorks.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240317101338_OrderTitleAdded")]
+    partial class OrderTitleAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +66,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasIndex("MaterialTypeId");
 
-                    b.ToTable("Materials", (string)null);
+                    b.ToTable("Materials");
 
                     b.HasData(
                         new
@@ -137,7 +139,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasIndex("ThicknessId");
 
-                    b.ToTable("MaterialsThicknesses", (string)null);
+                    b.ToTable("MaterialsThicknesses");
 
                     b.HasData(
                         new
@@ -347,7 +349,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaterialType", (string)null);
+                    b.ToTable("MaterialType");
 
                     b.HasData(
                         new
@@ -393,7 +395,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Offers", (string)null);
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("HelixLaserWorks.Infrastructure.Data.Models.Order", b =>
@@ -435,7 +437,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[OfferId] IS NOT NULL");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("HelixLaserWorks.Infrastructure.Data.Models.Part", b =>
@@ -490,7 +492,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Parts", (string)null);
+                    b.ToTable("Parts");
                 });
 
             modelBuilder.Entity("HelixLaserWorks.Infrastructure.Data.Models.Review", b =>
@@ -521,7 +523,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("HelixLaserWorks.Infrastructure.Data.Models.Thickness", b =>
@@ -537,7 +539,7 @@ namespace HelixLaserWorks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Thicknesses", (string)null);
+                    b.ToTable("Thicknesses");
 
                     b.HasData(
                         new

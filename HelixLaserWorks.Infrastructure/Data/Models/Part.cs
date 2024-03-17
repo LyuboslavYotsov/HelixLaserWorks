@@ -43,5 +43,10 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
 
         [Required]
         public DateTime UpdatedOn { get; set; }
+
+        public int? OrderId { get; set; }
+
+        [ForeignKey(nameof(OrderId))]
+        public Order? Order { get; set; }
     }
 }

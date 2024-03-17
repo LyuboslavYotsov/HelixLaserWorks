@@ -1,4 +1,4 @@
-﻿namespace HelixLaserWorks.Core.Models.Parts
+﻿namespace HelixLaserWorks.Core.Models.Part
 {
     public class PartViewModel
     {
@@ -19,5 +19,7 @@
         public string CreatedOn { get; set; } = string.Empty;
 
         public string UpdatedOn { get; set; } = string.Empty;
+
+        public bool IsOrdered { get; set; }
     }
 }

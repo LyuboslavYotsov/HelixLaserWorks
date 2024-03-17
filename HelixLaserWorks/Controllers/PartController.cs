@@ -1,5 +1,5 @@
 ﻿using HelixLaserWorks.Core.Contracts;
-using HelixLaserWorks.Core.Models.Parts;
+using HelixLaserWorks.Core.Models.Part;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelixLaserWorks.Controllers
@@ -91,7 +91,7 @@ namespace HelixLaserWorks.Controllers
             string userId = GetUserId();
             var partForEditModel = await _partService.GetPartForEditAsync(partId);
 
-            if (partForEditModel == null)
+            if (partForEditModel == null || await _partService.IsOrdered(partId))
             {
                 return BadRequest();
             }
@@ -111,7 +111,7 @@ namespace HelixLaserWorks.Controllers
         {
             string userId = GetUserId();
 
-            if (!await _partService.PartExistsAsync(partId))
+            if (!await _partService.PartExistsAsync(partId) || await _partService.IsOrdered(partId))
             {
                 return BadRequest();
             }

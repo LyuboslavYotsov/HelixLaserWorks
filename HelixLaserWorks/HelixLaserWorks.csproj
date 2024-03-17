@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Views\Offer\" />
     <Folder Include="Views\Review\" />
-    <Folder Include="Views\Order\" />
     <Folder Include="wwwroot\Data\PartsSchemeFiles\" />
   </ItemGroup>
 

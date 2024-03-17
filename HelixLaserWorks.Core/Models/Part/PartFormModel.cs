@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using HelixLaserWorks.Core.Models.Materials;
+using HelixLaserWorks.Core.Models.Material;
 using static HelixLaserWorks.Infrastructure.Data.Constants.DataConstants;
 
-namespace HelixLaserWorks.Core.Models.Parts
+namespace HelixLaserWorks.Core.Models.Part
 {
     public class PartFormModel
     {

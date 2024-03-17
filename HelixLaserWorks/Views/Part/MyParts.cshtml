@@ -61,7 +61,7 @@
         UserPartsQueryModel.PartsPerPage);
 }
 
-<ul class="pagination" style="width: 83%">
+<ul class="pagination" style="width: 80%">
 
     @{
         var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
@@ -120,7 +120,9 @@
                 <p class="card-text"><span class="fw-bold">Part Quantity:</span> @part.Quantity</p>
                 <p class="card-text"><span class="fw-bold">Created On:</span> @part.CreatedOn</p>
                 <p class="card-text"><span class="fw-bold">Last Update:</span> @part.UpdatedOn</p>
-                <a asp-controller="Part" asp-action="Edit" asp-route-partId="@part.Id" class="btn btn-success">Edit Part</a>
+                <p class="card-text"><span class="fw-bold">Is Ordered:</span> @(part.IsOrdered ? "Yes" : "No")</p>
+
+                <a asp-controller="Part" asp-action="Edit" asp-route-partId="@part.Id" class="btn btn-success @(part.IsOrdered ? "disabled" : "")">Edit Part</a>
                 <form asp-controller="Part" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeFilePath" method="post">
                     <button class="btn btn-info" type="submit">Download Part Scheme</button>
                 </form>

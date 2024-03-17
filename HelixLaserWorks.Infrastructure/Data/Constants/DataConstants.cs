@@ -30,6 +30,9 @@
         public const int OrderDescriptionMaxLength = 200;
         public const int OrderDescriptionMinLength = 10;
 
+        public const int OrderTitleMaxLength = 50;
+        public const int OrderTitleMinLength = 5;
+
 
         //Part Constants
         public const int PartNameMaxLength = 100;

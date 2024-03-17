@@ -1,6 +1,6 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Enumerations;
-using HelixLaserWorks.Core.Models.Parts;
+using HelixLaserWorks.Core.Models.Part;
 using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
@@ -148,6 +148,7 @@ namespace HelixLaserWorks.Core.Services
                     SchemeFilePath = p.SchemeURL,
                     CreatedOn = p.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
                     UpdatedOn = p.UpdatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    IsOrdered = p.OrderId != null
                 })
                 .ToListAsync();
 
@@ -158,6 +159,26 @@ namespace HelixLaserWorks.Core.Services
                 Parts = parts,
                 TotalPartsCount = totalParts,
             };
+        }
+
+        public async Task<ICollection<PartDropdownViewModel>> GetUserPartsForDropdownAsync(string userId)
+        {
+            return await _context.Parts
+                .AsNoTracking()
+                .Where(p => p.CreatorId == userId && p.OrderId == null)
+                .Select(p => new PartDropdownViewModel()
+                {
+                    Id= p.Id,
+                    Name = p.Name,
+                    PartMaterial = p.Material.Name,
+                    PartThickness = p.Thickness
+                })
+                .ToListAsync();
+        }
+
+        public async Task<bool> IsOrdered(int partId)
+        {
+            return await _context.Parts.AnyAsync(p => p.Id == partId && p.OrderId != null);
         }
 
         public async Task<bool> PartExistsAsync(int partId)

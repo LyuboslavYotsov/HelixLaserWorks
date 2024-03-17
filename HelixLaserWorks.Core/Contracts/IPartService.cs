@@ -1,6 +1,6 @@
 ﻿using HelixLaserWorks.Core.Enumerations;
-using HelixLaserWorks.Core.Models.Materials;
-using HelixLaserWorks.Core.Models.Parts;
+using HelixLaserWorks.Core.Models.Material;
+using HelixLaserWorks.Core.Models.Part;
 using Microsoft.AspNetCore.Http;
 
 namespace HelixLaserWorks.Core.Contracts
@@ -25,6 +25,10 @@ namespace HelixLaserWorks.Core.Contracts
 
         Task<bool> PartExistsAsync(int partId);
 
+        Task<bool> IsOrdered(int partId);
+
         Task<int> DeleteAsync(int partId);
+
+        Task<ICollection<PartDropdownViewModel>> GetUserPartsForDropdownAsync(string userId);
     }
 }

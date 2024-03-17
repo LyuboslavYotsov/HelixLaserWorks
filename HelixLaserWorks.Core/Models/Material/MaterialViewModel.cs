@@ -1,4 +1,4 @@
-﻿namespace HelixLaserWorks.Core.Models.Materials
+﻿namespace HelixLaserWorks.Core.Models.Material
 {
     public class MaterialViewModel
     {
