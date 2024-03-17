@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<OrderViewModel>
 @{
     ViewBag.Title = "My orders";
 }
@@ -6,4 +6,31 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<a asp-area="" asp-controller="Order" asp-action="Create" class="btn btn-primary flex-grow-1">Create new order</a>
+<a asp-area="" asp-controller="Order" asp-action="Create" class="btn btn-primary flex-grow-1" style="margin: 5px">Create new order</a>
+
+
+<div class="row">
+    @foreach (var order in Model)
+    {
+        <div class="card d-flex justify-content-center align-items-center" style="width: 25rem; margin-left: 5px">
+            <div class="card-body">
+                <h5 class="card-title"><span class="fw-bold">Order Title:</span> @order.Title</h5>
+                <p class="card-title"><span class="fw-bold">Order Description:</span> @order.Description</p>
+                <p class="card-text"><span class="fw-bold">Date of Creation:</span> @order.CreatedOn</p>
+                <label class="d-block"><span class="fw-bold">Included Parts:</span></label>
+                @foreach (var part in order.Parts)
+                {
+                    <div class="card" style="margin: 5px">
+                        <label class="card-title"><span class="fw-bold">@part.Name</span></label>
+                        <p class="card-text">@part.PartMaterial @part.PartThickness mm - @part.Quantity pcs</p>
+                    </div>
+                }
+            </div>
+            @if (order.Status == "Pending")
+            {
+                <p class="card-text bg-warning" style="padding: 5px; border-radius: 5px"><span class="fw-bold">Status:</span> @order.Status</p>
+            }
+        </div>
+
+    }
+</div>

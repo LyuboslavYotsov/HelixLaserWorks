@@ -16,9 +16,13 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpGet]
-        public IActionResult MyOrders()
+        public async Task<IActionResult> MyOrders()
         {
-            return View();
+            string userId = GetUserId();
+
+            var model = await _orderService.GetUserOrdersAsync(GetUserId());
+
+            return View(model);
         }
 
         [HttpGet]

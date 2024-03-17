@@ -1,8 +1,11 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Order;
+using HelixLaserWorks.Core.Models.Part;
 using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace HelixLaserWorks.Core.Services
 {
@@ -39,6 +42,34 @@ namespace HelixLaserWorks.Core.Services
             await _context.Orders.AddAsync(newOrder);
 
             return await _context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<OrderViewModel>> GetUserOrdersAsync(string userId)
+        {
+            var userOrders = await _context.Orders
+                .AsNoTracking()
+                .Where(o => o.CustomerId == userId)
+                .Select( o => new OrderViewModel()
+                {
+                    Id = o.Id,
+                    Title = o.Title,
+                    Description = o.Description,
+                    AdminFeedback = o.AdminFeedback,
+                    Status = o.Status.ToString(),
+                    CreatedOn = o.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    OfferId = o.OfferId,
+                    Parts = o.Parts.Select(p => new PartDropdownViewModel()
+                    {
+                        Id = p.Id,
+                        PartMaterial = p.Material.Name,
+                        PartThickness = p.Thickness,
+                        Name = p.Name,
+                        Quantity = p.Quantity,
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return userOrders;
         }
     }
 }

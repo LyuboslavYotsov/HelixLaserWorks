@@ -9,5 +9,7 @@
         public string PartMaterial { get; set; } = string.Empty;
 
         public double PartThickness { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

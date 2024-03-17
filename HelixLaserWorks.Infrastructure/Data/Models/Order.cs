@@ -37,5 +37,7 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
 
         [Required]
         public DateTime CreatedOn { get; set; }
+
+        public string? AdminFeedback { get; set; }
     }
 }
