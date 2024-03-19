@@ -46,20 +46,20 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<ICollection<double>> GetAvailableThicknessesForMaterialAsync(int id)
+        public async Task<ICollection<double>> GetAvailableThicknessesForMaterialAsync(int materialId)
         {
             return await _context.MaterialsThicknesses
                 .AsNoTracking()
-                .Where(mt => mt.MaterialId == id)
+                .Where(mt => mt.MaterialId == materialId)
                 .Select(mt => mt.Thickness.Value)
                 .ToListAsync();
         }
 
-        public async Task<MaterialDetailViewModel?> GetDetailsByIdAsync(int id)
+        public async Task<MaterialDetailViewModel?> GetDetailsByIdAsync(int materialId)
         {
             return await _context.Materials
                 .AsNoTracking()
-                .Where(m => m.Id == id)
+                .Where(m => m.Id == materialId)
                 .Select(m => new MaterialDetailViewModel()
                 {
                     Name = m.Name,

@@ -21,9 +21,9 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int materialid)
         {
-            var model = await _materialService.GetDetailsByIdAsync(id);
+            var model = await _materialService.GetDetailsByIdAsync(materialid);
 
             if (model == null)
             {
