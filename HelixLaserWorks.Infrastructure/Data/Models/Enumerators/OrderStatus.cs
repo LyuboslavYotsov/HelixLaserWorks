@@ -5,6 +5,7 @@
         Pending = 0,
         InReview = 1,
         ReadyWithOffer = 2,
-        Declined = 3
+        DeclinedByAdmin = 3,
+        CanceledByUser = 4,
     }
 }

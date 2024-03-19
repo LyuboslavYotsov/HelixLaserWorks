@@ -18,6 +18,27 @@ namespace HelixLaserWorks.Core.Services
             _context = context;
         }
 
+        public async Task<int> CancelOrderAsync(int orderId)
+        {
+            var order = await _context.Orders
+                .Where(o => o.Id == orderId)
+                .Include(o => o.Parts)
+                .FirstOrDefaultAsync();
+
+            if (order != null)
+            {
+                order.Status = OrderStatus.CanceledByUser;
+
+                foreach (var part in order.Parts)
+                {
+                    part.Order = null;
+                    part.OrderId = null;
+                }
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<int> CreateOrderAsync(string userId, OrderFormModel model)
         {
             Order newOrder = new Order()
@@ -44,11 +65,18 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<OrderStatus> GetOrderStatusAsync(int orderId)
+        {
+            var order = await _context.Orders.FirstAsync(o => o.Id == orderId);
+
+            return order.Status;
+        }
+
         public async Task<ICollection<OrderViewModel>> GetUserOrdersAsync(string userId)
         {
             var userOrders = await _context.Orders
                 .AsNoTracking()
-                .Where(o => o.CustomerId == userId)
+                .Where(o => o.CustomerId == userId && o.Status != OrderStatus.CanceledByUser && o.Status != OrderStatus.DeclinedByAdmin)
                 .Select( o => new OrderViewModel()
                 {
                     Id = o.Id,
@@ -70,6 +98,18 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
 
             return userOrders;
+        }
+
+        public async Task<bool> OrderExistAsync(int orderId)
+        {
+            return await _context.Orders.AnyAsync(o => o.Id == orderId);
+        }
+
+        public async Task<bool> UserIsCreatorAsync(string userId, int orderId)
+        {
+            var order = await _context.Orders.FirstAsync(o => o.Id == orderId);
+
+            return order.CustomerId == userId;
         }
     }
 }

@@ -127,7 +127,7 @@
                     <button class="btn btn-info" type="submit">Download Part Scheme</button>
                 </form>
                 <form asp-controller="Part" asp-action="Delete" asp-route-partId="@part.Id" method="post">
-                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete part: @part.Name')" type="submit">Delete</button>
+                    <button class="btn btn-danger @(part.IsOrdered ? "disabled" : "")" onclick="return confirm('Are you sure you want to delete part: @part.Name')" type="submit">Delete</button>
                 </form>
             </div>
         </div>

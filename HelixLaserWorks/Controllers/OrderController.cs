@@ -1,5 +1,6 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Order;
+using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelixLaserWorks.Controllers
@@ -58,6 +59,27 @@ namespace HelixLaserWorks.Controllers
             }
 
             await _orderService.CreateOrderAsync(userId, model);
+
+            return RedirectToAction(nameof(MyOrders));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Cancel(int orderId)
+        {
+            string userId = GetUserId();
+
+            if (!await _orderService.OrderExistAsync(orderId) ||
+                await _orderService.GetOrderStatusAsync(orderId) != OrderStatus.Pending)
+            {
+                return BadRequest();
+            }
+
+            if (!await _orderService.UserIsCreatorAsync(userId, orderId))
+            {
+                return Unauthorized();
+            }
+
+            await _orderService.CancelOrderAsync(orderId);
 
             return RedirectToAction(nameof(MyOrders));
         }

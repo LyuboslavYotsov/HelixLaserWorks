@@ -29,6 +29,9 @@
             @if (order.Status == "Pending")
             {
                 <p class="card-text bg-warning" style="padding: 5px; border-radius: 5px"><span class="fw-bold">Status:</span> @order.Status</p>
+                <form asp-controller="Order" asp-action="Cancel" asp-route-orderId="@order.Id">
+                    <button type="submit" class="btn btn-danger">Cancel</button>
+                </form>
             }
         </div>
 
