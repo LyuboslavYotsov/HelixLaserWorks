@@ -165,7 +165,7 @@ namespace HelixLaserWorks.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int partId)
         {
-            if (!await _partService.PartExistsAsync(partId))
+            if (!await _partService.PartExistsAsync(partId) || await _partService.IsOrdered(partId))
             {
                 return BadRequest();
             }
