@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Gallery";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="gallery-title">Gallery</h2>
+            <p class="gallery-message"><strong>Take a look at some of our Products!</strong></p>
+        </div>
+    </div>
+    <div class="row gallery-images">
+        <div class="col-md-4">
+            <img src="~/Data/Images/image11.jpg" alt="Image 11">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image08.jpg" alt="Image 8">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image07.jpg" alt="Image 7">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image04.jpg" alt="Image 4">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image02.jpg" alt="Image 2">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image03.jpg" alt="Image 3">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image05.jpg" alt="Image 5">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image06.jpg" alt="Image 6">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image09.jpeg" alt="Image 9">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image10.jpg" alt="Image 10">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image01.jpg" alt="Image 1">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image12.jpg" alt="Image 12">
+        </div>
+        <div class="col-md-4">
+            <img src="~/Data/Images/image13.jpeg" alt="Image 13">
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .gallery-section {
+        padding: 20px;
+    }
+
+    .gallery-title {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .gallery-message {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 20px;
+    }
+
+    .gallery-images .col-md-4 {
+        padding: 15px;
+    }
+
+    .gallery-images img {
+        width: 100%;
+        border-radius: 10px;
+        transition: transform 0.2s ease;
+    }
+
+        .gallery-images img:hover {
+            transform: scale(1.3);
+        }
+</style>

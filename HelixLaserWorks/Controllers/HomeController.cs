@@ -27,6 +27,18 @@ namespace HelixLaserWorks.Controllers
         }
 
         [AllowAnonymous]
+        public IActionResult Gallery()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
