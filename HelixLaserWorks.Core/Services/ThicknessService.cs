@@ -20,5 +20,23 @@ namespace HelixLaserWorks.Core.Services
                 .Select(t => t.Value)
                 .ToListAsync();
         }
+
+        public async Task<bool> ThicknessesAreValidAsync(ICollection<double> selectedThicknesses)
+        {
+            var result = true;
+
+            var validThicknesses = await GetAllThicknessesAsync();
+
+            foreach (var thickness in selectedThicknesses)
+            {
+                if (!validThicknesses.Contains(thickness))
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
+        }
     }
 }

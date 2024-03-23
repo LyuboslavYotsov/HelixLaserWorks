@@ -64,15 +64,9 @@ namespace HelixLaserWorks.Controllers
                 ModelState.AddModelError(nameof(model.MaterialTypeId), "Material type does not exists!");
             }
 
-            var availableThicknesses = await _thicknessService.GetAllThicknessesAsync();
-
-            foreach (var thickness in model.SelectedThicknesses)
+            if (!await _thicknessService.ThicknessesAreValidAsync(model.SelectedThicknesses))
             {
-                if (!availableThicknesses.Contains(thickness))
-                {
-                    ModelState.AddModelError(nameof(model.SelectedThicknesses), "Invalid thickness!");
-                    break;
-                }
+                ModelState.AddModelError(nameof(model.SelectedThicknesses), "Invalid thickness!");
             }
 
             if (!ModelState.IsValid)
@@ -85,6 +79,50 @@ namespace HelixLaserWorks.Controllers
             }
 
             await _materialService.AddAsync(model);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int materialId)
+        {
+            var model = await _materialService.GetMaterialForEditAsync(materialId);
+
+            if (model == null)
+            {
+                return BadRequest();
+            }
+
+            model.AvailableThicknesses = await _thicknessService.GetAllThicknessesAsync();
+
+            model.MaterialTypes = await _materialService.GetAllATypesAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int materialId, MaterialFormModel model)
+        {
+            if (!await _materialService.MaterialTypeExistsAsync(model.MaterialTypeId))
+            {
+                ModelState.AddModelError(nameof(model.MaterialTypeId), "Material type does not exists!");
+            }
+
+            if (!await _thicknessService.ThicknessesAreValidAsync(model.SelectedThicknesses))
+            {
+                ModelState.AddModelError(nameof(model.SelectedThicknesses), "Invalid thickness!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.AvailableThicknesses = await _thicknessService.GetAllThicknessesAsync();
+
+                model.MaterialTypes = await _materialService.GetAllATypesAsync();
+
+                return View(model);
+            }
+
+            await _materialService.EditAsync(materialId, model);
 
             return RedirectToAction(nameof(All));
         }

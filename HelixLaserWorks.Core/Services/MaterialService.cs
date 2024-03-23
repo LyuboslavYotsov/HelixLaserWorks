@@ -68,6 +68,45 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<int> EditAsync(int materialId, MaterialFormModel model)
+        {
+            Material? materialToEdit = await _context.Materials
+                .Include(m => m.MaterialThicknesses)
+                .ThenInclude(mt => mt.Thickness)
+                .Where(m => m.Id == materialId)
+                .FirstOrDefaultAsync();
+
+            if (materialToEdit != null)
+            {
+                materialToEdit.Name = model.Name;
+                materialToEdit.Description = model.Description;
+                materialToEdit.Specification = model.Specification;
+                materialToEdit.Density = model.Density;
+                materialToEdit.PricePerSquareMeter = model.PricePerSquareMeter;
+                materialToEdit.ImageUrl = model.ImageUrl;
+                materialToEdit.CorrosionResistance = model.CorrosionResistance;
+                materialToEdit.MaterialTypeId = model.MaterialTypeId;
+
+                _context.MaterialsThicknesses.RemoveRange(materialToEdit.MaterialThicknesses);
+
+                foreach (var selectedThicknessValue in model.SelectedThicknesses)
+                {
+                    var currentThickness = await _context.Thicknesses.FirstOrDefaultAsync(t => t.Value == selectedThicknessValue);
+
+                    if (currentThickness != null)
+                    {
+                        materialToEdit.MaterialThicknesses.Add(new MaterialThickness()
+                        {
+                            ThicknessId = currentThickness.Id,
+                            Material = materialToEdit
+                        });
+                    }
+                }
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<ICollection<MaterialTypeViewModel>> GetAllATypesAsync()
         {
             return await _context.MaterialTypes
@@ -116,6 +155,26 @@ namespace HelixLaserWorks.Core.Services
                     AvailableThicknesses = string.Join(", ", m.MaterialThicknesses.Select(mt => mt.Thickness.Value + "mm")),
                     Density = m.Density.ToString(),
                     Rusting = m.CorrosionResistance ? "No" : "Yes"
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<MaterialFormModel?> GetMaterialForEditAsync(int materialId)
+        {
+            return await _context.Materials
+                .AsNoTracking()
+                .Where(m => m.Id == materialId)
+                .Select(m => new MaterialFormModel()
+                {
+                    Name = m.Name,
+                    Description = m.Description,
+                    Density = m.Density,
+                    Specification = m.Specification,
+                    SelectedThicknesses = m.MaterialThicknesses.Select(mt => mt.Thickness.Value).ToList(),
+                    ImageUrl = m.ImageUrl,
+                    PricePerSquareMeter = m.PricePerSquareMeter,
+                    CorrosionResistance = m.CorrosionResistance,
+                    MaterialTypeId = m.MaterialTypeId
                 })
                 .FirstOrDefaultAsync();
         }

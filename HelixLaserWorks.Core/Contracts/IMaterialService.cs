@@ -1,4 +1,5 @@
 ﻿using HelixLaserWorks.Core.Models.Material;
+using HelixLaserWorks.Core.Models.Part;
 
 namespace HelixLaserWorks.Core.Contracts
 {
@@ -21,5 +22,9 @@ namespace HelixLaserWorks.Core.Contracts
         Task<ICollection<MaterialTypeViewModel>> GetAllATypesAsync();
 
         Task<bool> MaterialTypeExistsAsync(int typeId);
+
+        Task<MaterialFormModel?> GetMaterialForEditAsync(int materialId);
+
+        Task<int> EditAsync(int materialId, MaterialFormModel model);
     }
 }
