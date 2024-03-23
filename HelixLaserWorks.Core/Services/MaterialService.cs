@@ -1,6 +1,7 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Material;
 using HelixLaserWorks.Infrastructure.Data;
+using HelixLaserWorks.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,39 @@ namespace HelixLaserWorks.Core.Services
             _context = context;
         }
 
+        public async Task<int> AddAsync(MaterialFormModel model)
+        {
+            Material newMaterial = new Material()
+            {
+                MaterialTypeId = model.MaterialTypeId,
+                Name = model.Name,
+                Description = model.Description,
+                Specification = model.Specification,
+                CorrosionResistance = model.CorrosionResistance,
+                Density = model.Density,
+                PricePerSquareMeter = model.PricePerSquareMeter,
+                ImageUrl = model.ImageUrl,
+            };
+
+            foreach (var thickness in model.SelectedThicknesses)
+            {
+                var currentThickness = await _context.Thicknesses.FirstOrDefaultAsync(t => t.Value == thickness);
+
+                if (currentThickness != null)
+                {
+                    newMaterial.MaterialThicknesses.Add(new MaterialThickness()
+                    {
+                        ThicknessId = currentThickness.Id,
+                        Material = newMaterial
+                    });
+                }
+            }
+
+            await _context.Materials.AddAsync(newMaterial);
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<MaterialViewModel>> AllAsync()
         {
             return await _context.Materials
@@ -30,6 +64,18 @@ namespace HelixLaserWorks.Core.Services
                     Description = m.Description,
                     Type = m.MaterialType.Name,
                     ImageUrl = m.ImageUrl
+                })
+                .ToListAsync();
+        }
+
+        public async Task<ICollection<MaterialTypeViewModel>> GetAllATypesAsync()
+        {
+            return await _context.MaterialTypes
+                .AsNoTracking()
+                .Select(m => new MaterialTypeViewModel()
+                {
+                    Id = m.Id,
+                    Name = m.Name,
                 })
                 .ToListAsync();
         }
@@ -92,6 +138,11 @@ namespace HelixLaserWorks.Core.Services
             }
 
             return false;
+        }
+
+        public async Task<bool> MaterialTypeExistsAsync(int typeId)
+        {
+            return await _context.MaterialTypes.AnyAsync(m => m.Id == typeId);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IPartService, PartService>();
             services.AddScoped<IFileManageService, FileManageService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IThicknessService, ThicknessService>();
 
             return services;
         }

@@ -15,5 +15,11 @@ namespace HelixLaserWorks.Core.Contracts
         Task<bool> MaterialExistsAsync(int materialId);
 
         Task<bool> MaterialThicknessExistsAsync(int materialId, double materialThickness);
+
+        Task<int> AddAsync(MaterialFormModel model);
+
+        Task<ICollection<MaterialTypeViewModel>> GetAllATypesAsync();
+
+        Task<bool> MaterialTypeExistsAsync(int typeId);
     }
 }

@@ -24,6 +24,8 @@ namespace HelixLaserWorks.Infrastructure.Data
 
         public DbSet<Review> Reviews { get; set; } = null!;
 
+        public DbSet<MaterialType> MaterialTypes { get; set; } = null!;
+
         public DbSet<MaterialThickness> MaterialsThicknesses { get; set; } = null!;
 
 

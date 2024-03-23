@@ -1,0 +1,84 @@
+﻿@model MaterialFormModel
+@{
+    ViewData["Title"] = "Add new Material";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Material Name...">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" rows="4" class="form-control" placeholder="Material Description...">
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Specification"></label>
+                <input asp-for="Specification" rows="4" class="form-control" placeholder="Material Specification...">
+                <span asp-validation-for="Specification" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Density"></label>
+                <input type="number" asp-for="Density" rows="4" class="form-control" placeholder="Material Density...">
+                <span asp-validation-for="Density" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PricePerSquareMeter"></label>
+                <input type="number" asp-for="PricePerSquareMeter" rows="4" class="form-control" placeholder="Material Price...">
+                <span asp-validation-for="PricePerSquareMeter" class="small text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" rows="4" class="form-control" placeholder="Material ImageUrl...">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CorrosionResistance"></label>
+                <input type="checkbox" asp-for="CorrosionResistance" rows="4" class="form-check">
+                <span asp-validation-for="CorrosionResistance" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaterialTypeId"></label>
+                <select asp-for="MaterialTypeId" class="form-control">
+                    @foreach (var material in Model.MaterialTypes)
+                    {
+                        <option value="@material.Id">@material.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="MaterialTypeId" class="small text-danger"></span>
+            </div>
+
+
+            <label>Select Available Thicknesses for Material:</label>
+            @foreach (var part in Model.AvailableThicknesses)
+            {
+                <div>
+                    <input type="checkbox" name="SelectedThicknesses" value="@part" />
+                    <label>@part mm</label>
+                </div>
+            }
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Add")>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
