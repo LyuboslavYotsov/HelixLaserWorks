@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" name="postForm">
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" placeholder="Part name..">
@@ -37,11 +37,12 @@
 
             <div class="form-group">
                 <label>Upload Scheme File</label>
-                <input type="file" name="file" class="form-control">
+                <input asp-for="@Model.SchemeFile" type="file" class="form-control">
+                <span asp-validation-for="@Model.SchemeFile" class="small text-danger"></span>
             </div>
 
             <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value=@(Model.Name == "" ? "Create" : "Edit")>
+                <input class="btn btn-primary mt-3" type="submit" value="Submit">
             </div>
         </form>
     </div>
@@ -55,8 +56,8 @@
         $.get("/Material/GetAvailableThicknessesJSON", { materialId: selectedMaterial }, function (data) {
             var thicknessDropdown = $("#thicknessDropdown");
             thicknessDropdown.empty();
-            $.each(data, function (index, item) {
-                thicknessDropdown.append($("<option>").text(item + "mm").val(item));
+            $.each(data, function (index, thickness) {
+                thicknessDropdown.append($("<option>").text(thickness + "mm").val(thickness));
             });
 
             var defaultThickness = @Model.PartThickness;

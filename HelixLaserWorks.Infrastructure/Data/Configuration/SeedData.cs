@@ -1,10 +1,4 @@
 ﻿using HelixLaserWorks.Infrastructure.Data.Models;
-using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelixLaserWorks.Infrastructure.Data.Configuration
 {

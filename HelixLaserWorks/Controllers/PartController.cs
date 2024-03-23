@@ -51,11 +51,11 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PartFormModel model, IFormFile file)
+        public async Task<IActionResult> Create(PartFormModel model)
         {
-            if (file == null || file.Length <= 0)
+            if (model.SchemeFile == null || model.SchemeFile.Length <= 0)
             {
-                ModelState.AddModelError("FileError", "Invalid file, try uploading it again!");
+                ModelState.AddModelError((nameof(model.SchemeFile)), "Part scheme file is required!");
             }
 
             if (!await _materialService.MaterialExistsAsync(model.MaterialId))
@@ -77,9 +77,9 @@ namespace HelixLaserWorks.Controllers
             string userId = GetUserId();
             string userEmail = GetUserEmail();
 
-            if (file != null)
+            if (model.SchemeFile != null)
             {
-                await _partService.CreateAsync(model, userId, userEmail, file);
+                await _partService.CreateAsync(model, userId, userEmail);
             }
 
             return RedirectToAction(nameof(MyParts));
@@ -107,7 +107,7 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int partId, PartFormModel model, IFormFile? file)
+        public async Task<IActionResult> Edit(int partId, PartFormModel model)
         {
             string userId = GetUserId();
 
@@ -140,7 +140,7 @@ namespace HelixLaserWorks.Controllers
 
             string userEmail = GetUserEmail();
 
-            await _partService.EditAsync(model, partId, userEmail, file);
+            await _partService.EditAsync(model, partId, userEmail);
 
             return RedirectToAction(nameof(MyParts));
         }

@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using HelixLaserWorks.Core.Models.Material;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using static HelixLaserWorks.Infrastructure.Data.Constants.DataConstants;
 
 namespace HelixLaserWorks.Core.Models.Part
@@ -22,6 +24,7 @@ namespace HelixLaserWorks.Core.Models.Part
         public ICollection<MaterialDropdownViewModel> Materials { get; set; } = new List<MaterialDropdownViewModel>();
 
         [Required]
+        [Display(Name = "Part Thickness")]
         public double PartThickness { get; set; }
 
         [Required]
@@ -29,5 +32,9 @@ namespace HelixLaserWorks.Core.Models.Part
         public int Quantity { get; set; }
 
         public string? SchemeUrl { get; set; }
+
+        [FileExtensions(Extensions = ".dxf,.cad,.pdf,.dwg,.ai,.eps,.step,.stp")]
+        [Display(Name = "Scheme File")]
+        public IFormFile? SchemeFile { get; set; }
     }
 }

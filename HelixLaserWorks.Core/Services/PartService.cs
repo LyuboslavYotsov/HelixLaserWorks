@@ -3,7 +3,6 @@ using HelixLaserWorks.Core.Enumerations;
 using HelixLaserWorks.Core.Models.Part;
 using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
@@ -22,7 +21,7 @@ namespace HelixLaserWorks.Core.Services
 
         }
 
-        public async Task<int> CreateAsync(PartFormModel model, string userId, string userEmail, IFormFile file)
+        public async Task<int> CreateAsync(PartFormModel model, string userId, string userEmail)
         {
             Part newPart = new Part()
             {
@@ -30,7 +29,7 @@ namespace HelixLaserWorks.Core.Services
                 Description = model.Description,
                 MaterialId = model.MaterialId,
                 Quantity = model.Quantity,
-                SchemeURL = await _fileManageService.UploadFile(file, userEmail),
+                SchemeURL = await _fileManageService.UploadFile(model.SchemeFile ?? null!, userEmail),
                 Thickness = model.PartThickness,
                 CreatorId = userId,
                 CreatedOn = DateTime.Now,
@@ -56,7 +55,7 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> EditAsync(PartFormModel model, int partId, string userEmail, IFormFile? file)
+        public async Task<int> EditAsync(PartFormModel model, int partId, string userEmail)
         {
             var parToEdit = await _context.Parts.FindAsync(partId);
 
@@ -69,11 +68,11 @@ namespace HelixLaserWorks.Core.Services
                 parToEdit.Thickness = model.PartThickness;
                 parToEdit.UpdatedOn = DateTime.Now;
 
-                if (file != null && file.Length > 0)
+                if (model.SchemeFile != null && model.SchemeFile.Length > 0)
                 {
                     await _fileManageService.DeleteFile(parToEdit.SchemeURL);
 
-                    parToEdit.SchemeURL = await _fileManageService.UploadFile(file, userEmail);
+                    parToEdit.SchemeURL = await _fileManageService.UploadFile(model.SchemeFile, userEmail);
                 }
             }
 

@@ -15,11 +15,11 @@ namespace HelixLaserWorks.Core.Contracts
             int currentPage = 1,
             int partsPerPage = 1);
 
-        Task<int> CreateAsync(PartFormModel model, string userId, string userEmail, IFormFile file);
+        Task<int> CreateAsync(PartFormModel model, string userId, string userEmail);
 
         Task<PartFormModel?> GetPartForEditAsync(int id);
 
-        Task<int> EditAsync(PartFormModel model, int partId, string userEmail, IFormFile? file);
+        Task<int> EditAsync(PartFormModel model, int partId, string userEmail);
 
         Task<bool> UserIsCreatorAsync(int id, string currentUserId);
 
