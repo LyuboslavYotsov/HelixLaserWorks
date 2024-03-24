@@ -19,17 +19,23 @@
                 <input asp-for="Description" rows="4" class="form-control" placeholder="Order description...">
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="CustomerPhoneNumber"></label>
+                <input asp-for="CustomerPhoneNumber" rows="4" class="form-control" placeholder="Phone Number...">
+                <span asp-validation-for="CustomerPhoneNumber" class="small text-danger"></span>
+            </div>
+
             <label>Select Parts for Order:</label>
             @foreach (var part in Model.UserParts)
             {
                 <div>
-                    <input type="checkbox" name="selectedParts" value="@part.Id" />
+                    <input type="checkbox" name="SelectedParts" value="@part.Id" />
                     <label>@part.Name - @part.PartMaterial @part.PartThickness mm</label>
                 </div>
             }
 
             <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value=@(Model.Title == "" ? "Create" : "Edit")>
+                <input class="btn btn-primary mt-3" type="submit" value="Create")>
             </div>
         </form>
     </div>

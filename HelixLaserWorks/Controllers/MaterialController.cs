@@ -126,5 +126,18 @@ namespace HelixLaserWorks.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int materialId)
+        {
+            if (!await _materialService.MaterialExistsAsync(materialId))
+            {
+                return BadRequest();
+            }
+
+            await _materialService.DeleteAsync(materialId);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

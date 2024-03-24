@@ -17,6 +17,7 @@
                 <h5 class="card-title"><span class="fw-bold">Order Title:</span> @order.Title</h5>
                 <p class="card-title"><span class="fw-bold">Order Description:</span> @order.Description</p>
                 <p class="card-text"><span class="fw-bold">Date of Creation:</span> @order.CreatedOn</p>
+                <p class="card-text"><span class="fw-bold">Phone Number:</span> @order.CustomerPhoneNumber</p>
                 <label class="d-block"><span class="fw-bold">Included Parts:</span></label>
                 @foreach (var part in order.Parts)
                 {

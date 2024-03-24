@@ -23,6 +23,10 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        [MaxLength(OrderPhoneMaxLength)]
+        public string CustomerPhoneNumber { get; set; } = string.Empty;
+
+        [Required]
         public string CustomerId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(CustomerId))]

@@ -1,4 +1,5 @@
 ﻿using HelixLaserWorks.Core.Models.Part;
+using System.ComponentModel.DataAnnotations;
 
 namespace HelixLaserWorks.Core.Models.Order
 {
@@ -9,6 +10,9 @@ namespace HelixLaserWorks.Core.Models.Order
         public string Title { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
+
+        [Display(Name = "Phone Number")]
+        public string CustomerPhoneNumber { get; set; } = string.Empty;
 
         public ICollection<PartDropdownViewModel> Parts { get; set; } = new List<PartDropdownViewModel>();
 

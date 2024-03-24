@@ -16,6 +16,12 @@ namespace HelixLaserWorks.Core.Models.Order
             MinimumLength = OrderDescriptionMinLength)]
         public string Description { get; set; } = string.Empty;
 
+        [Required]
+        [StringLength(OrderPhoneMaxLength,
+            MinimumLength = OrderDescriptionMinLength)]
+        [Phone]
+        public string CustomerPhoneNumber { get; set; } = string.Empty;
+
         public ICollection<PartDropdownViewModel> UserParts { get; set; } = new List<PartDropdownViewModel>();
 
         public ICollection<int> SelectedParts { get; set; } = new List<int>();

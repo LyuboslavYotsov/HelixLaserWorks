@@ -21,7 +21,7 @@ namespace HelixLaserWorks.Controllers
         {
             string userId = GetUserId();
 
-            var model = await _orderService.GetUserOrdersAsync(GetUserId());
+            var model = await _orderService.GetUserOrdersAsync(userId);
 
             return View(model);
         }
@@ -38,10 +38,8 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(OrderFormModel model, List<int> selectedParts)
+        public async Task<IActionResult> Create(OrderFormModel model)
         {
-            model.SelectedParts = selectedParts;
-
             string userId = GetUserId();
 
             foreach (var partId in model.SelectedParts)

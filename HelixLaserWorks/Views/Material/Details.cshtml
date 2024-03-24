@@ -15,4 +15,7 @@
         <p class="card-text"><span class="fw-bold">Available thicknesses:</span> @Model.AvailableThicknesses</p>
         <p class="card-text"><span class="fw-bold">Material Description:</span> @Model.Description</p>
     </div>
+    <form class="card-footer" asp-controller="Material" asp-action="Delete" asp-route-materialId="@Model.Id" method="post">
+        <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete material: @Model.Name')" type="submit">Delete</button>
+    </form>
 </div>

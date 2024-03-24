@@ -47,7 +47,8 @@ namespace HelixLaserWorks.Core.Services
                 Description = model.Description,
                 Status = OrderStatus.Pending,
                 CustomerId = userId,
-                CreatedOn = DateTime.Now
+                CreatedOn = DateTime.Now,
+                CustomerPhoneNumber = model.CustomerPhoneNumber
             };
 
             foreach (var partId in model.SelectedParts)
@@ -86,6 +87,7 @@ namespace HelixLaserWorks.Core.Services
                     Status = o.Status.ToString(),
                     CreatedOn = o.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
                     OfferId = o.OfferId,
+                    CustomerPhoneNumber = o.CustomerPhoneNumber,
                     Parts = o.Parts.Select(p => new PartDropdownViewModel()
                     {
                         Id = p.Id,

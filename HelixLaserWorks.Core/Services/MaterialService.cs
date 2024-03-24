@@ -68,6 +68,24 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<int> DeleteAsync(int materialId)
+        {
+            var materialToDelete = await _context.Materials.FindAsync(materialId);
+
+            if (materialToDelete != null)
+            {
+                var materialThicknesses = await _context.MaterialsThicknesses
+                    .Where(mt => mt.MaterialId == materialToDelete.Id)
+                    .ToListAsync();
+
+                _context.MaterialsThicknesses.RemoveRange(materialThicknesses);
+
+                _context.Materials.Remove(materialToDelete);
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<int> EditAsync(int materialId, MaterialFormModel model)
         {
             Material? materialToEdit = await _context.Materials
@@ -147,6 +165,7 @@ namespace HelixLaserWorks.Core.Services
                 .Where(m => m.Id == materialId)
                 .Select(m => new MaterialDetailViewModel()
                 {
+                    Id = m.Id,
                     Name = m.Name,
                     Description = m.Description,
                     Type = m.MaterialType.Name,

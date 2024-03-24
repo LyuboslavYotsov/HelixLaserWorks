@@ -33,6 +33,9 @@
         public const int OrderTitleMaxLength = 50;
         public const int OrderTitleMinLength = 5;
 
+        public const int OrderPhoneMaxLength = 15;
+        public const int OrderPhoneMinLength = 6;
+
 
         //Part Constants
         public const int PartNameMaxLength = 100;
