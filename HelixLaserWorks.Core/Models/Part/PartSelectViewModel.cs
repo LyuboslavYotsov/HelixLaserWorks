@@ -1,6 +1,6 @@
 ﻿namespace HelixLaserWorks.Core.Models.Part
 {
-    public class PartDropdownViewModel
+    public class PartSelectViewModel
     {
         public int Id { get; set; }
 
@@ -11,5 +11,7 @@
         public double PartThickness { get; set; }
 
         public int Quantity { get; set; }
+
+        public string SchemeUrl { get; set; } = string.Empty;
     }
 }

@@ -29,6 +29,6 @@ namespace HelixLaserWorks.Core.Contracts
 
         Task<int> DeleteAsync(int partId);
 
-        Task<ICollection<PartDropdownViewModel>> GetUserPartsForDropdownAsync(string userId);
+        Task<ICollection<PartSelectViewModel>> GetUserPartsForDropdownAsync(string userId);
     }
 }

@@ -34,6 +34,18 @@
                     <button type="submit" class="btn btn-danger">Cancel</button>
                 </form>
             }
+            else if(order.Status == "InReview")
+            {
+                <p class="card-text bg-info" style="padding: 5px; border-radius: 5px"><span class="fw-bold">Status:</span> @order.Status</p>
+            }
+            else if (order.Status == "DeclinedByAdmin")
+            {
+                <p class="card-text bg-danger" style="padding: 5px; border-radius: 5px; color:ghostwhite"><span class="fw-bold">Status:</span> @order.Status</p>
+                <p class="card-text"><span class="fw-bold">Decline Reason:</span> @order.AdminFeedback</p>
+                <form asp-controller="Order" asp-action="Cancel" asp-route-orderId="@order.Id">
+                    <button type="submit" class="btn btn-danger">Remove Order</button>
+                </form>
+            }
         </div>
 
     }

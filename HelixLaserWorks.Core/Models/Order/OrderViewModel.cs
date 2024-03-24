@@ -14,7 +14,10 @@ namespace HelixLaserWorks.Core.Models.Order
         [Display(Name = "Phone Number")]
         public string CustomerPhoneNumber { get; set; } = string.Empty;
 
-        public ICollection<PartDropdownViewModel> Parts { get; set; } = new List<PartDropdownViewModel>();
+        [Display(Name = "Customer Email")]
+        public string CustomerEmail { get; set; } = string.Empty;
+
+        public ICollection<PartSelectViewModel> Parts { get; set; } = new List<PartSelectViewModel>();
 
         public string Status { get; set; } = string.Empty;
 

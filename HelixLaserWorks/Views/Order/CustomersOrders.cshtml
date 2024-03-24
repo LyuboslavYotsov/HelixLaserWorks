@@ -1,0 +1,48 @@
+﻿@model IEnumerable<OrderViewModel>
+@{
+    ViewBag.Title = "Customers Orders";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    @foreach (var order in Model)
+    {
+        <div class="card col-md-4">
+            <div class="card-body">
+                <h5 class="card-title"><span class="fw-bold">Order Title:</span> @order.Title</h5>
+                <p class="card-title"><span class="fw-bold">Order Description:</span> @order.Description</p>
+                <p class="card-text"><span class="fw-bold">Date of Creation:</span> @order.CreatedOn</p>
+                <p class="card-text"><span class="fw-bold">Status:</span> @order.Status</p>
+                <p class="card-text"><span class="fw-bold">Customer Phone Number:</span> @order.CustomerPhoneNumber</p>
+                <p class="card-text"><span class="fw-bold">Customer Email:</span> @order.CustomerEmail</p>
+                <label class="d-block"><span class="fw-bold">Included Parts:</span></label>
+                @foreach (var part in order.Parts)
+                {
+                    <div class="card" style="margin: 5px">
+                        <label class="card-title"><span class="fw-bold">@part.Name</span></label>
+                        <p class="card-text">@part.PartMaterial @part.PartThickness mm - @part.Quantity pcs</p>
+                        <form asp-controller="Part" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeUrl" method="post">
+                            <button class="btn-sm btn-info" type="submit">Download Part Scheme</button>
+                        </form>
+                    </div>
+                }
+                <div class="card-footer">
+                    @if (order.Status == "Pending")
+                    {
+                        <form class="d-inline" asp-controller="Order" asp-action="MarkAsReviewed" asp-route-orderId="@order.Id" method="post">
+                            <button class="btn-sm btn-warning" type="submit">Mark as Reviewed</button>
+                        </form>
+                    }
+
+                    <a style="text-decoration: none" asp-area="" asp-controller="Order" asp-action="MakeOffer" asp-route-orderId="@order.Id" class="btn-sm btn-primary">Send Offer</a>
+
+                    <a style="text-decoration: none" asp-area="" asp-controller="Order" asp-action="Decline" asp-route-orderId="@order.Id" class="btn-sm btn-danger">Decline Order</a>
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

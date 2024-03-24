@@ -34,7 +34,10 @@ namespace HelixLaserWorks.Core.Services
                     part.Order = null;
                     part.OrderId = null;
                 }
+
+                _context.Orders.Remove(order);
             }
+
 
             return await _context.SaveChangesAsync();
         }
@@ -66,6 +69,64 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<int> DeclineOrder(int orderId, OrderDeclineViewModel model)
+        {
+            var orderToDecline = await _context.Orders.FindAsync(orderId);
+
+            if (orderToDecline != null)
+            {
+                orderToDecline.Status = OrderStatus.DeclinedByAdmin;
+
+                orderToDecline.AdminFeedback = model.Feedback;
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<OrderViewModel>> GetAllOrdersAsync()
+        {
+            var orders = await _context.Orders
+                .AsNoTracking()
+                .Select(o => new OrderViewModel()
+                {
+                    Id = o.Id,
+                    Title = o.Title,
+                    Description = o.Description,
+                    AdminFeedback = o.AdminFeedback,
+                    Status = o.Status.ToString(),
+                    CreatedOn = o.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    OfferId = o.OfferId,
+                    CustomerPhoneNumber = o.CustomerPhoneNumber,
+                    CustomerEmail = o.Customer.Email,
+                    Parts = o.Parts.Select(p => new PartSelectViewModel()
+                    {
+                        Id = p.Id,
+                        PartMaterial = p.Material.Name,
+                        PartThickness = p.Thickness,
+                        Name = p.Name,
+                        Quantity = p.Quantity,
+                        SchemeUrl = p.SchemeURL
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return orders;
+        }
+
+        public async Task<OrderDeclineViewModel> GetOrderForDeclineAsync(int orderId)
+        {
+            return await _context.Orders
+                .AsNoTracking()
+                .Where(o => o.Id == orderId)
+                .Select(o => new OrderDeclineViewModel()
+                {
+                    Id = o.Id,
+                    Title = o.Title,
+                    UserEmail = o.Customer.Email
+                })
+                .FirstAsync();
+        }
+
         public async Task<OrderStatus> GetOrderStatusAsync(int orderId)
         {
             var order = await _context.Orders.FirstAsync(o => o.Id == orderId);
@@ -77,8 +138,8 @@ namespace HelixLaserWorks.Core.Services
         {
             var userOrders = await _context.Orders
                 .AsNoTracking()
-                .Where(o => o.CustomerId == userId && o.Status != OrderStatus.CanceledByUser && o.Status != OrderStatus.DeclinedByAdmin)
-                .Select( o => new OrderViewModel()
+                .Where(o => o.CustomerId == userId && o.Status != OrderStatus.CanceledByUser)
+                .Select(o => new OrderViewModel()
                 {
                     Id = o.Id,
                     Title = o.Title,
@@ -88,7 +149,7 @@ namespace HelixLaserWorks.Core.Services
                     CreatedOn = o.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
                     OfferId = o.OfferId,
                     CustomerPhoneNumber = o.CustomerPhoneNumber,
-                    Parts = o.Parts.Select(p => new PartDropdownViewModel()
+                    Parts = o.Parts.Select(p => new PartSelectViewModel()
                     {
                         Id = p.Id,
                         PartMaterial = p.Material.Name,
@@ -100,6 +161,18 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
 
             return userOrders;
+        }
+
+        public async Task<int> MarkAsReviewdAsync(int orderId)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+
+            if (order != null)
+            {
+                order.Status = OrderStatus.InReview;
+            }
+
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<bool> OrderExistAsync(int orderId)

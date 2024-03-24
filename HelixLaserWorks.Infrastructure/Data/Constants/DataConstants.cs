@@ -36,6 +36,9 @@
         public const int OrderPhoneMaxLength = 15;
         public const int OrderPhoneMinLength = 6;
 
+        public const int OrderFeedbackMaxLength = 500;
+        public const int OrderFeedbackMinLength = 10;
+
 
         //Part Constants
         public const int PartNameMaxLength = 100;

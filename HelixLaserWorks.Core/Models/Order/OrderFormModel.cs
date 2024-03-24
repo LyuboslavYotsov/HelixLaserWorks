@@ -22,7 +22,7 @@ namespace HelixLaserWorks.Core.Models.Order
         [Phone]
         public string CustomerPhoneNumber { get; set; } = string.Empty;
 
-        public ICollection<PartDropdownViewModel> UserParts { get; set; } = new List<PartDropdownViewModel>();
+        public ICollection<PartSelectViewModel> UserParts { get; set; } = new List<PartSelectViewModel>();
 
         public ICollection<int> SelectedParts { get; set; } = new List<int>();
     }

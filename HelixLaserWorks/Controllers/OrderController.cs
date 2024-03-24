@@ -1,5 +1,6 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Order;
+using HelixLaserWorks.Infrastructure.Data.Models;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using Microsoft.AspNetCore.Mvc;
 
@@ -66,8 +67,15 @@ namespace HelixLaserWorks.Controllers
         {
             string userId = GetUserId();
 
-            if (!await _orderService.OrderExistAsync(orderId) ||
-                await _orderService.GetOrderStatusAsync(orderId) != OrderStatus.Pending)
+            if (!await _orderService.OrderExistAsync(orderId))
+            {
+                return BadRequest();
+            }
+
+            var orderStatus = await _orderService.GetOrderStatusAsync(orderId);
+
+            if (orderStatus != OrderStatus.DeclinedByAdmin &&
+                orderStatus != OrderStatus.Pending)
             {
                 return BadRequest();
             }
@@ -80,6 +88,72 @@ namespace HelixLaserWorks.Controllers
             await _orderService.CancelOrderAsync(orderId);
 
             return RedirectToAction(nameof(MyOrders));
+        }
+
+
+        [HttpGet] //ADMIN ONLY
+        public async Task<IActionResult> CustomersOrders()
+        {
+            var model = await _orderService.GetAllOrdersAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]//ADMIN ONLY
+        public async Task<IActionResult> MarkAsReviewed(int orderId)
+        {
+            if (!await _orderService.OrderExistAsync(orderId))
+            {
+                return BadRequest();
+            }
+
+            await _orderService.MarkAsReviewdAsync(orderId);
+
+            return RedirectToAction(nameof(CustomersOrders));
+        }
+
+        [HttpGet]//ADMIN ONLY
+        public async Task<IActionResult> Decline(int orderId)
+        {
+            if (!await _orderService.OrderExistAsync(orderId))
+            {
+                return BadRequest();
+            }
+
+            var orderStatus = await _orderService.GetOrderStatusAsync(orderId);
+
+            if (orderStatus == OrderStatus.DeclinedByAdmin ||
+                orderStatus == OrderStatus.CanceledByUser ||
+                orderStatus == OrderStatus.ReadyWithOffer)
+            {
+                return BadRequest();
+            }
+
+            var model = await _orderService.GetOrderForDeclineAsync(orderId);
+
+            return View(model);
+        }
+
+        [HttpPost]//ADMIN ONLY
+        public async Task<IActionResult> Decline(int orderId,OrderDeclineViewModel model)
+        {
+            if (!await _orderService.OrderExistAsync(orderId))
+            {
+                return BadRequest();
+            }
+
+            var orderStatus = await _orderService.GetOrderStatusAsync(orderId);
+
+            if (orderStatus == OrderStatus.DeclinedByAdmin ||
+                orderStatus == OrderStatus.CanceledByUser ||
+                orderStatus == OrderStatus.ReadyWithOffer)
+            {
+                return BadRequest();
+            }
+
+            await _orderService.DeclineOrder(orderId, model);
+
+            return RedirectToAction(nameof(CustomersOrders));
         }
     }
 }

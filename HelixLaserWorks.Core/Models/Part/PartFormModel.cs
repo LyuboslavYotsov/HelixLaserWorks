@@ -33,7 +33,7 @@ namespace HelixLaserWorks.Core.Models.Part
 
         public string? SchemeUrl { get; set; }
 
-        [FileExtensions(Extensions = ".dxf,.cad,.pdf,.dwg,.ai,.eps,.step,.stp")]
+        //[FileExtensions(Extensions = ".dxf,.cad,.pdf,.dwg,.ai,.eps,.step,.stp")]
         [Display(Name = "Scheme File")]
         public IFormFile? SchemeFile { get; set; }
     }

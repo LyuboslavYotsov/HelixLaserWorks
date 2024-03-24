@@ -44,7 +44,7 @@ namespace HelixLaserWorks.Controllers
             return Json(availableThicknesses);
         }
 
-        [HttpGet]
+        [HttpGet] //ADMIN ONLY
         public async Task<IActionResult> Add()
         {
             var model = new MaterialFormModel();
@@ -56,7 +56,7 @@ namespace HelixLaserWorks.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost] //ADMIN ONLY
         public async Task<IActionResult> Add(MaterialFormModel model)
         {
             if (!await _materialService.MaterialTypeExistsAsync(model.MaterialTypeId))
@@ -83,7 +83,7 @@ namespace HelixLaserWorks.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        [HttpGet]
+        [HttpGet] //ADMIN ONLY
         public async Task<IActionResult> Edit(int materialId)
         {
             var model = await _materialService.GetMaterialForEditAsync(materialId);
@@ -100,7 +100,7 @@ namespace HelixLaserWorks.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost] //ADMIN ONLY
         public async Task<IActionResult> Edit(int materialId, MaterialFormModel model)
         {
             if (!await _materialService.MaterialTypeExistsAsync(model.MaterialTypeId))
@@ -127,7 +127,7 @@ namespace HelixLaserWorks.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        [HttpPost]
+        [HttpPost]//ADMIN ONLY
         public async Task<IActionResult> Delete(int materialId)
         {
             if (!await _materialService.MaterialExistsAsync(materialId))

@@ -160,12 +160,12 @@ namespace HelixLaserWorks.Core.Services
             };
         }
 
-        public async Task<ICollection<PartDropdownViewModel>> GetUserPartsForDropdownAsync(string userId)
+        public async Task<ICollection<PartSelectViewModel>> GetUserPartsForDropdownAsync(string userId)
         {
             return await _context.Parts
                 .AsNoTracking()
                 .Where(p => p.CreatorId == userId && p.OrderId == null)
-                .Select(p => new PartDropdownViewModel()
+                .Select(p => new PartSelectViewModel()
                 {
                     Id= p.Id,
                     Name = p.Name,
