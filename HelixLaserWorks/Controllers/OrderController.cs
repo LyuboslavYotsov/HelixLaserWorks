@@ -1,6 +1,5 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Order;
-using HelixLaserWorks.Infrastructure.Data.Models;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using Microsoft.AspNetCore.Mvc;
 

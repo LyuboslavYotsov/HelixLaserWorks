@@ -1,5 +1,4 @@
 ﻿using HelixLaserWorks.Core.Models.Material;
-using HelixLaserWorks.Core.Models.Part;
 
 namespace HelixLaserWorks.Core.Contracts
 {

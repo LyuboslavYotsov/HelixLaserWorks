@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using HelixLaserWorks.Core.Models.Material;
+﻿using HelixLaserWorks.Core.Models.Material;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using static HelixLaserWorks.Infrastructure.Data.Constants.DataConstants;
 
 namespace HelixLaserWorks.Core.Models.Part

@@ -1,7 +1,5 @@
 ﻿using HelixLaserWorks.Core.Enumerations;
-using HelixLaserWorks.Core.Models.Material;
 using HelixLaserWorks.Core.Models.Part;
-using Microsoft.AspNetCore.Http;
 
 namespace HelixLaserWorks.Core.Contracts
 {

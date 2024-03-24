@@ -1,5 +1,4 @@
-﻿using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static HelixLaserWorks.Infrastructure.Data.Constants.DataConstants;
 
