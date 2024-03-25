@@ -62,5 +62,7 @@
 
         //Offer Constants
         public const int OfferNotesMaxLength = 1000;
+        public const double OfferPriceMaxValue = 100000;
+        public const double OfferPriceMinValue = 1;
     }
 }

@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Offer\" />
     <Folder Include="Views\Review\" />
     <Folder Include="wwwroot\Data\PartsSchemeFiles\" />
   </ItemGroup>

@@ -6,6 +6,6 @@
         InReview = 1,
         ReadyWithOffer = 2,
         DeclinedByAdmin = 3,
-        CanceledByUser = 4,
+        Completed = 4,
     }
 }

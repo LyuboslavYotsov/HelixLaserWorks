@@ -122,7 +122,6 @@ namespace HelixLaserWorks.Controllers
             var orderStatus = await _orderService.GetOrderStatusAsync(orderId);
 
             if (orderStatus == OrderStatus.DeclinedByAdmin ||
-                orderStatus == OrderStatus.CanceledByUser ||
                 orderStatus == OrderStatus.ReadyWithOffer)
             {
                 return BadRequest();
@@ -144,7 +143,6 @@ namespace HelixLaserWorks.Controllers
             var orderStatus = await _orderService.GetOrderStatusAsync(orderId);
 
             if (orderStatus == OrderStatus.DeclinedByAdmin ||
-                orderStatus == OrderStatus.CanceledByUser ||
                 orderStatus == OrderStatus.ReadyWithOffer)
             {
                 return BadRequest();

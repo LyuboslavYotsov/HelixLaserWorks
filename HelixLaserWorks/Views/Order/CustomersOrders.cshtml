@@ -14,7 +14,22 @@
                 <h5 class="card-title"><span class="fw-bold">Order Title:</span> @order.Title</h5>
                 <p class="card-title"><span class="fw-bold">Order Description:</span> @order.Description</p>
                 <p class="card-text"><span class="fw-bold">Date of Creation:</span> @order.CreatedOn</p>
-                <p class="card-text"><span class="fw-bold">Status:</span> @order.Status</p>
+                @if (order.Status == "Pending")
+                {
+                    <p class="card-text btn-warning p-2"><span class="fw-bold">Status:</span> @order.Status</p>
+                }
+                else if (order.Status == "InReview")
+                {
+                    <p class="card-text btn-info p-2"><span class="fw-bold">Status:</span> In Review</p>
+                }
+                else if (order.Status == "DeclinedByAdmin")
+                {
+                    <p class="card-text btn-danger p-2"><span class="fw-bold">Status:</span> Declined By Admin</p>
+                }
+                else if (order.Status == "ReadyWithOffer")
+                {
+                    <p class="card-text btn-primary p-2"><span class="fw-bold">Status:</span> Ready With Offer</p>
+                }
                 <p class="card-text"><span class="fw-bold">Customer Phone Number:</span> @order.CustomerPhoneNumber</p>
                 <p class="card-text"><span class="fw-bold">Customer Email:</span> @order.CustomerEmail</p>
                 <label class="d-block"><span class="fw-bold">Included Parts:</span></label>
@@ -36,9 +51,11 @@
                         </form>
                     }
 
-                    <a style="text-decoration: none" asp-area="" asp-controller="Order" asp-action="MakeOffer" asp-route-orderId="@order.Id" class="btn-sm btn-primary">Send Offer</a>
-
-                    <a style="text-decoration: none" asp-area="" asp-controller="Order" asp-action="Decline" asp-route-orderId="@order.Id" class="btn-sm btn-danger">Decline Order</a>
+                    @if (order.Status != "ReadyWithOffer" && order.Status != "DeclinedByAdmin")
+                    {
+                        <a style="text-decoration: none" asp-area="" asp-controller="Offer" asp-action="Create" asp-route-orderId="@order.Id" class="btn-sm btn-primary">Send Offer</a>
+                        <a style="text-decoration: none" asp-area="" asp-controller="Order" asp-action="Decline" asp-route-orderId="@order.Id" class="btn-sm btn-danger">Decline Order</a>
+                    }
 
                 </div>
             </div>

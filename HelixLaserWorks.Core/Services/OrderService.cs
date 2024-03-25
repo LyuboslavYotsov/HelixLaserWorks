@@ -27,7 +27,6 @@ namespace HelixLaserWorks.Core.Services
 
             if (order != null)
             {
-                order.Status = OrderStatus.CanceledByUser;
 
                 foreach (var part in order.Parts)
                 {
@@ -127,6 +126,35 @@ namespace HelixLaserWorks.Core.Services
                 .FirstAsync();
         }
 
+        public async Task<OrderViewModel> GetOrderModelForOfferAsync(int orderId)
+        {
+            return await _context.Orders
+                .AsNoTracking()
+                .Where (o => o.Id == orderId)
+                .Select(o => new OrderViewModel()
+                {
+                    Id = o.Id,
+                    Title = o.Title,
+                    Description = o.Description,
+                    AdminFeedback = o.AdminFeedback,
+                    Status = o.Status.ToString(),
+                    CreatedOn = o.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    OfferId = o.OfferId,
+                    CustomerPhoneNumber = o.CustomerPhoneNumber,
+                    CustomerEmail = o.Customer.Email,
+                    Parts = o.Parts.Select(p => new PartSelectViewModel()
+                    {
+                        Id = p.Id,
+                        PartMaterial = p.Material.Name,
+                        PartThickness = p.Thickness,
+                        Name = p.Name,
+                        Quantity = p.Quantity,
+                        SchemeUrl = p.SchemeURL
+                    }).ToList()
+                })
+                .FirstAsync();
+        }
+
         public async Task<OrderStatus> GetOrderStatusAsync(int orderId)
         {
             var order = await _context.Orders.FirstAsync(o => o.Id == orderId);
@@ -138,7 +166,7 @@ namespace HelixLaserWorks.Core.Services
         {
             var userOrders = await _context.Orders
                 .AsNoTracking()
-                .Where(o => o.CustomerId == userId && o.Status != OrderStatus.CanceledByUser)
+                .Where(o => o.CustomerId == userId)
                 .Select(o => new OrderViewModel()
                 {
                     Id = o.Id,
@@ -161,6 +189,18 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
 
             return userOrders;
+        }
+
+        public async Task<bool> HasAnOfferAsync(int orderId)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+
+            if (order != null)
+            {
+                return order.OfferId != null;
+            }
+
+            return false;
         }
 
         public async Task<int> MarkAsReviewdAsync(int orderId)
