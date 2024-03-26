@@ -106,6 +106,13 @@ namespace HelixLaserWorks.Controllers
                 return BadRequest();
             }
 
+            var orderStatus = await _orderService.GetOrderStatusAsync(orderId);
+
+            if (orderStatus != OrderStatus.Pending)
+            {
+                return BadRequest();
+            }
+
             await _orderService.MarkAsReviewdAsync(orderId);
 
             return RedirectToAction(nameof(CustomersOrders));

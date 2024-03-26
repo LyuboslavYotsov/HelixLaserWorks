@@ -34,7 +34,7 @@
                     <button type="submit" class="btn btn-danger">Cancel</button>
                 </form>
             }
-            else if(order.Status == "InReview")
+            else if (order.Status == "InReview")
             {
                 <p class="card-text bg-info" style="padding: 5px; border-radius: 5px"><span class="fw-bold">Status:</span> @order.Status</p>
             }
@@ -49,9 +49,9 @@
             else if (order.Status == "ReadyWithOffer")
             {
                 <p class="card-text bg-success" style="padding: 5px; border-radius: 5px; color:ghostwhite"><span class="fw-bold">Status:</span> @order.Status</p>
-                <form asp-controller="Offer" asp-action="Details" asp-route-orderId="@order.Id">
-                    <button type="submit" class="btn btn-success">View Offer</button>
-                </form>
+
+                <a asp-controller="Offer" asp-action="Details" asp-route-offerId="@order.OfferId" class="btn btn-success">View Offer</a>
+
             }
         </div>
 

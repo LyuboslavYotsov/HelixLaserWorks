@@ -47,5 +47,25 @@ namespace HelixLaserWorks.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int offerId)
+        {
+            var userId = GetUserId();
+
+            var model = await _offerService.GetUserOfferDetailsAsync(offerId, userId);
+
+            if (model == null)
+            {
+                return BadRequest();
+            }
+
+            if (model.Order.CustomerEmail != GetUserEmail())
+            {
+                return Unauthorized();
+            }
+
+            return View(model);
+        }
     }
 }

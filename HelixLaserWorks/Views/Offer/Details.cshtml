@@ -1,0 +1,45 @@
+﻿@model OfferViewModel
+
+@{
+    ViewData["Title"] = "Offer Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+
+<div class="row">
+    <div class="card col-md-4">
+        <div class="card-body">
+            <h2 class="card-title">Message</h2>
+            <p class="card-text">@Model.AdminNotes</p>
+            <p class="card-text"><span class="fw-bold">Calculated Price:</span> @Model.Price$</p>
+            <p class="card-text"><span class="fw-bold">Expected Delivery Date:</span> @Model.DeliveryDueDate</p>
+            <form asp-controller="Offer" asp-action="Accept" asp-route-offerId="@Model.Id" method="post">
+                <button class="btn btn-success" type="submit" onclick="return confirm('Are you sure you want to accept our offer for order: @Model.Order.Title')">Accept Offer</button>
+            </form>
+        </div>
+    </div>
+    <div class="card col-md-4">
+        <div class="card-body">
+            <h2 class="card-subtitle">Order Infomation:</h2>
+            <p class="card-title"><span class="fw-bold">Order Title:</span> @Model.Order.Title</p>
+            <p class="card-title"><span class="fw-bold">Order Description:</span> @Model.Order.Description</p>
+            <p class="card-text"><span class="fw-bold">Date of Creation:</span> @Model.Order.CreatedOn</p>
+            <p class="card-text btn-primary p-2"><span class="fw-bold">Status:</span> Ready With Offer</p>
+            <p class="card-text"><span class="fw-bold">Customer Phone Number:</span> @Model.Order.CustomerPhoneNumber</p>
+            <p class="card-text"><span class="fw-bold">Customer Email:</span> @Model.Order.CustomerEmail</p>
+            <label class="d-block"><span class="fw-bold">Included Parts:</span></label>
+            @foreach (var part in Model.Order.Parts)
+            {
+                <div class="card" style="margin: 5px">
+                    <label class="card-title"><span class="fw-bold">@part.Name</span></label>
+                    <p class="card-text">@part.PartMaterial @part.PartThickness mm - @part.Quantity pcs</p>
+                    <form asp-controller="Part" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeUrl" method="post">
+                        <button class="btn-sm btn-info" type="submit">Download Part Scheme</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</div>
