@@ -11,13 +11,6 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        public int OrderId { get; set; }
-
-        [Required]
-        [ForeignKey(nameof(OrderId))]
-        public Order Order { get; set; } = null!;
-
-        [Required]
         public string CustomerId { get; set; } = string.Empty;
 
         [Required]

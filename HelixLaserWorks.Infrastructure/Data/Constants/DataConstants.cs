@@ -61,11 +61,16 @@
         //Review Constans
         public const int ReviewCommentMaxLength = 1000;
 
+        public const int ReviewRatingMinValue = 1;
+        public const int ReviewRatingMaxValue = 5;
+
 
         //Offer Constants
         public const int OfferNotesMaxLength = 1000;
+
         public const double OfferPriceMaxValue = 100000;
         public const double OfferPriceMinValue = 1;
+
         public const int OfferProductionDaysMinValue = 1;
         public const int OfferProductionDaysMaxValue = 365;
     }

@@ -8,11 +8,6 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
-            builder
-                .HasOne(r => r.Order)
-                .WithMany()
-                .HasForeignKey(r => r.OrderId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
