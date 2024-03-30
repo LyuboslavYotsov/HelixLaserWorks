@@ -39,6 +39,8 @@
                 <label>Upload Scheme File</label>
                 <input asp-for="@Model.SchemeFile" type="file" class="form-control">
                 <span asp-validation-for="@Model.SchemeFile" class="small text-danger"></span>
+                <span asp-validation-for="@Model.FileName" class="small text-danger"></span>
+                <span asp-validation-for="@Model.FileLength" class="small text-danger"></span>
             </div>
 
             <div class="text-center">

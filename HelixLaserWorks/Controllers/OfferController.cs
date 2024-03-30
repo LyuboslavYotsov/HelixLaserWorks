@@ -44,7 +44,7 @@ namespace HelixLaserWorks.Controllers
 
             await _offerService.CreateAsync(model);
 
-            return RedirectToAction("CustomerOrders", "Order");
+            return RedirectToAction("CustomersOrders", "Order");
         }
 
         [HttpGet]
@@ -94,11 +94,11 @@ namespace HelixLaserWorks.Controllers
 
             await _offerService.AcceptOfferAsync(offerId);
 
-            return RedirectToAction(nameof(Accepted));
+            return RedirectToAction(nameof(OfferAccepted));
         }
 
         [HttpGet]
-        public async Task<IActionResult> Accepted()
+        public IActionResult OfferAccepted()
         {
             return View();
         }

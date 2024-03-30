@@ -91,7 +91,7 @@ namespace HelixLaserWorks.Core.Services
                     MaterialId = p.MaterialId,
                     Quantity = p.Quantity,
                     SchemeUrl = p.SchemeURL,
-                    PartThickness = p.Thickness
+                    PartThickness = p.Thickness,
                 })
                 .FirstOrDefaultAsync();
 

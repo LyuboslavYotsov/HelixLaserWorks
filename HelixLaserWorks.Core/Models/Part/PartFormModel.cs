@@ -13,7 +13,7 @@ namespace HelixLaserWorks.Core.Models.Part
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(PartDescriptionMaxLength, 
+        [StringLength(PartDescriptionMaxLength,
             MinimumLength = PartDescriptionMinLength)]
         public string Description { get; set; } = string.Empty;
 
@@ -32,8 +32,36 @@ namespace HelixLaserWorks.Core.Models.Part
 
         public string? SchemeUrl { get; set; }
 
-        //[FileExtensions(Extensions = ".dxf,.cad,.pdf,.dwg,.ai,.eps,.step,.stp")]
         [Display(Name = "Scheme File")]
         public IFormFile? SchemeFile { get; set; }
+
+        [FileExtensions(Extensions = ".dxf,.cad,.pdf,.dwg,.ai,.eps,.step,.stp")]
+        public string? FileName
+        {
+            get
+            {
+                if (SchemeFile != null)
+                {
+                    return SchemeFile.FileName;
+                }
+
+                return null;
+            }
+        }
+
+
+        [Range(PartSchemFileMinLength, PartSchemFileMaxLength)]
+        public long? FileLength
+        {
+            get
+            {
+                if (SchemeFile != null)
+                {
+                    return SchemeFile.Length;
+                }
+
+                return null;
+            }
+        }
     }
 }

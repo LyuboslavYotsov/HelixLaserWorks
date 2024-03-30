@@ -55,6 +55,8 @@
 
         public const int PartsPerPageDefaultCount = 3;
 
+        public const long PartSchemFileMaxLength = 5000000;
+        public const long PartSchemFileMinLength = 1;
 
         //Review Constans
         public const int ReviewCommentMaxLength = 1000;
