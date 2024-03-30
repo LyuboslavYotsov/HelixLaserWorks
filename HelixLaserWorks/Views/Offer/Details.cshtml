@@ -1,4 +1,4 @@
-﻿@model OfferViewModel
+﻿@model OfferDetailsViewModel
 
 @{
     ViewData["Title"] = "Offer Details";
@@ -14,10 +14,20 @@
             <h2 class="card-title">Message</h2>
             <p class="card-text">@Model.AdminNotes</p>
             <p class="card-text"><span class="fw-bold">Calculated Price:</span> @Model.Price$</p>
-            <p class="card-text"><span class="fw-bold">Expected Delivery Date:</span> @Model.DeliveryDueDate</p>
-            <form asp-controller="Offer" asp-action="Accept" asp-route-offerId="@Model.Id" method="post">
-                <button class="btn btn-success" type="submit" onclick="return confirm('Are you sure you want to accept our offer for order: @Model.Order.Title')">Accept Offer</button>
-            </form>
+            <p class="card-text"><span class="fw-bold">Expected time for Parts production:</span> @Model.ProductionDays days</p>
+            <p class="card-text"><span class="fw-bold">Created on:</span> @Model.CreatedOn</p>
+            
+            @if (Model.IsAccepted)
+            {
+                <p class="card-text bg-success" style="padding: 4px; border-radius: 5px">Accepted</p>
+            }
+            else
+            {
+                <form asp-controller="Offer" asp-action="Accept" asp-route-offerId="@Model.Id" method="post">
+                    <button class="btn btn-success" type="submit" onclick="return confirm('Are you sure you want to accept our offer for order: @Model.Order.Title')">Accept Offer</button>
+                </form>
+            }
+
         </div>
     </div>
     <div class="card col-md-4">
@@ -26,7 +36,7 @@
             <p class="card-title"><span class="fw-bold">Order Title:</span> @Model.Order.Title</p>
             <p class="card-title"><span class="fw-bold">Order Description:</span> @Model.Order.Description</p>
             <p class="card-text"><span class="fw-bold">Date of Creation:</span> @Model.Order.CreatedOn</p>
-            <p class="card-text btn-primary p-2"><span class="fw-bold">Status:</span> Ready With Offer</p>
+            <p class="card-text btn-primary p-2"><span class="fw-bold">Status:</span> @Model.Order.Status</p>
             <p class="card-text"><span class="fw-bold">Customer Phone Number:</span> @Model.Order.CustomerPhoneNumber</p>
             <p class="card-text"><span class="fw-bold">Customer Email:</span> @Model.Order.CustomerEmail</p>
             <label class="d-block"><span class="fw-bold">Included Parts:</span></label>

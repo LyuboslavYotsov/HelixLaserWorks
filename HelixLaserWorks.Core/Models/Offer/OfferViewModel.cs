@@ -1,19 +1,21 @@
-﻿using HelixLaserWorks.Core.Models.Order;
-
-namespace HelixLaserWorks.Core.Models.Offer
+﻿namespace HelixLaserWorks.Core.Models.Offer
 {
     public class OfferViewModel
     {
         public int Id { get; set; }
 
-        public decimal Price { get; set; }
-
-        public string DeliveryDueDate { get; set; } = string.Empty;
-
         public string AdminNotes { get; set; } = string.Empty;
 
-        public int OrderId { get; set; }
+        public decimal Price { get; set; }
 
-        public OrderViewModel Order { get; set; } = null!;
+        public int ProductionDays { get; set; }
+
+        public string OrderName { get; set; } = string.Empty;
+
+        public string CreatedOn { get; set; } = string.Empty;
+
+        public bool IsAccepted { get; set; }
+
+        public ICollection<string> PartsNames { get; set; } = new List<string>();
     }
 }

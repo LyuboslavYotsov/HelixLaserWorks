@@ -22,10 +22,13 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         [Required]
         public DateTime CreatedOn { get; set; }
 
-        [Required]
-        public DateTime DeliveryDueDate { get; set; }
-
         [MaxLength(OfferNotesMaxLength)]
         public string? Notes { get; set; }
+
+        [Required]
+        public int ProductionDays { get; set; }
+
+        [Required]
+        public bool IsAccepted { get; set; } = false;
     }
 }

@@ -17,7 +17,9 @@ namespace HelixLaserWorks.Core.Models.Offer
         public decimal Price { get; set; }
 
         [Required]
-        public DateTime DeliveryDueDate { get; set; }
+        [Display(Name = "Production Days")]
+        [Range(OfferProductionDaysMinValue, OfferProductionDaysMaxValue)]
+        public int ProductionDays { get; set; }
 
         public string? Notes { get; set; }
     }

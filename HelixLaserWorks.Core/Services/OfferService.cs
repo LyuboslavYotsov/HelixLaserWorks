@@ -19,15 +19,30 @@ namespace HelixLaserWorks.Core.Services
             _context = context;
         }
 
+        public async Task<int> AcceptOfferAsync(int offerId)
+        {
+            var offerToAccept = await _context.Offers
+                .Where(offer => offer.Id == offerId)
+                .Include(offer => offer.Order)
+                .ThenInclude(order => order.Parts)
+                .FirstAsync();
+
+            offerToAccept.IsAccepted = true;
+
+            offerToAccept.Order.Status = OrderStatus.Completed;
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<int> CreateAsync(OfferFormModel model)
         {
             Offer newOffer = new Offer()
             {
                 CreatedOn = DateTime.Now,
-                DeliveryDueDate = model.DeliveryDueDate,
                 Notes = model.Notes,
                 Price = model.Price,
-                OrderId = model.OrderId
+                OrderId = model.OrderId,
+                ProductionDays = model.ProductionDays
             };
 
             await _context.Offers.AddAsync(newOffer);
@@ -45,18 +60,20 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<OfferViewModel?> GetUserOfferDetailsAsync(int offerId, string userId)
+        public async Task<OfferDetailsViewModel?> GetUserOfferDetailsAsync(int offerId, string userId)
         {
             return await _context.Offers
                 .AsNoTracking()
                 .Where(offer => offer.Id == offerId && offer.Order.CustomerId == userId)
-                .Select(offer => new OfferViewModel()
+                .Select(offer => new OfferDetailsViewModel()
                 {
                     Id = offer.Id,
                     Price = offer.Price,
                     OrderId = offer.OrderId,
                     AdminNotes = offer.Notes ?? string.Empty,
-                    DeliveryDueDate = offer.DeliveryDueDate.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    CreatedOn = offer.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    ProductionDays = offer.ProductionDays,
+                    IsAccepted = offer.IsAccepted,
                     Order = new OrderViewModel()
                     {
                         Id = offer.Order.Id,
@@ -81,6 +98,53 @@ namespace HelixLaserWorks.Core.Services
                     }
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<ICollection<OfferViewModel>> GetUserOffersAsync(string userId)
+        {
+            return await _context.Offers
+                .AsNoTracking()
+                .Where(offer => offer.Order.CustomerId == userId)
+                .Select(offer => new OfferViewModel()
+                {
+                    Id = offer.Id,
+                    AdminNotes = offer.Notes ?? string.Empty,
+                    Price = offer.Price,
+                    ProductionDays = offer.ProductionDays,
+                    OrderName = offer.Order.Title,
+                    IsAccepted = offer.IsAccepted,
+                    CreatedOn = offer.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    PartsNames = offer.Order.Parts
+                        .Select(p => p.Name)
+                        .ToList(),
+                })
+                .ToListAsync();
+        }
+
+        public async Task<bool> OfferExistAsync(int offerId)
+        {
+            return await _context.Offers.AnyAsync(o => o.Id == offerId);
+        }
+
+        public async Task<bool> OfferIsAcceptedAsync(int offerId)
+        {
+            bool result = false;
+
+            var offer = await _context.Offers.FindAsync(offerId);
+
+            if (offer != null && offer.IsAccepted)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public async Task<bool> UserIsOrderCreatorAsync(int offerId, string userId)
+        {
+            return await _context.Offers
+                .AsNoTracking()
+                .AnyAsync(offer => offer.Id == offerId && offer.Order.CustomerId == userId);
         }
     }
 }

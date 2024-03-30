@@ -1,0 +1,43 @@
+﻿@model IEnumerable<OfferViewModel>
+
+@{
+    ViewData["Title"] = "My Offers";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    @foreach (var offer in Model)
+    {
+        <div class="card d-flex justify-content-center align-items-center" style="width: 25rem; margin-left: 5px">
+            <div class="card-header">
+                <p class="card-text"><span class="fw-bold">Date of Creation:</span> @offer.CreatedOn</p>
+                <p class="card-text"><span class="fw-bold">Message:</span> @offer.AdminNotes</p>
+                <p class="card-text"><span class="fw-bold">Calculated Price:</span> @offer.Price</p>
+                <p class="card-text"><span class="fw-bold">Expected time for parts production:</span> @offer.ProductionDays days</p>
+                <div class="card-body">
+                    <label class="d-block"><span class="fw-bold">For Order:</span></label>
+                    <h3>@offer.OrderName</h3>
+
+                    <label class="d-block"><span class="fw-bold">Order Parts:</span></label>
+                    @foreach (var partName in offer.PartsNames)
+                    {
+                        <div class="card p-1" style="margin: 5px">
+                            <p class="card-title"><span class="fw-bold">@partName</span></p>
+                        </div>
+                    }
+                    @if (offer.IsAccepted)
+                    {
+                        <p class="card-text bg-success" style="padding: 4px; border-radius: 5px"><span class="fw-bold">Status:</span> Accepted</p>
+                    }
+                    else
+                    {
+                        <p class="card-text bg-warning" style="padding: 4px; border-radius: 5px"><span class="fw-bold">Status:</span> Pending</p>
+                    }
+                        <a class="btn btn-warning" asp-controller="Offer" asp-action="Details" asp-route-offerId="@offer.Id">View Offer</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

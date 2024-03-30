@@ -1,6 +1,5 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Offer;
-using HelixLaserWorks.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelixLaserWorks.Controllers
@@ -45,7 +44,7 @@ namespace HelixLaserWorks.Controllers
 
             await _offerService.CreateAsync(model);
 
-            return Ok();
+            return RedirectToAction("CustomerOrders", "Order");
         }
 
         [HttpGet]
@@ -67,5 +66,42 @@ namespace HelixLaserWorks.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> MyOffers()
+        {
+            var userId = GetUserId();
+
+            var model = await _offerService.GetUserOffersAsync(userId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Accept(int offerId)
+        {
+            if (!await _offerService.OfferExistAsync(offerId) || await _offerService.OfferIsAcceptedAsync(offerId))
+            {
+                return BadRequest();
+            }
+
+            var userId = GetUserId();
+
+            if (!await _offerService.UserIsOrderCreatorAsync(offerId, userId))
+            {
+                return Unauthorized();
+            }
+
+            await _offerService.AcceptOfferAsync(offerId);
+
+            return RedirectToAction(nameof(Accepted));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Accepted()
+        {
+            return View();
+        }
+
     }
 }
