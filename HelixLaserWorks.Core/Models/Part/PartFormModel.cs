@@ -50,7 +50,7 @@ namespace HelixLaserWorks.Core.Models.Part
         }
 
 
-        [Range(PartSchemFileMinLength, PartSchemFileMaxLength, ErrorMessage = "Maximum file size is 5MB")]
+        [Range(PartSchemFileMinLength, PartSchemFileMaxLength, ErrorMessage = "Maximum file size allowed is 5MB")]
         public long? FileLength
         {
             get

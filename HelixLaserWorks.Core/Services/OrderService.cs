@@ -88,7 +88,10 @@ namespace HelixLaserWorks.Core.Services
             int currentPage = 1,
             int partsPerPage = 1)
         {
-            var ordersToShow = _context.Orders.AsQueryable();
+            var ordersToShow = _context.Orders
+                .AsNoTracking()
+                .OrderByDescending(o => o.CreatedOn)
+                .AsQueryable();
 
             if (searchTerm != null)
             {
@@ -201,6 +204,7 @@ namespace HelixLaserWorks.Core.Services
             var userOrders = await _context.Orders
                 .AsNoTracking()
                 .Where(o => o.CustomerId == userId)
+                .OrderByDescending(o => o.CreatedOn)
                 .Select(o => new OrderViewModel()
                 {
                     Id = o.Id,
