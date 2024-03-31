@@ -105,6 +105,7 @@ namespace HelixLaserWorks.Core.Services
             return await _context.Offers
                 .AsNoTracking()
                 .Where(offer => offer.Order.CustomerId == userId)
+                .OrderByDescending(offer => offer.CreatedOn)
                 .Select(offer => new OfferViewModel()
                 {
                     Id = offer.Id,

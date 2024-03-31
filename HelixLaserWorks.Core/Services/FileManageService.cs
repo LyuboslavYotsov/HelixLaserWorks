@@ -25,14 +25,6 @@ namespace HelixLaserWorks.Core.Services
             return await File.ReadAllBytesAsync(filePath);
         }
 
-        //public async Task<IFormFile> GetFileAsync(string filePath)
-        //{
-        //    var file = await File.ReadAllBytesAsync(filePath);
-
-        //    using MemoryStream stream = new MemoryStream(file);
-
-        //    return new FormFile(stream, 0, file.Length, "name", "filename");
-        //}
 
         public async Task<string> UploadFile(IFormFile file, string userEmail)
         {

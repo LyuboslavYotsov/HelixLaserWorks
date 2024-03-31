@@ -12,6 +12,7 @@ namespace HelixLaserWorks.Core.Contracts
         Task<ICollection<OrderViewModel>> GetUserOrdersAsync(string userId);
 
         Task<OrderPaginatedViewModel> GetAllAsync(
+            string? userId,
             string? searchTerm = null,
             OrderStatus? status = OrderStatus.Pending,
             int currentPage = 1,

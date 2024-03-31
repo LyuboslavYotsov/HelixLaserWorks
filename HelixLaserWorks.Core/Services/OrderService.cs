@@ -83,6 +83,7 @@ namespace HelixLaserWorks.Core.Services
         }
 
         public async Task<OrderPaginatedViewModel> GetAllAsync(
+            string? userId = null,
             string? searchTerm = null,
             OrderStatus? status = null,
             int currentPage = 1,
@@ -92,6 +93,12 @@ namespace HelixLaserWorks.Core.Services
                 .AsNoTracking()
                 .OrderByDescending(o => o.CreatedOn)
                 .AsQueryable();
+
+            if (userId != null)
+            {
+                ordersToShow = ordersToShow
+                    .Where(o => o.CustomerId == userId);
+            }
 
             if (searchTerm != null)
             {

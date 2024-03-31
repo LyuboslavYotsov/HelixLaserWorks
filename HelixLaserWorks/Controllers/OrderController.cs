@@ -18,11 +18,19 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> MyOrders()
+        public async Task<IActionResult> MyOrders([FromQuery] OrderPaginatedViewModel model)
         {
-            string userId = GetUserId();
+            string? userId = GetUserId();
 
-            var model = await _orderService.GetUserOrdersAsync(userId);
+            var orders = await _orderService.GetAllAsync(
+                userId,
+                model.SearchTerm,
+                model.Status,
+                model.CurrentPage,
+                OrderPaginatedViewModel.OrdersPerPage);
+
+            model.TotalOrdersCount = orders.TotalOrdersCount;
+            model.Orders = orders.Orders;
 
             return View(model);
         }
@@ -94,7 +102,9 @@ namespace HelixLaserWorks.Controllers
         [HttpGet]//ADMIN ONLY
         public async Task<IActionResult> CustomersOrders([FromQuery] OrderPaginatedViewModel model)
         {
-            var orders = await _orderService.GetAllAsync(model.SearchTerm,
+            var orders = await _orderService.GetAllAsync(
+                null,
+                model.SearchTerm,
                 model.Status,
                 model.CurrentPage,
                 OrderPaginatedViewModel.OrdersPerPage);

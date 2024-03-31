@@ -39,7 +39,7 @@
         public const int OrderFeedbackMaxLength = 500;
         public const int OrderFeedbackMinLength = 10;
 
-        public const int OrdersPerPageDefaultCount = 3;
+        public const int OrdersPerPageDefaultCount = 6;
 
 
         //Part Constants
