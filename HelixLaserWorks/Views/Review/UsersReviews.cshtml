@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ReviewViewModel>
+@inject IReviewService reviewService
 
 @{
     ViewData["Title"] = "Customers Feedback";
@@ -7,7 +8,10 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<a class="btn btn-primary" asp-controller="Review" asp-action="Create">Post Review</a>
+@if (await reviewService.UserCanWriteReviewAsync(User.GetUserId()) && !await reviewService.UserHasReviewAsync(User.GetUserId()))
+{
+    <a class="btn btn-primary" asp-controller="Review" asp-action="Create">Post Review</a>
+}
 
 
 <section class="d-grid">
@@ -16,7 +20,8 @@
         {
             <div class="card m-2">
                 <div class="card-body">
-                    <h5 class="card-title">User: @review.UserEmail</h5>
+                    <h5 class="card-title">@review.UserEmail</h5>
+                    <p class="form-label">@review.CreatedOn</p>
                     <h6 class="card-subtitle mb-2 text-muted">
                         Rating:
                         @{

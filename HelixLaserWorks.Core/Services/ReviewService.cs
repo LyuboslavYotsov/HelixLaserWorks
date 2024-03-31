@@ -4,6 +4,7 @@ using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace HelixLaserWorks.Core.Services
 {
@@ -22,7 +23,8 @@ namespace HelixLaserWorks.Core.Services
             {
                 Comment = model.Comment,
                 Rating = model.Rating,
-                CustomerId = userId
+                CustomerId = userId,
+                CreatedOn = DateTime.Now,
             };
 
             await _context.AddAsync(newReview);
@@ -40,6 +42,7 @@ namespace HelixLaserWorks.Core.Services
                     Comment = r.Comment ?? string.Empty,
                     Rating = r.Rating,
                     UserEmail = r.Customer.Email,
+                    CreatedOn = r.CreatedOn.ToString("MM/dd/yy", CultureInfo.InvariantCulture)
                 })
                 .ToArrayAsync();
                 

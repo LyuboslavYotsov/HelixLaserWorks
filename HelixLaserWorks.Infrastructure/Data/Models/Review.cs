@@ -19,6 +19,9 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         [Required]
         public int Rating { get; set; }
 
+        [Required]
+        public DateTime CreatedOn { get; set; }
+
         [MaxLength(ReviewCommentMaxLength)]
         public string? Comment { get; set; }
     }
