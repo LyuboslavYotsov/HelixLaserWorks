@@ -1,4 +1,6 @@
-﻿using HelixLaserWorks.Core.Models.Order;
+﻿using HelixLaserWorks.Core.Enumerations;
+using HelixLaserWorks.Core.Models.Order;
+using HelixLaserWorks.Core.Models.Part;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 
 namespace HelixLaserWorks.Core.Contracts
@@ -9,7 +11,11 @@ namespace HelixLaserWorks.Core.Contracts
 
         Task<ICollection<OrderViewModel>> GetUserOrdersAsync(string userId);
 
-        Task<ICollection<OrderViewModel>> GetAllOrdersAsync();
+        Task<OrderPaginatedViewModel> GetAllAsync(
+            string? searchTerm = null,
+            OrderStatus? status = OrderStatus.Pending,
+            int currentPage = 1,
+            int partsPerPage = 1);
 
         Task<bool> OrderExistAsync(int orderId);
 

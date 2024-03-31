@@ -39,6 +39,8 @@
         public const int OrderFeedbackMaxLength = 500;
         public const int OrderFeedbackMinLength = 10;
 
+        public const int OrdersPerPageDefaultCount = 3;
+
 
         //Part Constants
         public const int PartNameMaxLength = 100;
@@ -53,7 +55,7 @@
         public const int PartSchemeURLMaxLength = 4000;
         public const int PartSchemeURLMinLength = 10;
 
-        public const int PartsPerPageDefaultCount = 3;
+        public const int PartsPerPageDefaultCount = 6;
 
         public const long PartSchemFileMaxLength = 5000000;
         public const long PartSchemFileMinLength = 1;

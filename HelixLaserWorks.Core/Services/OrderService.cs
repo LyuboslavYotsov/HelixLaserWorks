@@ -82,10 +82,38 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OrderViewModel>> GetAllOrdersAsync()
+        public async Task<OrderPaginatedViewModel> GetAllAsync(
+            string? searchTerm = null,
+            OrderStatus? status = null,
+            int currentPage = 1,
+            int partsPerPage = 1)
         {
-            var orders = await _context.Orders
-                .AsNoTracking()
+            var ordersToShow = _context.Orders.AsQueryable();
+
+            if (searchTerm != null)
+            {
+                string normalizedSearchTerm = searchTerm.ToUpper();
+
+                ordersToShow = ordersToShow
+                    .Where(o => o.Title.ToUpper().Contains(normalizedSearchTerm) ||
+                                o.Description.ToUpper().Contains(normalizedSearchTerm));
+            }
+
+            if (status != null)
+            {
+                ordersToShow = status switch
+                {
+                    OrderStatus.Completed => ordersToShow.Where(o => o.Status == OrderStatus.Completed),
+                    OrderStatus.Pending => ordersToShow.Where(o => o.Status == OrderStatus.Pending),
+                    OrderStatus.DeclinedByAdmin => ordersToShow.Where(o => o.Status == OrderStatus.DeclinedByAdmin),
+                    OrderStatus.InReview => ordersToShow.Where(o => o.Status == OrderStatus.InReview),
+                    _ => ordersToShow.Where(o => o.Status == OrderStatus.ReadyWithOffer)
+                };
+            }
+
+            var orders = await ordersToShow
+                .Skip((currentPage - 1) * partsPerPage)
+                .Take(partsPerPage)
                 .Select(o => new OrderViewModel()
                 {
                     Id = o.Id,
@@ -109,7 +137,13 @@ namespace HelixLaserWorks.Core.Services
                 })
                 .ToListAsync();
 
-            return orders;
+            int totalOrdersCount = await ordersToShow.CountAsync();
+
+            return new OrderPaginatedViewModel()
+            {
+                Orders = orders,
+                TotalOrdersCount = totalOrdersCount
+            };
         }
 
         public async Task<OrderDeclineViewModel> GetOrderForDeclineAsync(int orderId)
@@ -130,7 +164,7 @@ namespace HelixLaserWorks.Core.Services
         {
             return await _context.Orders
                 .AsNoTracking()
-                .Where (o => o.Id == orderId)
+                .Where(o => o.Id == orderId)
                 .Select(o => new OrderViewModel()
                 {
                     Id = o.Id,

@@ -1,5 +1,6 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Order;
+using HelixLaserWorks.Infrastructure.Data.Constants;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using Microsoft.AspNetCore.Mvc;
 
@@ -90,10 +91,16 @@ namespace HelixLaserWorks.Controllers
         }
 
 
-        [HttpGet] //ADMIN ONLY
-        public async Task<IActionResult> CustomersOrders()
+        [HttpGet]//ADMIN ONLY
+        public async Task<IActionResult> CustomersOrders([FromQuery] OrderPaginatedViewModel model)
         {
-            var model = await _orderService.GetAllOrdersAsync();
+            var orders = await _orderService.GetAllAsync(model.SearchTerm,
+                model.Status,
+                model.CurrentPage,
+                OrderPaginatedViewModel.OrdersPerPage);
+
+            model.TotalOrdersCount = orders.TotalOrdersCount;
+            model.Orders = orders.Orders;
 
             return View(model);
         }
