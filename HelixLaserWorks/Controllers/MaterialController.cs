@@ -128,14 +128,27 @@ namespace HelixLaserWorks.Controllers
         }
 
         [HttpPost]//ADMIN ONLY
-        public async Task<IActionResult> Delete(int materialId)
+        public async Task<IActionResult> Disable(int materialId)
         {
             if (!await _materialService.MaterialExistsAsync(materialId))
             {
                 return BadRequest();
             }
 
-            await _materialService.DeleteAsync(materialId);
+            await _materialService.DisableAsync(materialId);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpPost]//ADMIN ONLY
+        public async Task<IActionResult> Enable(int materialId)
+        {
+            if (!await _materialService.MaterialExistsAsync(materialId))
+            {
+                return BadRequest();
+            }
+
+            await _materialService.EnableAsync(materialId);
 
             return RedirectToAction(nameof(All));
         }

@@ -26,6 +26,7 @@ namespace HelixLaserWorks.Core.Contracts
 
         Task<int> EditAsync(int materialId, MaterialFormModel model);
 
-        Task<int> DeleteAsync(int materialId);
+        Task<int> DisableAsync(int materialId);
+        Task<int> EnableAsync(int materialId);
     }
 }

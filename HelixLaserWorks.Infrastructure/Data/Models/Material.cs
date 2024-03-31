@@ -41,5 +41,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
 
         [Required]
         public string ImageUrl { get; set; } = string.Empty;
+
+        [Required]
+        public bool IsAvailable { get; set; } = true;
     }
 }

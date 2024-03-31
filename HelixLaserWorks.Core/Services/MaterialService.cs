@@ -27,6 +27,7 @@ namespace HelixLaserWorks.Core.Services
                 Density = model.Density,
                 PricePerSquareMeter = model.PricePerSquareMeter,
                 ImageUrl = model.ImageUrl,
+                IsAvailable = true
             };
 
             foreach (var thickness in model.SelectedThicknesses)
@@ -52,6 +53,7 @@ namespace HelixLaserWorks.Core.Services
         {
             return await _context.Materials
                 .AsNoTracking()
+                .Where(m => m.IsAvailable == true)
                 .Select(m => new MaterialViewModel()
                 {
                     Id = m.Id,
@@ -63,19 +65,25 @@ namespace HelixLaserWorks.Core.Services
                 .ToListAsync();
         }
 
-        public async Task<int> DeleteAsync(int materialId)
+        public async Task<int> EnableAsync(int materialId)
         {
-            var materialToDelete = await _context.Materials.FindAsync(materialId);
+            var materialToEnable = await _context.Materials.FindAsync(materialId);
 
-            if (materialToDelete != null)
+            if (materialToEnable != null && materialToEnable.IsAvailable != true)
             {
-                var materialThicknesses = await _context.MaterialsThicknesses
-                    .Where(mt => mt.MaterialId == materialToDelete.Id)
-                    .ToListAsync();
+                materialToEnable.IsAvailable = true;
+            }
 
-                _context.MaterialsThicknesses.RemoveRange(materialThicknesses);
+            return await _context.SaveChangesAsync();
+        }
 
-                _context.Materials.Remove(materialToDelete);
+        public async Task<int> DisableAsync(int materialId)
+        {
+            var materialToDisable = await _context.Materials.FindAsync(materialId);
+
+            if (materialToDisable != null)
+            {
+                materialToDisable.IsAvailable = false;
             }
 
             return await _context.SaveChangesAsync();
@@ -136,6 +144,7 @@ namespace HelixLaserWorks.Core.Services
         {
             return await _context.Materials
                 .AsNoTracking()
+                .Where(m => m.IsAvailable == true)
                 .Select(m => new MaterialDropdownViewModel()
                 {
                     Id = m.Id,
