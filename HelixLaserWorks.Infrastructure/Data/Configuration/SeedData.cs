@@ -1,4 +1,5 @@
 ﻿using HelixLaserWorks.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace HelixLaserWorks.Infrastructure.Data.Configuration
 {
@@ -9,24 +10,48 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
             CreateThicknesses();
             CreateMaterialTypes();
             CreateMaterials();
+            CreateUsers();
+            CreateAdminRole();
+            CreateAdminUserRole();
         }
+        //USERS
+        public IdentityUser CustomerUser { get; set; } = null!;
 
+        public IdentityUser AdminUser { get; set; } = null!;
+
+        //ROLE
+        public IdentityRole AdminRole { get; set; } = null!;
+
+        public IdentityUserRole<string> AdminUserRole { get; set; } = null!;
+
+        //MATERIALS
         public Material MildSteel { get; set; } = null!;
+
         public Material StainlessSteel { get; set; } = null!;
+
         public Material Aluminum { get; set; } = null!;
+
         public Material Copper { get; set; } = null!;
 
         public Material ChipWood { get; set; } = null!;
 
+        //MATERIAL TYPES
         public MaterialType MetalType { get; set; } = null!;
+
         public MaterialType WoodType { get; set; } = null!;
+
         public MaterialType PlasticType { get; set; } = null!;
 
+        //THICKNESSES
         public List<Thickness> Thicknesses { get; set; } = new List<Thickness>();
 
+        //MATERIAL THICKNESSES
         public List<MaterialThickness> MildSteelThichnesses { get; set; } = new List<MaterialThickness>();
+
         public List<MaterialThickness> StainlessSteelThicknesses { get; set; } = new List<MaterialThickness>();
+
         public List<MaterialThickness> AluminumThicknesses { get; set; } = new List<MaterialThickness>();
+
         public List<MaterialThickness> CopperThicknesses { get; set; } = new List<MaterialThickness>();
 
         public List<MaterialThickness> ChipwoodThicknesses { get; set; } = new List<MaterialThickness>();
@@ -215,6 +240,52 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                         Id = 11,
                         Value = 20
                     }
+            };
+        }
+
+        private void CreateUsers()
+        {
+            var hasher = new PasswordHasher<IdentityUser>();
+
+            CustomerUser = new IdentityUser()
+            {
+                Id = "2c2e7178-6349-4801-88fb-426de93ab2c7",
+                UserName = "customer@mail.com",
+                NormalizedUserName = "CUSTOMER@MAIL.COM",
+                Email = "customer@mail.com",
+                NormalizedEmail = "CUSTOMER@MAIL.COM",
+            };
+
+            CustomerUser.PasswordHash = hasher.HashPassword(CustomerUser, "customer123");
+
+            AdminUser = new IdentityUser()
+            {
+                Id = "534e5524-cfeb-4561-b7fb-db4ded672702",
+                UserName = "admin@mail.com",
+                NormalizedUserName = "ADMIN@MAIL.COM",
+                Email = "admin@mail.com",
+                NormalizedEmail = "ADMIN@MAIL.COM"
+            };
+
+            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "admin123");
+        }
+
+        private void CreateAdminRole()
+        {
+            AdminRole = new IdentityRole()
+            {
+                Id = "cb7a13fd-35ff-4924-a06c-52edcb74e608",
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR",
+            };
+        }
+
+        private void CreateAdminUserRole()
+        {
+            AdminUserRole = new IdentityUserRole<string>()
+            {
+                RoleId = "cb7a13fd-35ff-4924-a06c-52edcb74e608",
+                UserId = "534e5524-cfeb-4561-b7fb-db4ded672702"
             };
         }
     }

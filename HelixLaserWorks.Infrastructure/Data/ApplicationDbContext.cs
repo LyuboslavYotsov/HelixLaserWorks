@@ -37,6 +37,9 @@ namespace HelixLaserWorks.Infrastructure.Data
             builder.ApplyConfiguration(new MaterialConfiguration());
             builder.ApplyConfiguration(new MaterialsThicknessesConfiguration());
             builder.ApplyConfiguration(new ReviewConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UserRoleConfiguration());
 
             base.OnModelCreating(builder);
         }
