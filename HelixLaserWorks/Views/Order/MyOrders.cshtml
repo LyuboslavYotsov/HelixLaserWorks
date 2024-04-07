@@ -116,7 +116,7 @@
             {
                 <p class="card-text bg-warning" style="padding: 5px; border-radius: 5px"><span class="fw-bold">Status:</span> @order.Status</p>
                 <form asp-controller="Order" asp-action="Cancel" asp-route-orderId="@order.Id">
-                    <button type="submit" class="btn btn-danger">Cancel</button>
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel order: @order.Title')">Cancel</button>
                 </form>
             }
             else if (order.Status == "InReview")

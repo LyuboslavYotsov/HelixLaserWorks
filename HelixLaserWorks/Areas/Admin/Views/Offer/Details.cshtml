@@ -1,0 +1,53 @@
+﻿@model OfferDetailsViewModel
+
+@{
+    ViewData["Title"] = "Offer Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+
+<div class="row">
+    <div class="card col-md-4">
+        <div class="card-body">
+            <h2 class="card-title">Offer</h2>
+            <p class="card-text">@Model.AdminNotes</p>
+            <p class="card-text"><span class="fw-bold">Calculated Price:</span> @Model.Price€</p>
+            <p class="card-text"><span class="fw-bold">Expected time for Parts production:</span> @Model.ProductionDays days</p>
+            <p class="card-text"><span class="fw-bold">Created on:</span> @Model.CreatedOn</p>
+            
+            @if (Model.IsAccepted)
+            {
+                <p class="card-text bg-success" style="padding: 4px; border-radius: 5px">Accepted</p>
+            }
+            else
+            {
+                <p class="card-text bg-warning" style="padding: 4px; border-radius: 5px">Not accepted</p>
+            }
+
+        </div>
+    </div>
+    <div class="card col-md-4">
+        <div class="card-body">
+            <h2 class="card-subtitle">Order Infomation:</h2>
+            <p class="card-title"><span class="fw-bold">Order Title:</span> @Model.Order.Title</p>
+            <p class="card-title"><span class="fw-bold">Order Description:</span> @Model.Order.Description</p>
+            <p class="card-text"><span class="fw-bold">Date of Creation:</span> @Model.Order.CreatedOn</p>
+            <p class="card-text btn-primary p-2"><span class="fw-bold">Status:</span> @Model.Order.Status</p>
+            <p class="card-text"><span class="fw-bold">Customer Phone Number:</span> @Model.Order.CustomerPhoneNumber</p>
+            <p class="card-text"><span class="fw-bold">Customer Email:</span> @Model.Order.CustomerEmail</p>
+            <label class="d-block"><span class="fw-bold">Included Parts:</span></label>
+            @foreach (var part in Model.Order.Parts)
+            {
+                <div class="card" style="margin: 5px">
+                    <label class="card-title"><span class="fw-bold">@part.Name</span></label>
+                    <p class="card-text">@part.PartMaterial @part.PartThickness mm - @part.Quantity pcs</p>
+                    <form asp-controller="Part" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeUrl" method="post">
+                        <button class="btn-sm btn-info" type="submit">Download Part Scheme</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</div>

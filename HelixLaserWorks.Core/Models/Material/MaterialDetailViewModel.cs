@@ -19,5 +19,7 @@
         public string ImageUrl { get; set; } = string.Empty;
 
         public string AvailableThicknesses { get; set; } = string.Empty;
+
+        public bool IsAvailable { get; set; }
     }
 }

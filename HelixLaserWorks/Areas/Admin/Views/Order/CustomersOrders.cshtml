@@ -56,6 +56,7 @@
 
     <li class="page-item col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-area="Admin"
            asp-controller="Order"
            asp-action="CustomersOrders"
            asp-route-currentPage="@previousPage"
@@ -67,6 +68,7 @@
     {
         <li class="page-item" style="padding-left: 5px">
             <a class="btn btn-primary @(Model.CurrentPage == @i ? "disabled" : string.Empty)"
+               asp-area="Admin"
                asp-controller="Order"
                asp-action="CustomersOrders"
                asp-route-currentPage="@i"
@@ -78,6 +80,7 @@
     <li class="page-item col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="btn btn-primary
            @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-area="Admin"
            asp-controller="Order"
            asp-action="CustomersOrders"
            asp-route-currentPage="@(Model.CurrentPage + 1)"
@@ -116,12 +119,12 @@
                 else if (order.Status == "ReadyWithOffer")
                 {
                     <p class="card-text btn-primary p-2"><span class="fw-bold">Status:</span> Ready With Offer</p>
-                    <a asp-controller="Offer" asp-action="Details" asp-route-offerId="@order.OfferId" class="btn btn-success">View Offer</a>
+                    <a asp-area="Admin" asp-controller="Offer" asp-action="Details" asp-route-offerId="@order.OfferId" class="btn btn-success">View Offer</a>
                 }
                 else if (order.Status == "Completed")
                 {
                     <p class="card-text btn-success p-2"><span class="fw-bold">Status:</span> Completed</p>
-                    <a asp-controller="Offer" asp-action="Details" asp-route-offerId="@order.OfferId" class="btn btn-success">View Offer</a>
+                    <a asp-area="Admin" asp-controller="Offer" asp-action="Details" asp-route-offerId="@order.OfferId" class="btn btn-success">View Offer</a>
                 }
 
                 <p class="card-text"><span class="fw-bold">Customer Phone Number:</span> @order.CustomerPhoneNumber</p>
@@ -132,7 +135,7 @@
                     <div class="card" style="margin: 5px">
                         <label class="card-title"><span class="fw-bold">@part.Name</span></label>
                         <p class="card-text">@part.PartMaterial @part.PartThickness mm - @part.Quantity pcs</p>
-                        <form asp-controller="Part" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeUrl" method="post">
+                        <form asp-controller="Part" asp-area="" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeUrl" method="post">
                             <button class="btn-sm btn-info" type="submit">Download Part Scheme</button>
                         </form>
                     </div>
@@ -140,15 +143,15 @@
                 <div class="card-footer">
                     @if (order.Status == "Pending")
                     {
-                        <form class="d-inline" asp-controller="Order" asp-action="MarkAsReviewed" asp-route-orderId="@order.Id" method="post">
+                        <form class="d-inline" asp-area="Admin" asp-controller="Order" asp-action="MarkAsReviewed" asp-route-orderId="@order.Id" method="post">
                             <button class="btn-sm btn-warning" type="submit">Mark For Review</button>
                         </form>
                     }
 
                     @if (order.Status != "ReadyWithOffer" && order.Status != "DeclinedByAdmin" && order.Status != "Completed")
                     {
-                        <a style="text-decoration: none" asp-area="" asp-controller="Offer" asp-action="Create" asp-route-orderId="@order.Id" class="btn-sm btn-primary">Send Offer</a>
-                        <a style="text-decoration: none" asp-area="" asp-controller="Order" asp-action="Decline" asp-route-orderId="@order.Id" class="btn-sm btn-danger">Decline Order</a>
+                        <a style="text-decoration: none" asp-area="Admin" asp-controller="Offer" asp-action="Create" asp-route-orderId="@order.Id" class="btn-sm btn-primary">Send Offer</a>
+                        <a style="text-decoration: none" asp-area="Admin" asp-controller="Order" asp-action="Decline" asp-route-orderId="@order.Id" class="btn-sm btn-danger">Decline Order</a>
                     }
 
                 </div>

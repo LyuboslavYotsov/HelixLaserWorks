@@ -17,36 +17,6 @@ namespace HelixLaserWorks.Controllers
 
         }
 
-        [HttpGet]//ADMIN ONLY
-        public async Task<IActionResult> Create(int orderId)
-        {
-            if (!await _orderService.OrderExistAsync(orderId) || await _orderService.HasAnOfferAsync(orderId))
-            {
-                return BadRequest();
-            }
-
-            var model = new OfferFormModel();
-
-            model.Order = await _orderService.GetOrderModelForOfferAsync(orderId);
-
-            model.OrderId = orderId;
-
-            return View(model);
-        }
-
-        [HttpPost]//ADMIN ONLY
-        public async Task<IActionResult> Create(OfferFormModel model)
-        {
-            if (!await _orderService.OrderExistAsync(model.OrderId) || await _orderService.HasAnOfferAsync(model.OrderId))
-            {
-                return BadRequest();
-            }
-
-            await _offerService.CreateAsync(model);
-
-            return RedirectToAction("CustomersOrders", "Order");
-        }
-
         [HttpGet]
         public async Task<IActionResult> Details(int offerId)
         {

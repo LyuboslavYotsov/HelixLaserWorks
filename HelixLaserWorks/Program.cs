@@ -33,18 +33,23 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseErrorHandler();
+//app.UseErrorHandler();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 	endpoints.MapControllerRoute(
 		name: "default",
 		pattern: "{controller=Home}/{action=Index}/{id?}");
 
-	endpoints.MapControllerRoute(
+
+    endpoints.MapControllerRoute(
 		name: "PageNotFound",
 		pattern: "pagenotfound",
 		defaults: new { controller = "Error", action = "PageNotFound" });

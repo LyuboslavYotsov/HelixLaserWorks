@@ -49,7 +49,7 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<MaterialViewModel>> AllAsync()
+        public async Task<IEnumerable<MaterialViewModel>> AllAvailableAsync()
         {
             return await _context.Materials
                 .AsNoTracking()
@@ -61,6 +61,22 @@ namespace HelixLaserWorks.Core.Services
                     Description = m.Description,
                     Type = m.MaterialType.Name,
                     ImageUrl = m.ImageUrl
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<MaterialViewModel>> AllAsync()
+        {
+            return await _context.Materials
+                .AsNoTracking()
+                .Select(m => new MaterialViewModel()
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Description = m.Description,
+                    Type = m.MaterialType.Name,
+                    ImageUrl= m.ImageUrl,
+                    IsAvailable = m.IsAvailable
                 })
                 .ToListAsync();
         }
@@ -177,7 +193,8 @@ namespace HelixLaserWorks.Core.Services
                     Price = m.PricePerSquareMeter.ToString(),
                     AvailableThicknesses = string.Join(", ", m.MaterialThicknesses.Select(mt => mt.Thickness.Value + "mm")),
                     Density = m.Density.ToString(),
-                    Rusting = m.CorrosionResistance ? "No" : "Yes"
+                    Rusting = m.CorrosionResistance ? "No" : "Yes",
+                    IsAvailable = m.IsAvailable,
                 })
                 .FirstOrDefaultAsync();
         }

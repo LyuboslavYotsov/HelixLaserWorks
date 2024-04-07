@@ -106,7 +106,8 @@ namespace HelixLaserWorks.Core.Services
 
                 ordersToShow = ordersToShow
                     .Where(o => o.Title.ToUpper().Contains(normalizedSearchTerm) ||
-                                o.Description.ToUpper().Contains(normalizedSearchTerm));
+                                o.Description.ToUpper().Contains(normalizedSearchTerm) ||
+                                o.Customer.Email.ToUpper().Contains(normalizedSearchTerm));
             }
 
             if (status != null)
