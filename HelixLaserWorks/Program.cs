@@ -1,3 +1,4 @@
+using HelixLaserWorks.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,12 +19,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
 	app.UseMigrationsEndPoint();
-	app.UseExceptionHandler("/Error/InternalServerError");
 }
 else
 {
 	app.UseExceptionHandler("/Error/InternalServerError");
-	app.UseHsts();
+    app.UseErrorHandler();
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -31,8 +32,6 @@ app.UseStaticFiles();
 
 
 app.UseRouting();
-
-//app.UseErrorHandler();
 
 app.UseAuthentication();
 app.UseAuthorization();
