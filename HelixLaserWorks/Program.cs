@@ -1,4 +1,3 @@
-using HelixLaserWorks.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
