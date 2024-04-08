@@ -7,6 +7,11 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+@if (!Model.Any())
+{
+    <h2 class="text-center">No offers found!</h2>
+}
+
 <div class="row">
     @foreach (var offer in Model)
     {

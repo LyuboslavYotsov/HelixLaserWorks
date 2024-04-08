@@ -13,12 +13,10 @@
     <a class="btn btn-primary" asp-controller="Review" asp-action="Create">Post Review</a>
 }
 
-
-<section class="d-grid">
-    <div class="col-3">
+    <div class="row">
         @foreach (var review in Model)
         {
-            <div class="card m-2">
+            <div class="card m-2 col-md-3">
                 <div class="card-body">
                     <h5 class="card-title">@review.UserEmail</h5>
                     <p class="form-label">@review.CreatedOn</p>
@@ -44,4 +42,3 @@
             </div>
         }
     </div>
-</section>

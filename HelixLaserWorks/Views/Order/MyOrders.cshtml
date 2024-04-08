@@ -31,7 +31,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="form-group mt-4 p-2">
+            <div class="form-group mt-4">
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
         </div>
@@ -49,7 +49,7 @@
         OrderPaginatedViewModel.OrdersPerPage);
 }
 
-<ul class="pagination" style="width: 85%">
+<ul class="pagination m-2" style="width: 85%">
 
     @{
         var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
@@ -91,7 +91,7 @@
 
 @if (!Model.Orders.Any())
 {
-    <h2 class="text-center">No parts orders by the given criteria!</h2>
+    <h2 class="text-center">No orders found !</h2>
 }
 
 <div class="row">
