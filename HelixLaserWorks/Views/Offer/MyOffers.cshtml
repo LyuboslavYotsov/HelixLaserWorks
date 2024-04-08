@@ -22,10 +22,9 @@
                 <p class="card-text"><span class="fw-bold">Calculated Price:</span> @offer.Price€</p>
                 <p class="card-text"><span class="fw-bold">Expected time for parts production:</span> @offer.ProductionDays days</p>
                 <div class="card-body">
-                    <label class="d-block"><span class="fw-bold">For Order:</span></label>
-                    <h3>@offer.OrderName</h3>
-
-                    <label class="d-block"><span class="fw-bold">Order Parts:</span></label>
+                    <label class="d-block text-center"><span class="fw-bold">For Order:</span></label>
+                    <h4 class="text-center text-primary">@offer.OrderName</h4>
+                    <label class="d-block text-center"><span class="fw-bold">Order Parts:</span></label>
                     @foreach (var partName in offer.PartsNames)
                     {
                         <div class="card p-1" style="margin: 5px">
