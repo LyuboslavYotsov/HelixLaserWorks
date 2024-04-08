@@ -187,5 +187,37 @@ namespace HelixLaserWorks.Core.Services
                 .AsNoTracking()
                 .AnyAsync(offer => offer.Id == offerId && offer.Order.CustomerId == userId);
         }
+
+        public async Task<ICollection<OfferForContactViewModel>> GetOffersWaitingForContactAsync()
+        {
+            return await _context.Offers
+                .AsNoTracking()
+                .Where(offer => offer.IsCustomerContacted == false && offer.IsAccepted)
+                .OrderByDescending(offer => offer.CreatedOn)
+                .Select(offer => new OfferForContactViewModel()
+                {
+                    Id = offer.Id,
+                    AdminNotes = offer.Notes ?? string.Empty,
+                    Price = offer.Price,
+                    ProductionDays = offer.ProductionDays,
+                    OrderName = offer.Order.Title,
+                    CreatedOn = offer.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
+                    CustomerEmail = offer.Order.Customer.Email,
+                    CustomerPhone = offer.Order.CustomerPhoneNumber
+                })
+                .ToListAsync();
+        }
+
+        public async Task<int> ContactAchievedAsync(int offerId)
+        {
+            var offer = await _context.Offers.FindAsync(offerId);
+
+            if (offer != null)
+            {
+                offer.IsCustomerContacted = true;
+            }
+
+            return await _context.SaveChangesAsync();
+        }
     }
 }

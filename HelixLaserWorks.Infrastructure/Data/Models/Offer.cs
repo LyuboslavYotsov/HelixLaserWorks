@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static HelixLaserWorks.Infrastructure.Data.Constants.DataConstants;
 
@@ -30,5 +31,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
 
         [Required]
         public bool IsAccepted { get; set; } = false;
+
+        [Required]
+        public bool IsCustomerContacted{ get; set; } = false;
     }
 }

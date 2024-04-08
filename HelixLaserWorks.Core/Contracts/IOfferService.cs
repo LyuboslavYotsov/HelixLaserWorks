@@ -7,6 +7,7 @@ namespace HelixLaserWorks.Core.Contracts
         Task<int> CreateAsync(OfferFormModel model);
 
         Task<OfferDetailsViewModel?> GetUserOfferDetailsAsync(int offerId, string userId);
+
         Task<OfferDetailsViewModel?> GetOfferDetailsAsync(int offerId);
 
         Task<int> AcceptOfferAsync(int offerId);
@@ -18,5 +19,9 @@ namespace HelixLaserWorks.Core.Contracts
         Task<bool> OfferIsAcceptedAsync(int offerId);
 
         Task<ICollection<OfferViewModel>> GetUserOffersAsync(string userId);
+
+        Task<ICollection<OfferForContactViewModel>> GetOffersWaitingForContactAsync();
+
+        Task<int> ContactAchievedAsync(int offerId);
     }
 }

@@ -59,5 +59,27 @@ namespace HelixLaserWorks.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpGet]// ADMIN ONLY
+        public async Task<IActionResult> ForContact()
+        {
+            var model = await _offerService.GetOffersWaitingForContactAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contacted(int offerId)
+        {
+
+            if (!await _offerService.OfferExistAsync(offerId))
+            {
+                return BadRequest();
+            }
+
+            await _offerService.ContactAchievedAsync(offerId);
+
+            return RedirectToAction(nameof(ForContact));
+        }
     }
 }
