@@ -19,5 +19,7 @@ namespace HelixLaserWorks.Core.Models.Offer
         public string CreatedOn { get; set; } = string.Empty;
 
         public OrderViewModel Order { get; set; } = null!;
+
+        public bool IsCustomerContacted { get; set; }
     }
 }

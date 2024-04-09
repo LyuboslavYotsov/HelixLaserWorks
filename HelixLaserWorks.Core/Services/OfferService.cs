@@ -114,6 +114,7 @@ namespace HelixLaserWorks.Core.Services
                     CreatedOn = offer.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
                     ProductionDays = offer.ProductionDays,
                     IsAccepted = offer.IsAccepted,
+                    IsCustomerContacted = offer.IsCustomerContacted,
                     Order = new OrderViewModel()
                     {
                         Id = offer.Order.Id,
