@@ -28,7 +28,7 @@ namespace HelixLaserWorks.Core.Services
 
         public async Task<string> UploadFile(IFormFile file, string userEmail)
         {
-            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Data", "PartsSchemeFiles", $"{userEmail}-{file.FileName}");
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Data", "PartsSchemeFiles", $"{userEmail}-{DateTime.Now.Millisecond}-{file.FileName}");
 
             using FileStream fileStream = new FileStream(filePath, FileMode.Create);
 

@@ -89,7 +89,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                 CorrosionResistance = false,
                 ImageUrl = "https://i.ebayimg.com/images/g/-yEAAOSwMvpb0FqE/s-l1600.jpg",
                 Specification = "Cold Rolled",
-                PricePerSquareMeter = 10.99m
+                PricePerSquareMeter = 10.99m,
+                IsAvailable = true
             };
 
             StainlessSteel = new Material()
@@ -101,7 +102,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                 Density = 7.9,
                 CorrosionResistance = true,
                 ImageUrl = "https://www.smetals.co.uk/wp-content/uploads/2023/04/Stainless-Steel-304-Grade-0.5mm-Panels-Image-2.jpg",
-                PricePerSquareMeter = 29.00m
+                PricePerSquareMeter = 29.00m,
+                IsAvailable = true
             };
 
             Aluminum = new Material()
@@ -113,7 +115,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                 Density = 2.68,
                 CorrosionResistance = true,
                 ImageUrl = "https://res.cloudinary.com/rsc/image/upload/bo_1.5px_solid_white,b_auto,c_pad,dpr_2,f_auto,h_399,q_auto,w_710/c_pad,h_399,w_710/F0434043-01?pgw=1",
-                PricePerSquareMeter = 32.00m
+                PricePerSquareMeter = 32.00m,
+                IsAvailable = true
             };
 
             Copper = new Material()
@@ -125,7 +128,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                 Density = 8.96,
                 CorrosionResistance = true,
                 ImageUrl = "https://www.artisansupplies.com.au/wp-content/uploads/2015/11/copper.jpg",
-                PricePerSquareMeter = 42.00m
+                PricePerSquareMeter = 42.00m,
+                IsAvailable = true
             };
 
             ChipWood = new Material()
@@ -137,7 +141,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Configuration
                 Density = 0.63,
                 CorrosionResistance = true,
                 ImageUrl = "https://media.wickes.co.uk/is/image/wickes/normal/Chipboard-Flooring-Wickes-P5-T-G-Chipboard-Flooring-18mm-x-600mm-x-2-4m~N0705_164516_00?$ratio43$&fit=crop&extend=-50,-250,-50,0",
-                PricePerSquareMeter = 6.00m
+                PricePerSquareMeter = 6.00m,
+                IsAvailable = true
             };
 
             foreach (var thickness in Thicknesses)

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelixLaserWorks", "HelixLaserWorks\HelixLaserWorks.csproj", "{1BEEF82B-14EC-49EC-815D-A6FAA9DC62CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelixLaserWorks", "HelixLaserWorks\HelixLaserWorks.csproj", "{1BEEF82B-14EC-49EC-815D-A6FAA9DC62CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelixLaserWorks.Core", "HelixLaserWorks.Core\HelixLaserWorks.Core.csproj", "{1F37773A-4B65-4D00-9125-75C5FFFC9024}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelixLaserWorks.Core", "HelixLaserWorks.Core\HelixLaserWorks.Core.csproj", "{1F37773A-4B65-4D00-9125-75C5FFFC9024}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelixLaserWorks.Infrastructure", "HelixLaserWorks.Infrastructure\HelixLaserWorks.Infrastructure.csproj", "{934AA43C-D295-4A50-A347-62B9FD4D2A67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelixLaserWorks.Infrastructure", "HelixLaserWorks.Infrastructure\HelixLaserWorks.Infrastructure.csproj", "{934AA43C-D295-4A50-A347-62B9FD4D2A67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelixLaserWorks.Tests", "HelixLaserWorks.Tests\HelixLaserWorks.Tests.csproj", "{ACCC72BF-6CA1-41FC-B3BC-7C2377DC1A0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{934AA43C-D295-4A50-A347-62B9FD4D2A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{934AA43C-D295-4A50-A347-62B9FD4D2A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{934AA43C-D295-4A50-A347-62B9FD4D2A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACCC72BF-6CA1-41FC-B3BC-7C2377DC1A0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACCC72BF-6CA1-41FC-B3BC-7C2377DC1A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACCC72BF-6CA1-41FC-B3BC-7C2377DC1A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACCC72BF-6CA1-41FC-B3BC-7C2377DC1A0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
