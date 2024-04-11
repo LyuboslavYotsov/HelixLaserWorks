@@ -88,6 +88,7 @@ namespace HelixLaserWorks.Tests
 
             var material = await _dbContext.Materials.FindAsync(availableMaterialId);
 
+            Assert.IsNotNull(material);
             Assert.IsTrue(material.IsAvailable);
 
             await _materialService.DisableAsync(material.Id);
@@ -102,6 +103,7 @@ namespace HelixLaserWorks.Tests
 
             var material = await _dbContext.Materials.FindAsync(unAvailableMaterialId);
 
+            Assert.IsNotNull(material);
             Assert.IsFalse(material.IsAvailable);
 
             await _materialService.EnableAsync(material.Id);

@@ -4,7 +4,6 @@ using HelixLaserWorks.Core.Models.Part;
 using HelixLaserWorks.Core.Services;
 using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

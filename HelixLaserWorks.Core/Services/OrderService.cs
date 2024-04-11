@@ -87,7 +87,7 @@ namespace HelixLaserWorks.Core.Services
             string? searchTerm = null,
             OrderStatus? status = null,
             int currentPage = 1,
-            int partsPerPage = 1)
+            int ordersPerPage = 1)
         {
             var ordersToShow = _context.Orders
                 .AsNoTracking()
@@ -123,8 +123,8 @@ namespace HelixLaserWorks.Core.Services
             }
 
             var orders = await ordersToShow
-                .Skip((currentPage - 1) * partsPerPage)
-                .Take(partsPerPage)
+                .Skip((currentPage - 1) * ordersPerPage)
+                .Take(ordersPerPage)
                 .Select(o => new OrderViewModel()
                 {
                     Id = o.Id,
