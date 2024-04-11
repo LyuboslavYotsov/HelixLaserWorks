@@ -207,36 +207,6 @@ namespace HelixLaserWorks.Core.Services
             return order.Status;
         }
 
-        public async Task<ICollection<OrderViewModel>> GetUserOrdersAsync(string userId)
-        {
-            var userOrders = await _context.Orders
-                .AsNoTracking()
-                .Where(o => o.CustomerId == userId)
-                .OrderByDescending(o => o.CreatedOn)
-                .Select(o => new OrderViewModel()
-                {
-                    Id = o.Id,
-                    Title = o.Title,
-                    Description = o.Description,
-                    AdminFeedback = o.AdminFeedback,
-                    Status = o.Status.ToString(),
-                    CreatedOn = o.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
-                    OfferId = o.OfferId,
-                    CustomerPhoneNumber = o.CustomerPhoneNumber,
-                    Parts = o.Parts.Select(p => new PartSelectViewModel()
-                    {
-                        Id = p.Id,
-                        PartMaterial = p.Material.Name,
-                        PartThickness = p.Thickness,
-                        Name = p.Name,
-                        Quantity = p.Quantity,
-                    }).ToList()
-                })
-                .ToListAsync();
-
-            return userOrders;
-        }
-
         public async Task<bool> HasAnOfferAsync(int orderId)
         {
             var order = await _context.Orders.FindAsync(orderId);

@@ -9,8 +9,6 @@ namespace HelixLaserWorks.Core.Contracts
     {
         Task<int> CreateOrderAsync(string userId, OrderFormModel model);
 
-        Task<ICollection<OrderViewModel>> GetUserOrdersAsync(string userId);
-
         Task<OrderPaginatedViewModel> GetAllAsync(
             string? userId,
             string? searchTerm = null,
