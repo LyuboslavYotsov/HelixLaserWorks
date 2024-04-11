@@ -27,7 +27,7 @@
             }
 
             <div class="card-footer">
-                @if (!Model.IsCustomerContacted)
+                @if (!Model.IsCustomerContacted && @Model.Order.Status == "Completed")
                 {
                     <p class="card-text bg-danger" style="padding: 4px; border-radius: 5px">
                         Customer contacted
@@ -40,7 +40,7 @@
                         <button class="btn btn-success mt-1" type="submit">Mark As Contacted</button>
                     </form>
                 }
-                else
+                else if (Model.IsCustomerContacted)
                 {
                     <p class="card-text bg-success" style="padding: 4px; border-radius: 5px">
                         Customer Contacted
