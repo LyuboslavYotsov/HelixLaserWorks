@@ -31,7 +31,7 @@ namespace HelixLaserWorks.Tests
         public async Task SetUp()
         {
             _contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "HelixLaserWorksInMemoryThicknessServiceTestDb")
+            .UseInMemoryDatabase(databaseName: "HelixLaserWorksInMemoryReviewServiceTestDb")
             .Options;
             _dbContext = new ApplicationDbContext(_contextOptions);
 
