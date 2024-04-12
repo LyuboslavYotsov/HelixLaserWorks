@@ -60,47 +60,6 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<OfferDetailsViewModel?> GetUserOfferDetailsAsync(int offerId, string userId)
-        {
-            return await _context.Offers
-                .AsNoTracking()
-                .Where(offer => offer.Id == offerId && offer.Order.CustomerId == userId)
-                .Select(offer => new OfferDetailsViewModel()
-                {
-                    Id = offer.Id,
-                    Price = offer.Price,
-                    OrderId = offer.OrderId,
-                    AdminNotes = offer.Notes ?? string.Empty,
-                    CreatedOn = offer.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
-                    ProductionDays = offer.ProductionDays,
-                    IsAccepted = offer.IsAccepted,
-                    IsCustomerContacted = offer.IsCustomerContacted,
-                    Order = new OrderViewModel()
-                    {
-                        Id = offer.Order.Id,
-                        Title = offer.Order.Title,
-                        CreatedOn = offer.Order.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
-                        CustomerEmail = offer.Order.Customer.Email,
-                        CustomerPhoneNumber = offer.Order.CustomerPhoneNumber,
-                        AdminFeedback = offer.Order.AdminFeedback,
-                        Description = offer.Order.Description,
-                        Status = offer.Order.Status.ToString(),
-                        OfferId = offer.Order.OfferId,
-                        Parts = offer.Order.Parts.Select(p => new PartSelectViewModel()
-                        {
-                            Id = p.Id,
-                            PartMaterial = p.Material.Name,
-                            PartThickness = p.Thickness,
-                            Name = p.Name,
-                            Quantity = p.Quantity,
-                            SchemeUrl = p.SchemeURL
-                        })
-                        .ToList()
-                    }
-                })
-                .FirstOrDefaultAsync();
-        }
-
         public async Task<OfferDetailsViewModel?> GetOfferDetailsAsync(int offerId)
         {
             return await _context.Offers

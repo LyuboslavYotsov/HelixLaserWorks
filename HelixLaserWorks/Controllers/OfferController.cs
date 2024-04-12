@@ -20,9 +20,7 @@ namespace HelixLaserWorks.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int offerId)
         {
-            var userId = GetUserId();
-
-            var model = await _offerService.GetUserOfferDetailsAsync(offerId, userId);
+            var model = await _offerService.GetOfferDetailsAsync(offerId);
 
             if (model == null)
             {
