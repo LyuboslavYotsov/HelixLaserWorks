@@ -22,7 +22,7 @@
 					context.Response.Redirect("/pagenotfound");
 				}
 
-				if (context.Response.StatusCode == 500)
+				if (context.Response.StatusCode == 500 || context.Response.StatusCode == 400)
 				{
 					context.Response.Redirect("/error");
 				}
