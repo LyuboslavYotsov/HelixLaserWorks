@@ -195,6 +195,7 @@ namespace HelixLaserWorks.Core.Services
                     Density = m.Density.ToString(),
                     Rusting = m.CorrosionResistance ? "No" : "Yes",
                     IsAvailable = m.IsAvailable,
+                    Specification = m.Specification
                 })
                 .FirstOrDefaultAsync();
         }

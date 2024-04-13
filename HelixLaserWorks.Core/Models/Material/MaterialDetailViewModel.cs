@@ -14,6 +14,8 @@
 
         public string Density { get; set; } = string.Empty;
 
+        public string? Specification { get; set; }
+
         public string Rusting { get; set; } = string.Empty;
 
         public string ImageUrl { get; set; } = string.Empty;

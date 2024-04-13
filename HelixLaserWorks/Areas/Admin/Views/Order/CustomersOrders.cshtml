@@ -154,6 +154,10 @@
                         <a style="text-decoration: none" asp-area="Admin" asp-controller="Order" asp-action="Decline" asp-route-orderId="@order.Id" class="btn-sm btn-danger">Decline Order</a>
                     }
 
+                    <form class="d-inline" asp-area="Admin" asp-controller="Order" asp-action="DeleteOrder" asp-route-orderId="@order.Id" method="post">
+                        <button class="btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete order: @order.Title')" type="submit">Delete</button>
+                    </form>
+
                 </div>
             </div>
         </div>

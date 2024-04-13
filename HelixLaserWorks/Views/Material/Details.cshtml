@@ -10,6 +10,10 @@
         <h2 class="card-title">@Model.Name</h2>
         <p class="card-title"><span class="fw-bold">Category:</span> @Model.Type</>
         <p class="card-text"><span class="fw-bold">Density:</span> @Model.Density g/cm3</p>
+            @if (!string.IsNullOrEmpty(Model.Specification))
+            {
+                <p class="card-text"><span class="fw-bold">Specification:</span> @Model.Specification</p>
+            }
         <p class="card-text"><span class="fw-bold">Base Price:</span> @Model.Price€ - Per square meter for 1mm thickness</p>
         <p class="card-text"><span class="fw-bold">Rusting:</span> @Model.Rusting</p>
         <p class="card-text"><span class="fw-bold">Available thicknesses:</span> @Model.AvailableThicknesses</p>
@@ -32,6 +36,6 @@
         }
 
         <a class="btn btn-warning" asp-area="Admin" asp-action="Edit"
-        asp-controller="Material" asp-route-materialId="@Model.Id">Edit Material</a>
+           asp-controller="Material" asp-route-materialId="@Model.Id">Edit Material</a>
     }
 </div>

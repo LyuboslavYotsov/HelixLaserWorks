@@ -94,5 +94,18 @@ namespace HelixLaserWorks.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(CustomersOrders));
         }
+
+        [HttpPost]//ADMIN ONLY
+        public async Task<IActionResult> DeleteOrder(int orderId)
+        {
+            if (!await _orderService.OrderExistAsync(orderId))
+            {
+                return BadRequest();
+            }
+
+            await _orderService.DeleteOrderAsync(orderId);
+
+            return RedirectToAction(nameof(CustomersOrders));
+        }
     }
 }

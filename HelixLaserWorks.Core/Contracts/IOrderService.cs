@@ -33,5 +33,7 @@ namespace HelixLaserWorks.Core.Contracts
         Task<int> DeclineOrder(int orderId, OrderDeclineViewModel model);
 
         Task<bool> HasAnOfferAsync(int orderId);
+
+        Task<int> DeleteOrderAsync(int orderId);
     }
 }

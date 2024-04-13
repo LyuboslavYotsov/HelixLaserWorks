@@ -1,4 +1,5 @@
-﻿using HelixLaserWorks.Models;
+﻿using HelixLaserWorks.Extensions;
+using HelixLaserWorks.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

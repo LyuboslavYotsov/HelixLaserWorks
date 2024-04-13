@@ -82,6 +82,33 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<int> DeleteOrderAsync(int orderId)
+        {
+            var order = await _context.Orders
+                .Where(o => o.Id == orderId)
+                .Include(o => o.Parts)
+                .FirstOrDefaultAsync();
+
+            if (order != null)
+            {
+                var orderOffer = await _context.Offers.FindAsync(order.OfferId);
+
+                if (orderOffer != null)
+                {
+                    _context.Remove(orderOffer);
+                }
+
+                foreach (var part in order.Parts)
+                {
+                    part.OrderId = null;
+                }
+
+                _context.Remove(order);
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<OrderPaginatedViewModel> GetAllAsync(
             string? userId = null,
             string? searchTerm = null,

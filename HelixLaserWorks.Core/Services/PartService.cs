@@ -185,9 +185,9 @@ namespace HelixLaserWorks.Core.Services
             return await _context.Parts.AnyAsync(p => p.Id == partId);
         }
 
-        public async Task<bool> UserIsCreatorAsync(int id, string currentUserId)
+        public async Task<bool> UserIsCreatorAsync(int partId, string currentUserId)
         {
-            var part = await _context.Parts.FindAsync(id);
+            var part = await _context.Parts.FindAsync(partId);
 
             if (part != null && part.CreatorId == currentUserId)
             {
