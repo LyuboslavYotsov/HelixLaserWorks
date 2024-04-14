@@ -32,6 +32,18 @@ namespace HelixLaserWorks.Core.Services
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<int> DeleteReviewAsync(int reviewId)
+        {
+            var reviewToDelete = await _context.Reviews.FindAsync(reviewId);
+
+            if (reviewToDelete != null)
+            {
+                _context.Reviews.Remove(reviewToDelete);
+            }
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<ReviewViewModel>> GetReviewsAsync()
         {
             return await _context.Reviews
@@ -46,6 +58,11 @@ namespace HelixLaserWorks.Core.Services
                 })
                 .ToArrayAsync();
                 
+        }
+
+        public async Task<bool> ReviewExistsAsync(int reviewId)
+        {
+            return await _context.Reviews.AnyAsync(r => r.Id == reviewId);
         }
 
         public async Task<bool> UserCanWriteReviewAsync(string userId)

@@ -11,5 +11,9 @@ namespace HelixLaserWorks.Core.Contracts
         Task<IEnumerable<ReviewViewModel>> GetReviewsAsync();
 
         Task<int> CreateReviewAsync(ReviewFormModel model, string userId);
+
+        Task<bool> ReviewExistsAsync(int reviewId);
+
+        Task<int> DeleteReviewAsync(int reviewId);
     }
 }
