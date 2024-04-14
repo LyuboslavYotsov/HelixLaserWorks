@@ -16,6 +16,8 @@ namespace HelixLaserWorks.Core.Models.Offer
 
         public bool IsAccepted { get; set; }
 
+        public string? AcceptedOn { get; set; }
+
         public string CreatedOn { get; set; } = string.Empty;
 
         public OrderViewModel Order { get; set; } = null!;

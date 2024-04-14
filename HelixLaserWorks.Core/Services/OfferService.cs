@@ -29,6 +29,8 @@ namespace HelixLaserWorks.Core.Services
 
             offerToAccept.IsAccepted = true;
 
+            offerToAccept.AcceptedOn = DateTime.Now;
+
             offerToAccept.Order.Status = OrderStatus.Completed;
 
             return await _context.SaveChangesAsync();
@@ -74,6 +76,7 @@ namespace HelixLaserWorks.Core.Services
                     CreatedOn = offer.CreatedOn.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture),
                     ProductionDays = offer.ProductionDays,
                     IsAccepted = offer.IsAccepted,
+                    AcceptedOn = offer.AcceptedOn.HasValue ? offer.AcceptedOn.Value.ToString("MM/dd/yy HH:mm", CultureInfo.InvariantCulture) : null,
                     IsCustomerContacted = offer.IsCustomerContacted,
                     Order = new OrderViewModel()
                     {

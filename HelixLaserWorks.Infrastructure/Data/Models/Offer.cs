@@ -32,6 +32,8 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         [Required]
         public bool IsAccepted { get; set; } = false;
 
+        public DateTime? AcceptedOn { get; set; }
+
         [Required]
         public bool IsCustomerContacted{ get; set; } = false;
     }
