@@ -15,7 +15,7 @@
 <div class="row">
     @foreach (var offer in Model)
     {
-        <div class="card" style="width: 25rem; margin-left: 5px">
+        <div class="card" style="width: 25rem; margin: 5px">
             <div class="card-header">
                 <p class="card-text"><span class="fw-bold">Date of Creation:</span> @offer.CreatedOn</p>
                 <p class="card-text"><span class="fw-bold">Message:</span> @offer.AdminNotes</p>
@@ -39,7 +39,7 @@
                     {
                         <p class="card-text bg-warning" style="padding: 4px; border-radius: 5px"><span class="fw-bold">Status:</span> Pending</p>
                     }
-                        <a class="btn btn-warning" asp-controller="Offer" asp-action="Details" asp-route-offerId="@offer.Id">View Offer</a>
+                        <a class="btn btn-warning" asp-controller="Offer" asp-action="Details" asp-route-offerId="@offer.Id">View Details</a>
                 </div>
             </div>
         </div>
