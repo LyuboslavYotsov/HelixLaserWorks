@@ -2,6 +2,7 @@
 using HelixLaserWorks.Core.Models.Order;
 using HelixLaserWorks.Core.Services;
 using HelixLaserWorks.Infrastructure.Data;
+using HelixLaserWorks.Infrastructure.Data.Configuration;
 using HelixLaserWorks.Infrastructure.Data.Models;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using Microsoft.AspNetCore.Identity;

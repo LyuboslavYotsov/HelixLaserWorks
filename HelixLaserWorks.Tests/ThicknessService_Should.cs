@@ -1,6 +1,7 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Services;
 using HelixLaserWorks.Infrastructure.Data;
+using HelixLaserWorks.Infrastructure.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelixLaserWorks.Tests

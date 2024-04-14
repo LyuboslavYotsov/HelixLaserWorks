@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using HelixLaserWorks.Core.Models.Offer;
+using HelixLaserWorks.Infrastructure.Data.Configuration;
 
 namespace HelixLaserWorks.Tests
 {

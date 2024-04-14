@@ -2,6 +2,7 @@
 using HelixLaserWorks.Core.Models.Material;
 using HelixLaserWorks.Core.Services;
 using HelixLaserWorks.Infrastructure.Data;
+using HelixLaserWorks.Infrastructure.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelixLaserWorks.Tests
@@ -67,6 +68,17 @@ namespace HelixLaserWorks.Tests
         [Test] //.AllAvailableAsync()
         public async Task ReturnOnlyAvailableMaterials()
         {
+            var firstDisabled = await _dbContext.Materials.FindAsync(4);
+            var secondDisabled = await _dbContext.Materials.FindAsync(5);
+
+            Assert.IsNotNull(firstDisabled);
+            Assert.IsNotNull(secondDisabled);
+
+            firstDisabled.IsAvailable = false;
+            secondDisabled.IsAvailable = false;
+
+            await _dbContext.SaveChangesAsync();
+
             int validMaterialsCount = 3;
             int[] validMaterialsIds = { 1, 2, 3, };
 
@@ -99,9 +111,15 @@ namespace HelixLaserWorks.Tests
         [Test] //.EnableAsync()
         public async Task EnableAnDisabledMaterial()
         {
-            int unAvailableMaterialId = 5;
+            var unAvailableMaterial = await _dbContext.Materials.FindAsync(5);
 
-            var material = await _dbContext.Materials.FindAsync(unAvailableMaterialId);
+            Assert.IsNotNull(unAvailableMaterial);
+
+            unAvailableMaterial.IsAvailable = false;
+
+            await _dbContext.SaveChangesAsync();
+
+            var material = await _dbContext.Materials.FindAsync(unAvailableMaterial.Id);
 
             Assert.IsNotNull(material);
             Assert.IsFalse(material.IsAvailable);

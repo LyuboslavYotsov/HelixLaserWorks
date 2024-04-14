@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HelixLaserWorks.Infrastructure.Data.Configuration
 {
-    internal class SeedData
+    public class SeedData
     {
         public SeedData()
         {
