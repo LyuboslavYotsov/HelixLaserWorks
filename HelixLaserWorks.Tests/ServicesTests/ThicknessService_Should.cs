@@ -4,7 +4,7 @@ using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace HelixLaserWorks.Tests
+namespace HelixLaserWorks.Tests.ServicesTests
 {
     [TestFixture]
     public class ThicknessService_Should
@@ -58,7 +58,7 @@ namespace HelixLaserWorks.Tests
         [Test]
         public async Task ReturnTrueIfAllGivenThicknessValuesAreValid()
         {
-            List<double> validThicknessess = new List<double>(){ 1, 2, 3, 4, 5, 6, 10, 20 };
+            List<double> validThicknessess = new List<double>() { 1, 2, 3, 4, 5, 6, 10, 20 };
 
             Assert.IsTrue(await _thicknessService.ThicknessesAreValidAsync(validThicknessess));
         }

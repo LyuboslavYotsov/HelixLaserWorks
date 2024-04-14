@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
-namespace HelixLaserWorks.Tests
+namespace HelixLaserWorks.Tests.ServicesTests
 {
     [TestFixture]
     public class OrderService_Should
@@ -137,7 +137,7 @@ namespace HelixLaserWorks.Tests
                 CustomerPhoneNumber = "0874569854",
                 Status = OrderStatus.Pending,
                 Title = "TestOrderTitle",
-                Parts = new List<Part>() {CarPart, ElevatorPart}
+                Parts = new List<Part>() { CarPart, ElevatorPart }
             };
 
             await _dbContext.Orders.AddAsync(TestOrder);
@@ -182,10 +182,10 @@ namespace HelixLaserWorks.Tests
 
             OrderFormModel orderModel = new OrderFormModel()
             {
-               Title = "newOrderTitle",
-               Description = "newOrderDescription",
-               CustomerPhoneNumber = "0871233214",
-               SelectedParts = orderSelectedPartsIds
+                Title = "newOrderTitle",
+                Description = "newOrderDescription",
+                CustomerPhoneNumber = "0871233214",
+                SelectedParts = orderSelectedPartsIds
             };
 
             Assert.IsNull(CustomPart.OrderId);

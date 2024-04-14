@@ -5,7 +5,7 @@ using HelixLaserWorks.Infrastructure.Data;
 using HelixLaserWorks.Infrastructure.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace HelixLaserWorks.Tests
+namespace HelixLaserWorks.Tests.ServicesTests
 {
     [TestFixture]
     public class MaterialService_Should

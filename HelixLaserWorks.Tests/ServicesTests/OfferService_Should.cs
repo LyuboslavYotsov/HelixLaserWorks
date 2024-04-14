@@ -9,7 +9,7 @@ using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using HelixLaserWorks.Core.Models.Offer;
 using HelixLaserWorks.Infrastructure.Data.Configuration;
 
-namespace HelixLaserWorks.Tests
+namespace HelixLaserWorks.Tests.ServicesTests
 {
     [TestFixture]
     public class OfferService_Should
@@ -238,8 +238,8 @@ namespace HelixLaserWorks.Tests
                 Notes = "SomeNotes"
             };
 
-            await _dbContext.Orders.AddRangeAsync(testUserSecondOrder,newUserOrder);
-            await _dbContext.Offers.AddRangeAsync(testUserSecondOffer,newUserOffer);
+            await _dbContext.Orders.AddRangeAsync(testUserSecondOrder, newUserOrder);
+            await _dbContext.Offers.AddRangeAsync(testUserSecondOffer, newUserOffer);
             await _dbContext.SaveChangesAsync();
 
             var testUserOffersFromMethod = await _offerService.GetUserOffersAsync(TestUser.Id);

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
-namespace HelixLaserWorks.Tests
+namespace HelixLaserWorks.Tests.ServicesTests
 {
     [TestFixture]
     public class PartService_Should
