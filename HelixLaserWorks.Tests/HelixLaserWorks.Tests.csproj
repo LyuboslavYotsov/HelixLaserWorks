@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HelixLaserWorks.Core\HelixLaserWorks.Core.csproj" />
     <ProjectReference Include="..\HelixLaserWorks.Infrastructure\HelixLaserWorks.Infrastructure.csproj" />
+    <ProjectReference Include="..\HelixLaserWorks\HelixLaserWorks.csproj" />
   </ItemGroup>
 
 </Project>
