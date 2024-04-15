@@ -1,4 +1,5 @@
 using HelixLaserWorks.Extensions;
+using HelixLaserWorks.Hubs;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,6 +57,8 @@ app.UseEndpoints(endpoints =>
 		name: "Error",
 		pattern: "error",
 		defaults: new { controller = "Error", action = "InternalServerError" });
+
+    endpoints.MapHub<NotificationHub>("/notificationHub");
 });
 
 

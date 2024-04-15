@@ -1,8 +1,10 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Order;
+using HelixLaserWorks.Hubs;
 using HelixLaserWorks.Infrastructure.Data.Constants;
 using HelixLaserWorks.Infrastructure.Data.Models.Enumerators;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace HelixLaserWorks.Controllers
 {
@@ -10,11 +12,13 @@ namespace HelixLaserWorks.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IPartService _partService;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public OrderController(IOrderService orderService, IPartService partService)
+        public OrderController(IOrderService orderService, IPartService partService, IHubContext<NotificationHub> hubContext)
         {
             _orderService = orderService;
             _partService = partService;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -66,6 +70,8 @@ namespace HelixLaserWorks.Controllers
             }
 
             await _orderService.CreateOrderAsync(userId, model);
+
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", $"Customer {User.Identity?.Name} created new order : {model.Title}");
 
             return RedirectToAction(nameof(MyOrders));
         }

@@ -18,6 +18,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IOfferService, OfferService>();
             services.AddScoped<IReviewService, ReviewService>();
 
+            services.AddSignalR();
+
             return services;
         }
 

@@ -45,6 +45,12 @@
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
+
+                    @if (User.IsAdmin())
+                    {
+                        <partial name="_OrderNotificationPartial" />
+                    }
+
                 </div>
             </div>
         </nav>
