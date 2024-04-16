@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HelixLaserWorks.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/toastify-js/toastify.min.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -35,7 +36,6 @@
                         }
                     </ul>
                     <partial name="_LoginPartial" />
-                    <partial name="_OrderNotificationPartial" />
                 </div>
             </div>
         </nav>
@@ -54,6 +54,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/microsoft-signalr/signalr.min.js" asp-append-version="true"></script>
+    <script src="~/lib/toastify-js/toastify.min.js" asp-append-version="true"></script>
+    <script src="~/js/adminNotification.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

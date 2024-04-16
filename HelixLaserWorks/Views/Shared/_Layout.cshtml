@@ -46,11 +46,6 @@
                     </ul>
                     <partial name="_LoginPartial" />
 
-                    @if (User.IsAdmin())
-                    {
-                        <partial name="_OrderNotificationPartial" />
-                    }
-
                 </div>
             </div>
         </nav>
@@ -66,6 +61,15 @@
             &copy; 2024 - HelixLaserWorks - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    @if (User.IsAdmin())
+    {
+        <link rel="stylesheet" href="~/lib/toastify-js/toastify.min.css" asp-append-version="true" />
+        <script src="~/lib/microsoft-signalr/signalr.min.js" asp-append-version="true"></script>
+        <script src="~/lib/toastify-js/toastify.min.js" asp-append-version="true"></script>
+        <script src="~/js/adminNotification.js" asp-append-version="true"></script>
+    }
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
