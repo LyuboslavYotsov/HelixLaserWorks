@@ -1,6 +1,7 @@
 ﻿using HelixLaserWorks.Controllers;
 using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Material;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -40,6 +41,16 @@ namespace HelixLaserWorks.Tests.ControllersTests
                 .ReturnsAsync(materials);
 
             _materialController = new MaterialController(_materialServiceMock.Object);
+
+            var controllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext()
+                {
+                    User = new System.Security.Claims.ClaimsPrincipal()
+                }
+            };
+
+            _materialController.ControllerContext = controllerContext;
 
             var result = await _materialController.All();
 
