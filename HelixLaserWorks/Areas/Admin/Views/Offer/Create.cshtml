@@ -30,16 +30,18 @@
 </form>
 
 <h2>Order Content</h2>
-<div class="row">
+@if (Model.Order != null)
+{
+    <div class="row">
         <div class="card d-flex justify-content-center align-items-center" style="width: 25rem; margin-left: 5px">
             <div class="card-body">
                 <h5 class="card-title"><span class="fw-bold">Order Title:</span> @Model.Order.Title</h5>
-            <p class="card-title"><span class="fw-bold">Order Description:</span> @Model.Order.Description</p>
-            <p class="card-text"><span class="fw-bold">Date of Creation:</span> @Model.Order.CreatedOn</p>
-            <p class="card-text"><span class="fw-bold">Phone Number:</span> @Model.Order.CustomerPhoneNumber</p>
-            <p class="card-text"><span class="fw-bold">Customer Email:</span> @Model.Order.CustomerEmail</p>
+                <p class="card-title"><span class="fw-bold">Order Description:</span> @Model.Order.Description</p>
+                <p class="card-text"><span class="fw-bold">Date of Creation:</span> @Model.Order.CreatedOn</p>
+                <p class="card-text"><span class="fw-bold">Phone Number:</span> @Model.Order.CustomerPhoneNumber</p>
+                <p class="card-text"><span class="fw-bold">Customer Email:</span> @Model.Order.CustomerEmail</p>
                 <label class="d-block"><span class="fw-bold">Included Parts:</span></label>
-            @foreach (var part in Model.Order.Parts)
+                @foreach (var part in Model.Order.Parts)
                 {
                     <div class="card" style="margin: 5px">
                         <label class="card-title"><span class="fw-bold">@part.Name</span></label>
@@ -48,7 +50,8 @@
                 }
             </div>
         </div>
-</div>
+    </div>
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

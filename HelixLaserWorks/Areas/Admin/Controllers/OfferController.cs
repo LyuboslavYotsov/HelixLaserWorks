@@ -35,11 +35,17 @@ namespace HelixLaserWorks.Areas.Admin.Controllers
         }
 
         [HttpPost]//ADMIN ONLY
-        public async Task<IActionResult> Create(OfferFormModel model)
+        public async Task<IActionResult> Create(int orderId, OfferFormModel model)
         {
             if (!await _orderService.OrderExistAsync(model.OrderId) || await _orderService.HasAnOfferAsync(model.OrderId))
             {
                 return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Order = await _orderService.GetOrderModelForOfferAsync(orderId);
+                return View(model);
             }
 
             await _offerService.CreateAsync(model);

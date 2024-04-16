@@ -90,6 +90,12 @@ namespace HelixLaserWorks.Areas.Admin.Controllers
                 return BadRequest();
             }
 
+            if (!ModelState.IsValid)
+            {
+                model = await _orderService.GetOrderForDeclineAsync(orderId);
+                return View(model);
+            }
+
             await _orderService.DeclineOrder(orderId, model);
 
             return RedirectToAction(nameof(CustomersOrders));

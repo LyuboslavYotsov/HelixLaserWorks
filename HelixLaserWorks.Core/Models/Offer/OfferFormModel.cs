@@ -9,8 +9,7 @@ namespace HelixLaserWorks.Core.Models.Offer
         [Required]
         public int OrderId { get; set; }
 
-        [Required]
-        public OrderViewModel Order { get; set; } = null!;
+        public OrderViewModel? Order { get; set; }
 
         [Required]
         [Range(OfferPriceMinValue, OfferPriceMaxValue)]
