@@ -55,11 +55,21 @@ namespace HelixLaserWorks.Controllers
         {
             string userId = GetUserId();
 
+            if (!model.SelectedParts.Any())
+            {
+                ModelState.AddModelError(nameof(model.SelectedParts), "You need to select atleast one part create an order!");
+            }
+
             foreach (var partId in model.SelectedParts)
             {
                 if (!await _partService.UserIsCreatorAsync(partId, userId))
                 {
-                    ModelState.AddModelError(nameof(model.UserParts), "Cannot add parts created by another user!");
+                    ModelState.AddModelError(nameof(model.SelectedParts), "Cannot add parts created by another user!");
+                }
+
+                if (!await _partService.PartExistsAsync(partId))
+                {
+                    ModelState.AddModelError(nameof(model.SelectedParts), "Part does not exist!");
                 }
             }
 
