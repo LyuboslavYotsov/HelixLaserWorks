@@ -1,5 +1,6 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Material;
+using HelixLaserWorks.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelixLaserWorks.Controllers
@@ -16,6 +17,11 @@ namespace HelixLaserWorks.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("All", "Material", new { area = "Admin" });
+            }
+
             var models = await _materialService.AllAvailableAsync();
 
             return View(models);

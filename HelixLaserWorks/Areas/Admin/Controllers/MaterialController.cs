@@ -1,5 +1,7 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Material;
+using HelixLaserWorks.Extensions;
+using HelixLaserWorks.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelixLaserWorks.Areas.Admin.Controllers
@@ -42,6 +44,11 @@ namespace HelixLaserWorks.Areas.Admin.Controllers
             if (!await _materialService.MaterialTypeExistsAsync(model.MaterialTypeId))
             {
                 ModelState.AddModelError(nameof(model.MaterialTypeId), "Material type does not exists!");
+            }
+
+            if (!model.SelectedThicknesses.Any())
+            {
+                ModelState.AddModelError(nameof(model.SelectedThicknesses), "Material should have atleast one thickness!");
             }
 
             if (!await _thicknessService.ThicknessesAreValidAsync(model.SelectedThicknesses))
@@ -88,6 +95,11 @@ namespace HelixLaserWorks.Areas.Admin.Controllers
                 ModelState.AddModelError(nameof(model.MaterialTypeId), "Material type does not exists!");
             }
 
+            if (!model.SelectedThicknesses.Any())
+            {
+                ModelState.AddModelError(nameof(model.SelectedThicknesses), "Material should have atleast one available thickness!");
+            }
+
             if (!await _thicknessService.ThicknessesAreValidAsync(model.SelectedThicknesses))
             {
                 ModelState.AddModelError(nameof(model.SelectedThicknesses), "Invalid thickness!");
@@ -104,7 +116,7 @@ namespace HelixLaserWorks.Areas.Admin.Controllers
 
             await _materialService.EditAsync(materialId, model);
 
-            return RedirectToAction("All", "Material", new { area = "Admin" });
+            return RedirectToAction("Details", "Material", new { materialId, area = "" });
         }
 
         [HttpPost]//ADMIN ONLY
