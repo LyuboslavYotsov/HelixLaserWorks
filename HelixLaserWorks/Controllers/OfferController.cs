@@ -1,6 +1,8 @@
 ﻿using HelixLaserWorks.Core.Contracts;
 using HelixLaserWorks.Core.Models.Offer;
+using HelixLaserWorks.Hubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace HelixLaserWorks.Controllers
 {
@@ -8,13 +10,15 @@ namespace HelixLaserWorks.Controllers
     {
         private readonly IOfferService _offerService;
         private readonly IOrderService _orderService;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
         public OfferController(IOfferService offerService,
-            IOrderService orderService)
+            IOrderService orderService,
+            IHubContext<NotificationHub> hubContext)
         {
             _offerService = offerService;
             _orderService = orderService;
-
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -61,6 +65,8 @@ namespace HelixLaserWorks.Controllers
             }
 
             await _offerService.AcceptOfferAsync(offerId);
+
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", $"Customer {User.Identity?.Name} has accepted our offer, contact is required!");
 
             return RedirectToAction(nameof(OfferAccepted));
         }
