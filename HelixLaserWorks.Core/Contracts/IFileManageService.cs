@@ -9,7 +9,5 @@ namespace HelixLaserWorks.Core.Contracts
         Task DeleteFile(string filePath);
 
         Task<byte[]> DownloadFile(string filePath);
-
-        //Task<IFormFile> GetFileAsync(string filePath);
     }
 }

@@ -5,6 +5,7 @@ namespace HelixLaserWorks.Core.Contracts
     public interface IMaterialService
     {
         Task<IEnumerable<MaterialViewModel>> AllAvailableAsync();
+
         Task<IEnumerable<MaterialViewModel>> AllAsync();
 
         Task<MaterialDetailViewModel?> GetDetailsByIdAsync(int materialId);
@@ -28,6 +29,7 @@ namespace HelixLaserWorks.Core.Contracts
         Task<int> EditAsync(int materialId, MaterialFormModel model);
 
         Task<int> DisableAsync(int materialId);
+
         Task<int> EnableAsync(int materialId);
     }
 }

@@ -17,6 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IThicknessService, ThicknessService>();
             services.AddScoped<IOfferService, OfferService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IStatisticService, StatisticService>();
 
             services.AddSignalR();
 
