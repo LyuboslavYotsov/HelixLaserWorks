@@ -1,0 +1,142 @@
+﻿@model UserPartsQueryModel
+
+@{
+    ViewBag.Title = "My parts";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<a asp-area="" asp-controller="Part" asp-action="Create" class="btn btn-primary flex-grow-1">Create new part</a>
+
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Material"></label>
+                <select asp-for="Material" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var material in Model.Materials)
+                    {
+                        <option value="@material.Id">@material.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label asp-for="SearchTerm"></label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="...">
+        </div>
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="Sorting"></label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0">Newest</option>
+                    <option value="1">Oldest</option>
+                    <option value="2">Last updated</option>
+                    <option value="3">By Quantity</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)Model.TotalPartsCount /
+        UserPartsQueryModel.PartsPerPage);
+}
+
+<ul class="pagination" style="width: 87%">
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.Parts.Any();
+    }
+
+    <li class="page-item col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Part"
+           asp-action="MyParts"
+           asp-route-currentPage="@previousPage"
+           asp-route-material="@Model.Material"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)"><<</a>
+    </li>
+
+    @for (int i = 1; i <= maxPage; i++)
+    {
+        <li class="page-item" style="padding-left: 5px">
+        <a class="btn btn-primary @(Model.CurrentPage == @i ? "disabled" : string.Empty)"
+           asp-controller="Part"
+           asp-action="MyParts"
+           asp-route-currentPage="@i"
+           asp-route-material="@Model.Material"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)">@i</a>
+    </li>
+    }
+
+    <li class="page-item col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary
+           @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="Part"
+           asp-action="MyParts"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-material="@Model.Material"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)">>></a>
+    </li>
+
+</ul>
+
+@if (!Model.Parts.Any())
+{
+    <h2 class="text-center">No parts found by the given criteria!</h2>
+}
+
+<div class="row">
+    @foreach (var part in Model.Parts)
+    {
+        <div class="card d-flex justify-content-center align-items-center" style="width: 25rem; margin: 5px">
+            <div class="card-body">
+                <h5 class="card-title"><span class="fw-bold">Part Name:</span> @part.Name</h5>
+                <p class="card-title"><span class="fw-bold">Part Description:</span> @part.Description</p>
+                <p class="card-text"><span class="fw-bold">Part Material:</span> @part.Material - @part.Thickness mm</p>
+                <p class="card-text"><span class="fw-bold">Part Quantity:</span> @part.Quantity</p>
+                <p class="card-text"><span class="fw-bold">Created On:</span> @part.CreatedOn</p>
+                <p class="card-text"><span class="fw-bold">Last Update:</span> @part.UpdatedOn</p>
+                <p class="card-text"><span class="fw-bold">Is Ordered:</span> @(part.IsOrdered ? "Yes" : "No")</p>
+
+                
+                <form asp-controller="Part" asp-action="DownloadScheme" asp-route-schemeUrl="@part.SchemeFilePath" method="post">
+                    <button class="btn btn-info m-1" type="submit">Download Part Scheme</button>
+                </form>
+                
+
+                @if (!part.IsOrdered)
+                {
+                    <a asp-controller="Part" asp-action="Edit" asp-route-partId="@part.Id" class="btn btn-success m-1">Edit Part</a>
+                    <form asp-controller="Part" asp-action="Delete" asp-route-partId="@part.Id" method="post">
+                        <button class="btn btn-danger m-1" onclick="return confirm('Are you sure you want to delete part: @part.Name')" type="submit">Delete</button>
+                    </form>
+                }
+
+            </div>
+        </div>
+    }
+</div>

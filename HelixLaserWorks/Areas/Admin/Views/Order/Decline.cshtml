@@ -1,0 +1,23 @@
+﻿@model OrderDeclineViewModel
+@{
+    ViewBag.Title = "Decline order";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+
+<form asp-controller="Order" asp-action="Decline" asp-route-orderId="@Model.Id" method="post">
+    <div class="card d-flex justify-content-center align-items-center" style="width: 25rem; margin-left: 5px">
+        <div class="card-body">
+            <h5 class="card-title"><span class="fw-bold">Order Title:</span> @Model.Title</h5>
+            <p class="card-title"><span class="fw-bold">User Email:</span> @Model.UserEmail</p>
+            <div class="form-group">
+                <label asp-for="Feedback"><strong>Decline Reason</strong></label>
+                <textarea asp-for="Feedback" rows="4" class="form-control" placeholder="Feedback..."></textarea>
+                <span asp-validation-for="Feedback" class="small text-danger"></span>
+            </div>
+            <button class="btn btn-danger" type="submit">Decline Order</button>
+        </div>
+    </div>
+</form>

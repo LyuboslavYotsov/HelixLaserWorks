@@ -1,0 +1,41 @@
+﻿@model MaterialDetailViewModel
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<div class="card d-flex" style="width: 30rem;">
+    <img class="card-img-top" src=@Model.ImageUrl alt="Material image">
+    <div class="card-body">
+        <h2 class="card-title">@Model.Name</h2>
+        <p class="card-title"><span class="fw-bold">Category:</span> @Model.Type</>
+        <p class="card-text"><span class="fw-bold">Density:</span> @Model.Density g/cm3</p>
+            @if (!string.IsNullOrEmpty(Model.Specification))
+            {
+                <p class="card-text"><span class="fw-bold">Specification:</span> @Model.Specification</p>
+            }
+        <p class="card-text"><span class="fw-bold">Base Price:</span> @Model.Price€ - Per square meter for 1mm thickness</p>
+        <p class="card-text"><span class="fw-bold">Rusting:</span> @Model.Rusting</p>
+        <p class="card-text"><span class="fw-bold">Available thicknesses:</span> @Model.AvailableThicknesses</p>
+        <p class="card-text"><span class="fw-bold">Material Description:</span> @Model.Description</p>
+    </div>
+    @if (User.IsAdmin())
+    {
+        if (Model.IsAvailable)
+        {
+            <form class="card-footer" asp-area="Admin" asp-controller="Material" asp-action="Disable" asp-route-materialId="@Model.Id" method="post">
+                <button class="btn btn-danger" onclick="return confirm('Are you sure you want to disable material: @Model.Name')" type="submit">Disable</button>
+            </form>
+        }
+        else
+        {
+            <h5 class="text-danger">Material is marked as unavailiable!</h5>
+            <form class="card-footer" asp-area="Admin" asp-controller="Material" asp-action="Enable" asp-route-materialId="@Model.Id" method="post">
+                <button class="btn btn-success" onclick="return confirm('Are you sure you want to enable material: @Model.Name')" type="submit">Enable</button>
+            </form>
+        }
+
+        <a class="btn btn-warning" asp-area="Admin" asp-action="Edit"
+           asp-controller="Material" asp-route-materialId="@Model.Id">Edit Material</a>
+    }
+</div>

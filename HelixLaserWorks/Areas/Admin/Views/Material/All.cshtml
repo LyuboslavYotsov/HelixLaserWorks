@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MaterialViewModel>
+
+@{
+    ViewData["Title"] = "Materials list";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<a class="btn btn-primary" asp-action="Add" asp-area="Admin" asp-controller="Material">Add new material</a>
+
+<style>
+    .card {
+        height: 100%;
+    }
+
+    .card-img-top {
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        @foreach (var material in Model)
+        {
+            <div class="col-md-4" style="padding: 10px">
+                <div class="card">
+                    <img src="@material.ImageUrl" class="card-img-top" alt="Model Image">
+                    <div class="card-body">
+                        <h3 class="card-title">@material.Name</h3>
+                        <h4 class="card-title">@material.Type</h4>
+                        <p class="card-text">@material.Description</p>
+                        <a asp-area="" asp-controller="Material" asp-action="Details" asp-route-materialId="@material.Id" class="btn btn-primary">Material Details</a>
+                        @if (!material.IsAvailable)
+                        {
+                            <h5 class="text-danger">DISABLED</h5>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

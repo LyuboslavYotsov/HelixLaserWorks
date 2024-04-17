@@ -1,0 +1,86 @@
+﻿@model PartFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post" enctype="multipart/form-data" name="postForm">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Part name..">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Part description..."></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" type="number" class="form-control">
+                <span asp-validation-for="Quantity" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaterialId">Material</label>
+                <select asp-for="MaterialId" class="form-control" id="materialDropdown">
+                    @foreach (var material in Model.Materials)
+                    {
+                        <option value="@material.Id">@material.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="MaterialId" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PartThickness">Part Thickness</label>
+                <select asp-for="PartThickness" class="form-control" id="thicknessDropdown">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Upload Scheme File</label>
+                <input asp-for="@Model.SchemeFile" type="file" class="form-control">
+                <span asp-validation-for="@Model.SchemeFile" class="small text-danger"></span>
+                <span asp-validation-for="@Model.FileName" class="small text-danger"></span>
+                <span asp-validation-for="@Model.FileLength" class="small text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+    function populateThicknessDropdown(selectedMaterial) {
+        $.get("/Material/GetAvailableThicknessesJSON", { materialId: selectedMaterial }, function (data) {
+            var thicknessDropdown = $("#thicknessDropdown");
+            thicknessDropdown.empty();
+            $.each(data, function (index, thickness) {
+                thicknessDropdown.append($("<option>").text(thickness + "mm").val(thickness));
+            });
+
+            var defaultThickness = @Model.PartThickness;
+            if (defaultThickness) {
+                thicknessDropdown.val(defaultThickness).change();
+            }
+        });
+    }
+
+
+    $("#materialDropdown").change(function () {
+        var selectedMaterial = $(this).val();
+        populateThicknessDropdown(selectedMaterial);
+    });
+
+    $(document).ready(function () {
+        var defaultMaterialId = $("#materialDropdown").val();
+        var defaultThickness = @Model.PartThickness;
+
+        if (defaultMaterialId && defaultThickness !== null) {
+            populateThicknessDropdown(defaultMaterialId, defaultThickness);
+        }
+    });
+</script>

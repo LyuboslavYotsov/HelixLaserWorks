@@ -1,0 +1,55 @@
+﻿@model OrderFormModel
+@{
+    ViewData["Title"] = "Create new order";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (Model.UserParts.Any())
+{
+    <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Order Title...">
+                    <span asp-validation-for="Title" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description" rows="4" class="form-control" placeholder="Order description...">
+                    <span asp-validation-for="Description" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CustomerPhoneNumber"></label>
+                    <input asp-for="CustomerPhoneNumber" rows="4" class="form-control" placeholder="Phone Number...">
+                    <span asp-validation-for="CustomerPhoneNumber" class="small text-danger"></span>
+                </div>
+
+                <label>Select Parts for Order:</label>
+                @foreach (var part in Model.UserParts)
+                {
+                    <div>
+                        <input type="checkbox" name="SelectedParts" value="@part.Id" />
+                        <label>@part.Name - @part.PartMaterial @part.PartThickness mm</label>
+                    </div>
+                }
+                <span asp-validation-for="SelectedParts" class="small text-danger"></span>
+
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3" type="submit" value="Create" )>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <h2 class="text-center">You need to have atleast one part that isn't ordered to create order!</h2>
+    <a asp-area="" asp-controller="Part" asp-action="Create" class="btn btn-primary text-c flex-grow-1">Create new part</a>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,16 @@
+﻿@model PartFormModel
+
+@{
+    ViewData["Title"] = "Edit Part";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<partial name="_PartFormPartial" model="@Model" />
+
+<p class="text-info text-center">If scheme file doesn't have any changes, you can leave it empty!</p>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
