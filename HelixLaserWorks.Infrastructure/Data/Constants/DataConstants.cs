@@ -41,6 +41,8 @@
 
         public const int OrdersPerPageDefaultCount = 6;
 
+        public const int OrderAdminFeedbackMaxLength = 500;
+
 
         //Part Constants
         public const int PartNameMaxLength = 100;

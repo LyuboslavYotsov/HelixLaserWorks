@@ -42,6 +42,7 @@ namespace HelixLaserWorks.Infrastructure.Data.Models
         [Required]
         public DateTime CreatedOn { get; set; }
 
+        [MaxLength(OrderAdminFeedbackMaxLength)]
         public string? AdminFeedback { get; set; }
     }
 }
