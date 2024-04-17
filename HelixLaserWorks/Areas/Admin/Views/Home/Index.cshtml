@@ -55,7 +55,16 @@
                 $('#totalPartsCreated').text('Total Parts Created By Users: ' + data.totalPartsCreated);
                 $('#totalRegisteredUsers').text('Total Registered Users: ' + data.totalRegisteredUsers);
                 $('#totalReviews').text('Total Reviews Written: ' + data.totalReviews);
+            },
+            error: function () {
+                $('#totalOrders').text('Total Orders: Unavailable');
+                $('#totalPendingOrders').text('Total Pending Orders: Unavailable');
+                $('#totalCompletedOrders').text('Total Completed Orders: Unavailable');
+                $('#totalPartsCreated').text('Total Parts Created By Users: Unavailable');
+                $('#totalRegisteredUsers').text('Total Registered Users: Unavailable');
+                $('#totalReviews').text('Total Reviews Written: Unavailable');
             }
+            
         });
     });
 </script>
