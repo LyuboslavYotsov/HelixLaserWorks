@@ -24,7 +24,7 @@ if (app.Environment.IsDevelopment())
 else
 {
 	app.UseExceptionHandler("/Error/InternalServerError");
-    app.UseErrorHandler();
+    app.UseCustomErrorHandler();
     app.UseHsts();
 }
 
