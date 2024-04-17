@@ -27,7 +27,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Identity\Data\" />
-    <Folder Include="wwwroot\Data\PartsSchemeFiles\" />
+	<Folder Include="wwwroot\Data\PartsSchemeFiles\" />
   </ItemGroup>
 
 </Project>
